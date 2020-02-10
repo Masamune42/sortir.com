@@ -28,6 +28,11 @@ class Status
      */
     private $outings;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $nameTech;
+
     public function __construct()
     {
         $this->outings = new ArrayCollection();
@@ -77,6 +82,18 @@ class Status
                 $outing->setStatus(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNameTech(): ?string
+    {
+        return $this->nameTech;
+    }
+
+    public function setNameTech(string $nameTech): self
+    {
+        $this->nameTech = $nameTech;
 
         return $this;
     }
