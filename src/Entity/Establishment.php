@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\EtablishementRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\EstablishmentRepository")
  */
-class Etablishement
+class Establishment
 {
     /**
      * @ORM\Id()
@@ -24,12 +24,12 @@ class Etablishement
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="etablishement")
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="establishment")
      */
     private $users;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Outing", mappedBy="etablishement")
+     * @ORM\OneToMany(targetEntity="App\Entity\Outing", mappedBy="establishment")
      */
     private $outings;
 
@@ -68,7 +68,7 @@ class Etablishement
     {
         if (!$this->users->contains($user)) {
             $this->users[] = $user;
-            $user->setEtablishement($this);
+            $user->setEstablishment($this);
         }
 
         return $this;
@@ -79,8 +79,8 @@ class Etablishement
         if ($this->users->contains($user)) {
             $this->users->removeElement($user);
             // set the owning side to null (unless already changed)
-            if ($user->getEtablishement() === $this) {
-                $user->setEtablishement(null);
+            if ($user->getEstablishment() === $this) {
+                $user->setEstablishment(null);
             }
         }
 
@@ -99,7 +99,7 @@ class Etablishement
     {
         if (!$this->outings->contains($outing)) {
             $this->outings[] = $outing;
-            $outing->setEtablishement($this);
+            $outing->setEstablishment($this);
         }
 
         return $this;
@@ -110,8 +110,8 @@ class Etablishement
         if ($this->outings->contains($outing)) {
             $this->outings->removeElement($outing);
             // set the owning side to null (unless already changed)
-            if ($outing->getEtablishement() === $this) {
-                $outing->setEtablishement(null);
+            if ($outing->getEstablishment() === $this) {
+                $outing->setEstablishment(null);
             }
         }
 

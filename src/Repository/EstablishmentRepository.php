@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Etablishement;
+use App\Entity\Establishment;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * @method Etablishement|null find($id, $lockMode = null, $lockVersion = null)
- * @method Etablishement|null findOneBy(array $criteria, array $orderBy = null)
- * @method Etablishement[]    findAll()
- * @method Etablishement[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Establishment|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Establishment|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Establishment[]    findAll()
+ * @method Establishment[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EtablishementRepository extends ServiceEntityRepository
+class EstablishmentRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Etablishement::class);
+        parent::__construct($registry, Establishment::class);
     }
 
     // /**
-    //  * @return Etablishement[] Returns an array of Etablishement objects
+    //  * @return Establishment[] Returns an array of Establishment objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class EtablishementRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Etablishement
+    public function findOneBySomeField($value): ?Establishment
     {
         return $this->createQueryBuilder('e')
             ->andWhere('e.exampleField = :val')

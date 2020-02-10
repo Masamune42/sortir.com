@@ -59,9 +59,9 @@ class User
     private $active;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Etablishement", inversedBy="Users")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Establishment", inversedBy="Users")
      */
-    private $etablishement;
+    private $establishment;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Outing", mappedBy="organizer")
@@ -180,14 +180,14 @@ class User
         return $this;
     }
 
-    public function getEtablishement(): ?Etablishement
+    public function getEstablishment(): ?Establishment
     {
-        return $this->etablishement;
+        return $this->establishment;
     }
 
-    public function setEtablishement(?Etablishement $etablishement): self
+    public function setEstablishment(?Establishment $establishment): self
     {
-        $this->etablishement = $etablishement;
+        $this->establishment = $establishment;
 
         return $this;
     }
