@@ -55,10 +55,10 @@ class Outing
     private $status;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Etablishement", inversedBy="outings")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Establishment", inversedBy="outings")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $etablishement;
+    private $establishment;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Place", inversedBy="outings")
@@ -170,14 +170,14 @@ class Outing
         return $this;
     }
 
-    public function getEtablishement(): ?Etablishement
+    public function getEstablishment(): ?Establishment
     {
-        return $this->etablishement;
+        return $this->establishment;
     }
 
-    public function setEtablishement(?Etablishement $etablishement): self
+    public function setEstablishment(?Establishment $establishment): self
     {
-        $this->etablishement = $etablishement;
+        $this->establishment = $establishment;
 
         return $this;
     }
