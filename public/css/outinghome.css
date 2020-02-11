@@ -1,0 +1,57 @@
+.result-cell {
+    border: 1px solid;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    text-align: center;
+
+}
+
+.result-head {
+    border: 2px solid;
+    text-align: center;
+}
+
+.result-tab {
+    border: 2px solid;
+
+}
+
+.result-body{
+    height: 200px;
+    overflow-y: scroll;
+    position: absolute;
+}
+
+.result-col-1{
+    width: 10%;
+}
+
+.result-col-2{
+    width: 10%;
+}
+
+.result-col-3{
+    width: 10%;
+}
+
+.result-col-4{
+    width: 10%;
+}
+
+.result-col-5{
+    width: 10%;
+}
+
+.result-col-6{
+    width: 10%;
+}
+
+.result-col-7{
+    width: 10%;
+}
+
+.result-col-8{
+    width: 10%;
+}
