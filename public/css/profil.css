@@ -7,9 +7,19 @@ div {
     align-items: center
 }
 
-div.col-md-8{
-
+.picture {
+    margin-right: auto;
+    margin-left: auto;
 }
-div.col-sm-8{
 
+.password {
+    margin-top: 50px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.infos {
+    margin-top: 50px;
+    margin-right: auto;
+    margin-left: auto;
 }
