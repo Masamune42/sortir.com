@@ -7,11 +7,14 @@ use App\Entity\Establishment;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
@@ -26,40 +29,40 @@ class UserType extends AbstractType
                 'username',
                 TextType::class,
                 [
-                    'label'=> 'Pseudo'
+                    'label' => 'Pseudo'
                 ])
             ->add(
                 'name',
                 TextType::class,
                 [
-                    'label'=> 'Nom'
+                    'label' => 'Nom'
                 ])
             ->add(
                 'firstname',
                 TextType::class,
                 [
-                    'label'=> 'Prénom'
+                    'label' => 'Prénom'
                 ])
             ->add(
                 'phone',
                 TextType::class,
                 [
-                    'label'=> 'Téléphone'
+                    'label' => 'Téléphone'
                 ])
             ->add(
                 'mail',
                 EmailType::class,
                 [
-                    'label'=> 'Email'
+                    'label' => 'Email'
                 ])
             ->add(
                 'password',
                 RepeatedType::class,
                 ['type' => PasswordType::class,
-                    'first_options'  => ['label' => 'Mot de passe'],
+                    'first_options' => ['label' => 'Nouveau mot de passe'],
                     'second_options' => ['label' => 'Confirmation'],
                     'invalid_message' => 'Les mots de passe doivent correspondre',
-                    'required' => true,
+                    'required' => false,
                     'mapped' => false,
                     'constraints' => [
                         new NotBlank([
@@ -70,8 +73,8 @@ class UserType extends AbstractType
                             'minMessage' => 'Le mot de passe ne peux pas avoir moins de  {{ limit }} charactères',
                             // max length allowed by Symfony for security reasons
                             'max' => 1060,])
-                        ]
-            ])
+                    ]
+                ])
             ->add(
                 'establishment',
                 EntityType::class,
@@ -88,15 +91,9 @@ class UserType extends AbstractType
                 'enregistrer',
                 SubmitType::class,
                 [
-                    'label'=>'Enregistrer'
-                ])
-            ->add(
-                'annuler',
-                SubmitType::class,
-                [
-                    'label'=>'Annuler'
-                ])
-        ;
+                    'label' => 'Enregistrer'
+                ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver)
