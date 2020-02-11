@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil {{  }}{% endblock %}
+
+{% block body %}
+<h1> {{ user.username }}</h1>
+
+    <div>
+        <div>
+    Prénom : {{ user.firstname }}
+        </div>
+
+        <div>
+    Nom : {{ user.name }}
+        </div>
+
+        <div>
+    Téléphone : {{ user.phone }}
+        </div>
+
+        <div>
+    Email : {{ user.mail }}
+        </div>
+
+        <div>
+    Ville de rattachement : {{ user.establishment }}
+        </div>
+
+    </div>
+
+    <div>
+    <button type="submit" class="btn btn-primary">Retour</button>
+    </div>
+{% endblock %}
