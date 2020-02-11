@@ -1,0 +1,19 @@
+.form-l {
+    text-align: center;
+    align-items: center;
+    margin-right: auto;
+    margin-left: 10%;
+    width: 20%;
+}
+
+.form-r{
+    text-align: center;
+    align-items: center;
+    margin-right: 10%;
+    margin-left: auto;
+    width: 25%;
+}
+
+.btn-form{
+    text-align: center
+}

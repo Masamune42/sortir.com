@@ -1,4 +1,5 @@
 {% form_theme profilFormView 'bootstrap_4_layout.html.twig' %}
+{% form_theme passwordFormView 'bootstrap_4_layout.html.twig' %}
 {% extends 'base.html.twig' %}
 
 {% block title %} MonProfil {% endblock %}
@@ -8,83 +9,83 @@
 {% block body %}
     <br>
     <div class="container col-8 col-sm-8 col-md-8 col-lg-10 col-xl-10">
-    <div class="d-flex flex-wrap">
-        <div class="picture">
-            <h2>Ma photo de profil</h2>
-            <hr>
-        </div>
-        <div class="infos">
-            <h2>Mes infos</h2>
-            <hr>
-            <div>
-                {{ form_start(profilFormView) }}
+        <div class="d-flex flex-wrap">
+            <div class="picture">
+                <h2>Ma photo de profil</h2>
+                <hr>
+            </div>
+            <div class="infos">
+                <h2>Mes infos</h2>
+                <hr>
                 <div>
-                    {{ form_label(profilFormView.username) }}
-                    {{ form_widget(profilFormView.username) }}
-                    {{ form_errors(profilFormView.username) }}
-                </div>
-                <div>
-                    {{ form_label(profilFormView.name) }}
-                    {{ form_widget(profilFormView.name) }}
-                    {{ form_errors(profilFormView.name) }}
-                </div>
-                <div>
-                    {{ form_label(profilFormView.firstname) }}
-                    {{ form_widget(profilFormView.firstname) }}
-                    {{ form_errors(profilFormView.firstname) }}
-                </div>
-                <div>
-                    {{ form_label(profilFormView.phone) }}
-                    {{ form_widget(profilFormView.phone) }}
-                    {{ form_errors(profilFormView.phone) }}
-                </div>
-                <div>
-                    {{ form_label(profilFormView.mail) }}
-                    {{ form_widget(profilFormView.mail) }}
-                    {{ form_errors(profilFormView.mail) }}
-                </div>
-                <div>
-                    {{ form_label(profilFormView.establishment) }}
-                    {{ form_widget(profilFormView.establishment) }}
-                    {{ form_errors(profilFormView.establishment) }}
+                    {{ form_start(profilFormView) }}
+                    <div>
+                        {{ form_label(profilFormView.username) }}
+                        {{ form_widget(profilFormView.username) }}
+                        {{ form_errors(profilFormView.username) }}
+                    </div>
+                    <div>
+                        {{ form_label(profilFormView.name) }}
+                        {{ form_widget(profilFormView.name) }}
+                        {{ form_errors(profilFormView.name) }}
+                    </div>
+                    <div>
+                        {{ form_label(profilFormView.firstname) }}
+                        {{ form_widget(profilFormView.firstname) }}
+                        {{ form_errors(profilFormView.firstname) }}
+                    </div>
+                    <div>
+                        {{ form_label(profilFormView.phone) }}
+                        {{ form_widget(profilFormView.phone) }}
+                        {{ form_errors(profilFormView.phone) }}
+                    </div>
+                    <div>
+                        {{ form_label(profilFormView.mail) }}
+                        {{ form_widget(profilFormView.mail) }}
+                        {{ form_errors(profilFormView.mail) }}
+                    </div>
+                    <div>
+                        {{ form_label(profilFormView.establishment) }}
+                        {{ form_widget(profilFormView.establishment) }}
+                        {{ form_errors(profilFormView.establishment) }}
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="password">
-            <h2>Mon mot de passe actuel</h2>
-            <hr>
-            <br>
-            <div>
-                {{ form_widget(profilFormView.password) }}
-                {{ form_errors(profilFormView.password) }}
+            <div class="password">
+                <h2>Mon mot de passe actuel</h2>
+                <hr>
+                <br>
+                <div>
+                    {{ form_widget(profilFormView.password) }}
+                    {{ form_errors(profilFormView.password) }}
+                </div>
+
+
+                <br>
+                {{ form_end(profilFormView) }}
+            </div>
+            <div class="change_password">
+                {{ form_start(passwordFormView) }}
+                <h2>Changement Mot de passe</h2>
+                <hr>
+                <br>
+                <div>
+                    {{ form_widget(passwordFormView.newpassword) }}
+                    {{ form_errors(passwordFormView.newpassword) }}
+                </div>
+
+
+                <br>
+                {{ form_end(passwordFormView) }}
             </div>
 
-
-            <br>
-            {{ form_end(profilFormView) }}
         </div>
-        <div class="change_password">
-            {{ form_start(passwordFormView) }}
-            <h2>Changement Mot de passe</h2>
-            <hr>
-            <br>
-            <div>
-                {{ form_widget(passwordFormView.newpassword) }}
-                {{ form_errors(passwordFormView.newpassword) }}
-            </div>
+        <hr>
 
-
-            <br>
-            {{ form_end(passwordFormView) }}
+        <div>
+            <a href="{{ path("home") }}" class="btn btn-secondary btn-lg active" role="button"
+               aria-pressed="true">Retour</a>
         </div>
-
-    </div>
-    <hr>
-
-    <div>
-        <a href="{{ path("home") }}" class="btn btn-secondary btn-lg active" role="button"
-           aria-pressed="true">Retour</a>
-    </div>
 
     </div>
 
