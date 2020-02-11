@@ -21,22 +21,6 @@ class MainController extends AbstractController
      */
     public function index(Request $request)
     {
-        dump($request);
-
-        dump($request->request->get('_remember_me'));
-        if ($this->container->get('security.authorization_checker')->isGranted('ROLE_USER') && $request->request->get('_remember_me') == 1) {
-
-            $response = new Response(
-                '',
-                Response::HTTP_OK,
-                ['content-type' => 'text/html']
-            );
-
-            $response->headers->setCookie(Cookie::create('lastUsername', $this->getUser()->getUsername()));
-
-            $response->prepare($request);
-            $response->send();
-        }
 
         return $this->render('main/index.html.twig');
     }
@@ -47,7 +31,6 @@ class MainController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils, Request $request, SessionInterface $session)
     {
 
-        dump($request->query->get('rememberMe'));
         //get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
 
