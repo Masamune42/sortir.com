@@ -19,32 +19,24 @@ class OutingRepository extends ServiceEntityRepository
         parent::__construct($registry, Outing::class);
     }
 
-    // /**
-    //  * @return Outing[] Returns an array of Outing objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findOutingForHome($user, $data)//$data are the data from the OutingHomeType form
     {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('o.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        //add 23 hours, 59 mins and 59 sec to dateMax to search for the whole day
+        $data['dateMax']->add(new \DateInterval('PT23H59M59S'));
 
-    /*
-    public function findOneBySomeField($value): ?Outing
-    {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        //TODO add other fields
+        $entityManager = $this->getEntityManager();
+        $dql = <<<DQL
+SELECT o
+FROM App\Entity\Outing o
+WHERE :dateMin < o.startTime AND :dateMax > o.startTime
+DQL;
+        $query = $entityManager->createQuery($dql);
+        $query->setParameters([
+            'dateMin' => $data['dateMin'],
+            'dateMax' => $data['dateMax'],
+        ]);
+
+        return $query->getResult();
     }
-    */
 }
