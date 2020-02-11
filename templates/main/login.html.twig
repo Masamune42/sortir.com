@@ -17,9 +17,15 @@
 
             <label for="username">Identifiant </label>
 
-            <input type="text" class="form-control" style="width: 25%; margin-right: auto;margin-left: auto"
-                   id="username" name="_username"
-                   placeholder="Votre identifiant" value="{{ last_username }}"/>
+            {% if app.request.cookies.get('lastUsername') != null %}
+                <input type="text" class="form-control" style="width: 25%; margin-right: auto;margin-left: auto"
+                       id="username" name="_username"
+                       placeholder="Votre identifiant" value="{{ app.request.cookies.get('lastUsername') }}"/>
+            {% else %}
+                <input type="text" class="form-control" style="width: 25%; margin-right: auto;margin-left: auto"
+                       id="username" name="_username"
+                       placeholder="Votre identifiant" value="{{ last_username }}"/>
+            {% endif %}
 
             <br>
             <label for="password">Mot de passe </label>
