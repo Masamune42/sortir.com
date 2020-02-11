@@ -35,13 +35,16 @@ class OutingController extends AbstractController
 
 
             $outings = $outingRepository->findOutingForHome($this->getUser(), $data);
+
+//            dump($outings);
+//            die();
         }
 
         return $this->render(
             'outing/home.html.twig',
             [
                 'homeOutingFormView' => $homeOutingForm->createView(),
-                'outings' => 'outings',
+                'outings' => $outings,
             ]
         );
     }
