@@ -24,6 +24,7 @@ class OutingHomeType extends AbstractType
                     'class' => Establishment::class,
                     'choice_label' => 'name',
                     'label' => 'Site : ',
+                    'required'=>true,
                 ]
             )
             ->add(
@@ -40,6 +41,7 @@ class OutingHomeType extends AbstractType
                 [
                     'label' => 'Entre ',
                     'widget' => 'single_text',
+                    'required'=>false,
                 ]
             )
             ->add(
@@ -48,6 +50,7 @@ class OutingHomeType extends AbstractType
                 [
                     'label' => 'Et ',
                     'widget' => 'single_text',
+                    'required'=>false,
                 ]
             )
             ->add(
