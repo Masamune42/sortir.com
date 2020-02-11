@@ -1,3 +1,10 @@
 navbarColor02{
     margin-left: auto;
 }
+
+a.navbar-brand {
+    width: 2%;
+}
+a img {
+    width:100%;
+}
