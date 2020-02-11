@@ -22,14 +22,13 @@ class OutingRepository extends ServiceEntityRepository
     public function findOutingForHome($user, $data)//$data are the data from the OutingHomeType form
     {
 
-
         $qb = $this->createQueryBuilder('o')
             ->where("o.establishment = :establishment")
             ->setParameter('establishment', $data['establishment']);
 
         if ($data['nameContent'] !== null) {
             $qb->andWhere("o.name LIKE :nameContent");
-            $qb->setParameter('nameContent', $data['nameContent']);
+            $qb->setParameter('nameContent', '%'.$data['nameContent'].'%');
         }
 
         if ($data['dateMin'] !== null) {
@@ -40,25 +39,13 @@ class OutingRepository extends ServiceEntityRepository
         if ($data['dateMax'] !== null) {
             //add 23 hours, 59 mins and 59 sec to dateMax to search for the whole day
             $data['dateMax']->add(new \DateInterval('PT23H59M59S'));
-            $qb->andWhere("o.startTime > :dateMax");
+            $qb->andWhere("o.startTime < :dateMax");
             $qb->setParameter('dateMax', $data['dateMax']);
         }
 
         if ($data['iAmOrganizer']) {
             $qb->andWhere("o.organizer = :organizer");
             $qb->setParameter('organizer', $user);
-        }
-
-        if ($data['iAmRegistred']) {
-            //TODO test carefully
-            $qb->join("o.participant", "p");
-            $qb->andWhere("p = :user");
-            $qb->setParameter('user', $user);
-        }
-
-        if ($data['iAmNotRegistred']) {
-            //TODO test carefully
-            $qb->andWhere($qb->expr()->notIn('o.participant.id', $user->getId()));
         }
 
         if ($data['passedOuting']) {
@@ -70,6 +57,33 @@ class OutingRepository extends ServiceEntityRepository
         $qb->setParameter('now', $now);
 
         $qb->orderBy('o.startTime', 'ASC');
-        return $qb->getQuery()->getResult();
+
+        $rawresults = $qb->getQuery()->getResult();
+
+        //new filter on I am or I am not Registred
+        if ($data['iAmRegistred'] xor $data['iAmNotRegistred']) { //exclusive OR
+
+            if ($data['iAmRegistred']) {
+                $results = array_filter(
+                    $rawresults,
+                    function ($outing) use ($user) {
+                        return in_array($user, $outing->getParticipant()->toArray());
+                    }
+                );
+            }
+
+            if ($data['iAmNotRegistred']) {
+                $results = array_filter(
+                    $rawresults,
+                    function ($outing) use ($user) {
+                        return !in_array($user, $outing->getParticipant()->toArray());
+                    }
+                );
+            }
+        } else {
+            $results = $rawresults;
+        }
+
+        return $results;
     }
 }

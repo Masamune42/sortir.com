@@ -3,6 +3,8 @@
 {% block body %}
     {{ form(homeOutingFormView) }}
 
+    {{ dump(outings) }}
+
     {% for outing in outings %}
         {{ outing.name }}
     {% endfor %}
@@ -10,6 +12,6 @@
 {% endblock %}
 
 {% block title %}
-Accueil
+    Accueil
 {% endblock %}
 
