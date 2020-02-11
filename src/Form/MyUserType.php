@@ -59,7 +59,7 @@ class MyUserType extends AbstractType
                 'password',
                 RepeatedType::class,
                 ['type' => PasswordType::class,
-                    'first_options' => ['label' => 'Nouveau mot de passe'],
+                    'first_options' => ['label' => 'Mot de passe actuel'],
                     'second_options' => ['label' => 'Confirmation'],
                     'invalid_message' => 'Les mots de passe doivent correspondre',
                     'required' => false,

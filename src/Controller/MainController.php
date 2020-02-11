@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\MyUserType;
+use App\Form\PasswordType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Cookie;
@@ -41,6 +42,7 @@ class MainController extends AbstractController
 
         return $this->render('main/login.html.twig', ['last_username' => $lastUsername, 'error' => $error,]);
     }
+
 
 
 }
