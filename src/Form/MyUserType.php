@@ -20,7 +20,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class UserType extends AbstractType
+class MyUserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

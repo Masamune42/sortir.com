@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\UserType;
+use App\Form\MyUserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Cookie;
@@ -52,12 +52,12 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("/profil", name ="profil")
+     * @Route("/myprofil", name ="myprofil")
      */
-    public function profil(EntityManagerInterface $entityManager, Request $request)
+    public function myprofil(EntityManagerInterface $entityManager, Request $request)
     {
         $user = new User();
-        $profilForm = $this->createForm(UserType::class, $user);
+        $profilForm = $this->createForm(MyUserType::class, $user);
         $profilForm->handleRequest($request);
 
         if ($profilForm->isSubmitted() && $profilForm->isValid()) {
@@ -69,7 +69,7 @@ class MainController extends AbstractController
 
         $profilFormView = $profilForm->createView();
 
-        return $this->render('main/profil.html.twig', compact('profilFormView'));
+        return $this->render('main/myprofil.html.twig', compact('profilFormView'));
 
     }
 }
