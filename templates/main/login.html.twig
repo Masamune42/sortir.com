@@ -3,37 +3,38 @@
 {% block title %}Login{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">{% endblock %}
-{% block myTitle %}Connexion{% endblock %}
+{% block myTitle %}Bienvenue{% endblock %}
 
 {% block body %}
 
     <br>
-    <div class="container">
+    <div class="container col-10 col-sm-7 col-md-4 col-lg-3 col-xl-3">
 
-        <h1 style="text-align: center">Connexion</h1>
-        <div class="container"></div>
-        <hr width="50%">
+        <h1 style="text-align: center">Page de connexion</h1>
+
+        <hr>
         <form action="{{ path('login') }}" method="post" style="text-align: center;align-items: center">
 
             <label for="username">Identifiant </label>
 
             {% if app.request.cookies.get('lastUsername') != null %}
-                <input type="text" class="form-control" style="width: 25%; margin-right: auto;margin-left: auto"
+                <input type="text" class="form-control"
                        id="username" name="_username"
                        placeholder="Votre identifiant" value="{{ app.request.cookies.get('lastUsername') }}"/>
             {% else %}
-                <input type="text" class="form-control" style="width: 25%; margin-right: auto;margin-left: auto"
+                <input type="text" class="form-control"
                        id="username" name="_username"
                        placeholder="Votre identifiant" value="{{ last_username }}"/>
             {% endif %}
 
             <br>
             <label for="password">Mot de passe </label>
-            <input type="password" class="form-control" style="width: 25%; margin-right: auto;margin-left: auto"
+            <input type="password" class="form-control"
                    id="password" name="_password"
                    placeholder="Votre mot de passe"/>
             <br>
             <button type="submit" class="btn btn-info">Valider</button>
         </form>
     </div>
+
 {% endblock %}

@@ -1,6 +1,9 @@
-.inline{
+.inline {
     align-content: baseline;
 }
-input{
-    width: 30%;
+
+input {
+    margin-right: auto;margin-left: auto;
+    width: 40%;
 }
+
