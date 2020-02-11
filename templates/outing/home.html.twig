@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ form(homeOutingFormView) }}
+
+    {% for outing in outings %}
+        {{ outing.name }}
+    {% endfor %}
+
+{% endblock %}
+
+{% block title %}
+Accueil
+{% endblock %}
+
