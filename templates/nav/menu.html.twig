@@ -10,18 +10,22 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ path("home") }}">Accueil </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path("login") }}">Connexion </a>
-            </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="#">Liste des sorties </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{path("myprofil")}}">Mon profil </a>
             </li>
+            {% if is_granted('ROLE_USER') %}
             <li class="nav-item">
-                <a class="nav-link" href="#">Se déconnecter </a>
+                <a class="nav-link" href="{{ path("logout") }}">Se déconnecter </a>
             </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path("login") }}">Connexion </a>
+            </li>
+            {% endif %}
         </ul>
     </div>
 </nav>
