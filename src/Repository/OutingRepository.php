@@ -19,6 +19,37 @@ class OutingRepository extends ServiceEntityRepository
         parent::__construct($registry, Outing::class);
     }
 
+    public function findOutingForHome(
+        $user,
+        $establishment,
+        $nameContent,
+        $dateMin,
+        $dateMax,
+        $iAmOrganizer,
+        $iAmRegistred,
+        $iAmNotRegistred,
+        $pastOuting
+    ) {
+        //TODO add other fields
+        $entityManager = $this->getEntityManager();
+        $dql = <<<DQL
+SELECT o
+FROM App\Entity\Outing o
+WHERE :dateMin < o.startTime AND :dateMax > o.startTime
+DQL;
+        $query = $entityManager->createQuery($dql);
+        $query->setParameter(
+            compact(
+                'dateMin',
+                'dateMax'
+            )
+        );
+
+        return $query->getResult();
+    }
+
+
+
     // /**
     //  * @return Outing[] Returns an array of Outing objects
     //  */
