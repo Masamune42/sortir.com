@@ -81,13 +81,6 @@ class OutingController extends AbstractController
             ['outingFormView' => $outingForm->createView()]
         );
 
-        $outings = $outingRepository->findOutingForHome($this->getUser(), $data);
-
-
-//            dump($outings);
-//            die();
-
-
     }
 }
 
