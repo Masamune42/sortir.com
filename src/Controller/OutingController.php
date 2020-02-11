@@ -24,7 +24,6 @@ class OutingController extends AbstractController
     {
         $homeOutingForm = $this->createForm(OutingHomeType::class);
         $homeOutingForm->handleRequest($request);
-        $outings = null;
 
         if ($homeOutingForm->isSubmitted() && $homeOutingForm->isValid()) {
             $outingRepository = $entityManager->getRepository(Outing::class);
@@ -55,7 +54,6 @@ class OutingController extends AbstractController
         $outing = new Outing();
         $outing->setOrganizer($this->getUser());
 
-<<<<<<< HEAD
         $statutRepository = $entityManager->getRepository(Status::class);
 
         $statutCreated = $statutRepository->findOneBy(['nameTech' => 'created']);
@@ -79,21 +77,5 @@ class OutingController extends AbstractController
             'outing/create.html.twig',
             ['outingFormView' => $outingForm->createView()]
         );
-=======
-            $outings = $outingRepository->findOutingForHome($this->getUser(), $data);
-
-
-//            dump($outings);
-//            die();
-
-
-
-        }
-
-        return $this->render('outing/home.html.twig', [
-            'homeOutingFormView' => $homeOutingForm->createView(),
-            'outings' =>$outings,
-        ]);
->>>>>>> 7a92babf815166cebad4deea7c821d9f5ef8bb50
     }
 }
