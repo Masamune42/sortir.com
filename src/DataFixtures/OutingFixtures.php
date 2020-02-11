@@ -188,22 +188,24 @@ class OutingFixtures extends Fixture
             ->setLongitude(2.3431144);
         $manager->persist($place5);
 
-        $outing1 = new Outing();
-        $outing1->setName("Sortie resto asiat Atlantis")
-            ->setStartTime(\DateTime::createFromFormat('Y-m-d H:i:s', '2020-02-27 19:30:00'))
-            ->setDuration(90)
-            ->setLimitDateTime(\DateTime::createFromFormat('Y-m-d H:i:s', '2020-02-24 15:30:00'))
-            ->setRegisterMax(10)
-            ->setInfoOuting(
-                "On se fait un petit resto asiat à volonté, si vous aimez la bonne bouffe asiat venez nombreux !"
-            )
-            ->setOrganizer($user2)
-            ->setEstablishment($establishment1)
-            ->setPlace($place1)
-            ->setStatus($statut2)
-            ->addParticipant($user3)
-            ->addParticipant($user2);
-        $manager->persist($outing1);
+        for ($i = 0; $i < 20; $i++) {
+            $outing1 = new Outing();
+            $outing1->setName("Sortie resto asiat Atlantis (n°".$i.")")
+                ->setStartTime(\DateTime::createFromFormat('Y-m-d H:i:s', '2020-02-27 19:30:00'))
+                ->setDuration(90)
+                ->setLimitDateTime(\DateTime::createFromFormat('Y-m-d H:i:s', '2020-02-24 15:30:00'))
+                ->setRegisterMax(10)
+                ->setInfoOuting(
+                    "On se fait un petit resto asiat à volonté, si vous aimez la bonne bouffe asiat venez nombreux !"
+                )
+                ->setOrganizer($user2)
+                ->setEstablishment($establishment1)
+                ->setPlace($place1)
+                ->setStatus($statut2)
+                ->addParticipant($user3)
+                ->addParticipant($user2);
+            $manager->persist($outing1);
+        }
 
         $outing2 = new Outing();
         $outing2->setName("Petite Poutine à Rennes au calme")

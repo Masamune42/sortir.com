@@ -1,13 +1,47 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/outinghome.css') }}"> {% endblock %}
+
 {% block body %}
     {{ form(homeOutingFormView) }}
 
-    {{ dump(outings) }}
+    {# tab for the results#}
 
-    {% for outing in outings %}
-        {{ outing.name }}
-    {% endfor %}
+
+
+{#TODO remplacer par des div ????#}
+    <table class="result-tab">
+        <thead>
+        <tr>
+            <th class="result-head result-col-1">Nom de la sortie</th>
+            <th class="result-head result-col-2">Date de la sortie</th>
+            <th class="result-head result-col-3">Clôture</th>
+            <th class="result-head result-col-4">inscrits/places</th>
+            <th class="result-head result-col-5">État</th>
+            <th class="result-head result-col-6">Inscrit</th>
+            <th class="result-head result-col-7">Organisateur</th>
+            <th class="result-head result-col-8">Actions</th>
+        </tr>
+        </thead>
+        <tbody class="result-body">
+        {% for outing in outings %}
+            <tr>
+                <td class="result-cell result-col-1">{{ outing.name }}</td>
+                <td class="result-cell result-col-2">{{ outing.startTime|date('d/m/Y H:i') }}</td>
+                <td class="result-cell result-col-3">{{ outing.limitDateTime|date('d/m/Y H:i') }}</td>
+                <td class="result-cell result-col-4">{{ outing.participant|length }}/{{ outing.registerMax }}</td>
+                <td class="result-cell result-col-5">{{ outing.status.name }}</td>
+                <td class="result-cell result-col-6">{{ (app.user in outing.participant) ? 'X' : '' }}</td>
+                <td class="result-cell result-col-7">{{ outing.organizer.username }}</td>
+                <td class="result-cell result-col-8"><b><i>To be implemented</i></b></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+
 
 {% endblock %}
 
