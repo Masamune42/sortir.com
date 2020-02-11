@@ -3,8 +3,8 @@ navbarColor02{
 }
 
 a.navbar-brand {
-    width: 2%;
+    width: 5%;
 }
-a img {
-    width:100%;
+a.navbar-brand img {
+    width:50px;
 }

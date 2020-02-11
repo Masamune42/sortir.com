@@ -8,7 +8,7 @@
 {% block body %}
     <br>
     <div class="container col-8 col-sm-8 col-md-8 col-lg-10 col-xl-10">
-    <div class="d-flex justify-content-around">
+    <div class="d-flex flex-wrap">
         <div class="picture">
             <h2>Ma photo de profil</h2>
             <hr>
@@ -51,7 +51,7 @@
             </div>
         </div>
         <div class="password">
-            <h2>Mon mot de passe</h2>
+            <h2>Mon mot de passe actuel</h2>
             <hr>
             <br>
             <div>
@@ -63,6 +63,20 @@
             <br>
             {{ form_end(profilFormView) }}
         </div>
+        <div class="change_password">
+            {{ form_start(passwordFormView) }}
+            <h2>Changement Mot de passe</h2>
+            <hr>
+            <br>
+            <div>
+                {{ form_widget(passwordFormView.newpassword) }}
+                {{ form_errors(passwordFormView.newpassword) }}
+            </div>
+
+
+            <br>
+            {{ form_end(passwordFormView) }}
+        </div>
 
     </div>
     <hr>
@@ -72,7 +86,7 @@
            aria-pressed="true">Retour</a>
     </div>
 
-
+    </div>
 
 
 {% endblock %}

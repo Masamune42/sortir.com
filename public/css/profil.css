@@ -7,14 +7,25 @@ div {
     align-items: center
 }
 
-div.col-md-8{
-
+.picture {
+    margin-right: auto;
+    margin-left: auto;
 }
-div.col-sm-8{
 
+.password {
+    margin-top: 50px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+<<<<<<< HEAD
 }
 
 div.form{
+=======
+.infos {
+    margin-top: 50px;
+>>>>>>> 7a92babf815166cebad4deea7c821d9f5ef8bb50
     margin-right: auto;
     margin-left: auto;
 }
