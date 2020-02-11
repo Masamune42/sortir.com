@@ -2,7 +2,8 @@
 
 namespace App\Form;
 
-use App\Entity\City;
+
+use App\Entity\Establishment;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -72,12 +73,12 @@ class UserType extends AbstractType
                         ]
             ])
             ->add(
-                'city',
+                'establishment',
                 EntityType::class,
                 [
                     'label' => 'Ville de rattachement',
                     'placeholder' => 'Choisir une ville',
-                    'class' => City::class,
+                    'class' => Establishment::class,
                     'choice_label' => 'name',
                     'required' => false
                 ]
