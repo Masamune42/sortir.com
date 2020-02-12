@@ -1,11 +1,20 @@
-navbarColor02{
+navbarColor02 {
     margin-left: auto;
 }
 
 a.navbar-brand {
     width: 5%;
 }
-a.navbar-brand img {
-    width:50px;
 
+a.navbar-brand img {
+    width: 50px;
+
+}
+
+.clock {
+    color: #17D4FE;
+    font-size: 2vw;
+    font-family: Orbitron;
+    letter-spacing: 7px;
+    /*float: right;*/
 }
