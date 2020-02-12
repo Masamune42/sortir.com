@@ -11,9 +11,9 @@ a.navbar-brand img {
 
 }
 
-.clock {
-    color: #17D4FE;
-    font-size: 2vw;
+.clock, .date {
+    color: #3E3F3A;
+    font-size: 1vw;
     font-family: Orbitron;
     letter-spacing: 7px;
     /*float: right;*/
