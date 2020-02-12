@@ -15,7 +15,7 @@
                 <hr>
             </div>
             <div class="infos">
-                <h2>Mes infos</h2>
+                <h2>Modifier mes infos</h2>
                 <hr>
 
                 <div>
@@ -51,28 +51,35 @@
                         {{ form_errors(profilFormView.establishment) }}
                     </div>
                     <div>
-                        {{ form_label(profilFormView.password) }}
-                        {{ form_widget(profilFormView.password) }}
-                        {{ form_errors(profilFormView.password) }}
+
+                            <label for="password">Mot de passe </label>
+                            <input type="password" class="form-control"
+                                   id="password" name="password"
+                                   placeholder="Votre mot de passe"/>
+
+
                     </div>
                 </div>
             </div>
             <br>
             {{ form_end(profilFormView) }}
         </div>
+        <div>
+            <h1> <strong>OU</strong> </h1>
+        </div>
 
         <div class="password">
+            <h2>Modifier mon mot de passe</h2>
+            <div>
             {{ form_start(passwordFormView) }}
-            <h2>Changement Mot de passe</h2>
             <hr>
             <br>
             <div>
                 {{ form_widget(passwordFormView.newpassword) }}
                 {{ form_errors(passwordFormView.newpassword) }}
-
-
             </div>
             {{ form_end(passwordFormView) }}
+            </div>
         </div>
         <hr>
 
