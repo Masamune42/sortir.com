@@ -21,6 +21,7 @@
             {{ form_errors(outingFormView.startTime) }}
         </div>
     </div>
+    <br>
     <div class="row justify-content-center">
         <div class="col-3 text-center">
             {{ form_label(outingFormView.duration) }}
@@ -33,6 +34,7 @@
             {{ form_errors(outingFormView.limitDateTime) }}
         </div>
     </div>
+    <br>
     <div class="row justify-content-center">
         <div class="col-3 text-center">
             {{ form_label(outingFormView.infoOuting) }}
@@ -45,6 +47,7 @@
             {{ form_errors(outingFormView.registerMax) }}
         </div>
     </div>
+    <br>
     <div class="row justify-content-center">
         <div class="col-3 text-center">
             {{ form_label(outingFormView.place) }}
@@ -53,8 +56,21 @@
 
         </div>
     </div>
+    <br>
     <div class="row justify-content-center">
-        {{ form_row(outingFormView.save) }}
-        {{ form_end(outingFormView) }}
+        <div class="col-auto">
+            {{ form_row(outingFormView.save) }}
+        </div>
+        <div class="col-auto">
+            {{ form_row(outingFormView.createOuting) }}
+        </div>
+        <div class="col-auto">
+            {{ form_end(outingFormView) }}
+            <form action="{{ path('home') }}" method="post">
+                <button type="submit" class="btn btn-danger"
+                        onclick="confirm('Voulez-vous annuler la création de la sortie?')" value="">Retour
+                </button>
+            </form>
+        </div>
     </div>
 {% endblock %}
