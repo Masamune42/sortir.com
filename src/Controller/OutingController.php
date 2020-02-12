@@ -41,7 +41,7 @@ class OutingController extends AbstractController
             'outing/home.html.twig',
             [
                 'homeOutingFormView' => $homeOutingForm->createView(),
-                'outings' => 'outings',
+                'outings' => $outings,
             ]
         );
     }
