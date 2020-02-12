@@ -53,10 +53,10 @@
                     <div>
 
 
-                            <label for="password">Mot de passe </label>
-                            <input type="password" class="form-control"
-                                   id="password" name="password"
-                                   placeholder="Votre mot de passe"/>
+                        <label for="password">Mot de passe </label>
+                        <input type="password" class="form-control"
+                               id="password" name="password"
+                               placeholder="Votre mot de passe"/>
 
 
                     </div>
@@ -66,20 +66,20 @@
             {{ form_end(profilFormView) }}
         </div>
         <div>
-            <h1> <strong>OU</strong> </h1>
+            <h1><strong>OU</strong></h1>
         </div>
 
         <div class="password">
             <h2>Modifier mon mot de passe</h2>
             <div>
-            {{ form_start(passwordFormView) }}
-            <hr>
-            <br>
-            <div>
-                {{ form_widget(passwordFormView.newpassword) }}
-                {{ form_errors(passwordFormView.newpassword) }}
-            </div>
-            {{ form_end(passwordFormView) }}
+                {{ form_start(passwordFormView) }}
+                <hr>
+                <br>
+                <div>
+                    {{ form_widget(passwordFormView.newpassword) }}
+                    {{ form_errors(passwordFormView.newpassword) }}
+                </div>
+                {{ form_end(passwordFormView) }}
             </div>
         </div>
         <hr>
