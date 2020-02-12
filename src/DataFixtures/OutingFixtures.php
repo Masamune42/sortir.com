@@ -25,29 +25,17 @@ class OutingFixtures extends Fixture
     {
 
         $statut1 = new Status();
-        $statut1->setName("Créée")
-            ->setNameTech("created");
+        $statut1->setName("Brouillon")
+            ->setNameTech("draft");
         $manager->persist($statut1);
         $statut2 = new Status();
-        $statut2->setName("Ouverte")
-            ->setNameTech("open");
+        $statut2->setName("Publiée")
+            ->setNameTech("published");
         $manager->persist($statut2);
         $statut3 = new Status();
-        $statut3->setName("Clôturée")
-            ->setNameTech("closed");
+        $statut3->setName("Annulée")
+            ->setNameTech("canceled");
         $manager->persist($statut3);
-        $statut4 = new Status();
-        $statut4->setName("Activité en cours")
-            ->setNameTech("in_progress");
-        $manager->persist($statut4);
-        $statut5 = new Status();
-        $statut5->setName("Passée")
-            ->setNameTech("passed");
-        $manager->persist($statut5);
-        $statut6 = new Status();
-        $statut6->setName("Annulée")
-            ->setNameTech("cancelled");
-        $manager->persist($statut6);
 
         $establishment1 = new Establishment();
         $establishment1->setName("Campus de Rennes");
@@ -236,7 +224,7 @@ class OutingFixtures extends Fixture
             ->setOrganizer($user4)
             ->setEstablishment($establishment2)
             ->setPlace($place5)
-            ->setStatus($statut5)
+            ->setStatus($statut2)
             ->addParticipant($user4)
             ->addParticipant($user2)
             ->addParticipant($user3);
