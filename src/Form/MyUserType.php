@@ -16,6 +16,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -30,32 +32,36 @@ class MyUserType extends AbstractType
                 TextType::class,
                 [
                     'label' => 'Pseudo'
-                ])
+                ]
+            )
             ->add(
                 'name',
                 TextType::class,
                 [
                     'label' => 'Nom'
-                ])
+                ]
+            )
             ->add(
                 'firstname',
                 TextType::class,
                 [
                     'label' => 'Prénom'
-                ])
+                ]
+            )
             ->add(
                 'phone',
                 TextType::class,
                 [
                     'label' => 'Téléphone'
-                ])
+                ]
+            )
             ->add(
                 'mail',
                 EmailType::class,
                 [
                     'label' => 'Email'
-                ])
-
+                ]
+            )
             ->add(
                 'establishment',
                 EntityType::class,
@@ -69,6 +75,48 @@ class MyUserType extends AbstractType
 
 
             )
+            ->add(
+                'newpassword',
+                RepeatedType::class,
+                [
+                    'type' => PasswordType::class,
+                    'first_options' => ['label' => 'Nouveau mot de passe'],
+                    'second_options' => ['label' => 'Confirmation'],
+                    'invalid_message' => 'Les mots de passe doivent correspondre',
+                    'required' => false,
+                    'mapped' => false,
+                    'constraints' => [
+                        new NotBlank(
+                            [
+                                'message' => 'Veuillez mettre un mot de passe',
+                            ]
+                        ),
+                        new Length(
+                            [
+                                'min' => 6,
+                                'minMessage' => 'Le mot de passe ne peux pas avoir moins de  {{ limit }} charactères',
+                                // max length allowed by Symfony for security reasons
+                                'max' => 1060,
+                            ]
+                        ),
+                    ],
+                ]
+
+            )
+//            ->addEventListener(
+//                FormEvents::PRE_SUBMIT,
+//                function (FormEvent $event) {
+//                    $user = $event->getData();
+//                    $form = $event->getForm();
+//
+//
+//                    if ($user->get || null === $user->getId())
+//
+//
+//                }
+//            );
+//    }
+
 
 
             ->add(
