@@ -17,68 +17,7 @@
             <div class="infos">
                 <h2>Mes infos</h2>
                 <hr>
-<<<<<<< HEAD
-                <div>
-                    {{ form_start(profilFormView) }}
-                    <div>
-                        {{ form_label(profilFormView.username) }}
-                        {{ form_widget(profilFormView.username) }}
-                        {{ form_errors(profilFormView.username) }}
-                    </div>
-                    <div>
-                        {{ form_label(profilFormView.name) }}
-                        {{ form_widget(profilFormView.name) }}
-                        {{ form_errors(profilFormView.name) }}
-                    </div>
-                    <div>
-                        {{ form_label(profilFormView.firstname) }}
-                        {{ form_widget(profilFormView.firstname) }}
-                        {{ form_errors(profilFormView.firstname) }}
-                    </div>
-                    <div>
-                        {{ form_label(profilFormView.phone) }}
-                        {{ form_widget(profilFormView.phone) }}
-                        {{ form_errors(profilFormView.phone) }}
-                    </div>
-                    <div>
-                        {{ form_label(profilFormView.mail) }}
-                        {{ form_widget(profilFormView.mail) }}
-                        {{ form_errors(profilFormView.mail) }}
-                    </div>
-                    <div>
-                        {{ form_label(profilFormView.establishment) }}
-                        {{ form_widget(profilFormView.establishment) }}
-                        {{ form_errors(profilFormView.establishment) }}
-                    </div>
-                </div>
-            </div>
-            <div class="password">
-                <h2>Mon mot de passe actuel</h2>
-                <hr>
-                <br>
-                <div>
-                    {{ form_widget(profilFormView.password) }}
-                    {{ form_errors(profilFormView.password) }}
-                </div>
 
-
-                <br>
-                {{ form_end(profilFormView) }}
-            </div>
-            <div class="change_password">
-                {{ form_start(passwordFormView) }}
-                <h2>Changement Mot de passe</h2>
-                <hr>
-                <br>
-                <div>
-                    {{ form_widget(passwordFormView.newpassword) }}
-                    {{ form_errors(passwordFormView.newpassword) }}
-                </div>
-
-
-                <br>
-                {{ form_end(passwordFormView) }}
-=======
                 <div>
                     {{ form_start(profilFormView) }}
                     <div>
@@ -130,9 +69,9 @@
             <div>
                 {{ form_widget(passwordFormView.newpassword) }}
                 {{ form_errors(passwordFormView.newpassword) }}
->>>>>>> 103cdf8ad51fea0330002396a369b498aea7bd88
-            </div>
 
+            </div>
+            {{ form_end(passwordFormView) }}
         </div>
         <hr>
 
