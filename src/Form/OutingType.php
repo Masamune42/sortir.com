@@ -8,7 +8,9 @@ use App\Entity\Place;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -32,18 +34,31 @@ class OutingType extends AbstractType
                     'widget' => 'single_text',
                 ]
             )
-            ->add('duration')
+            ->add(
+                'duration',
+                NumberType::class,
+                ['label' => 'Durée de la sortie (en minute)']
+            )
             ->add(
                 'limitDateTime',
                 DateTimeType::class,
                 [
-                    'label' => 'Date de sortie',
+                    'label' => 'Date limite d\'inscription',
                     'required' => true,
                     'widget' => 'single_text',
                 ]
             )
-            ->add('registerMax')
-            ->add('infoOuting')
+            ->add(
+                'registerMax',
+                NumberType::class,
+                ['label' => 'Nombre de personnes maximum']
+            )
+            ->add('infoOuting',
+                TextareaType::class,
+                [
+                    'label' => 'Description de la sortie',
+                    'required' => true,
+                ])
             //->add('status')
             //->add('establishment')
             ->add(
@@ -52,9 +67,10 @@ class OutingType extends AbstractType
                 [
                     'class' => Place::class,
                     'choice_label' => 'name',
-                    'label' => 'Place'
+                    'label' => 'Lieu de la sortie',
                 ]
             )
+            // A créer plus tard en gérant la sélection de la ville et ensuite du lieu
 //            ->add(
 //                'city',
 //                EntityType::class,
