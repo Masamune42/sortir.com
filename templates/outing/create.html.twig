@@ -3,58 +3,58 @@
 
 {% block title %}Créer une sortie{% endblock %}
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/createouting.css') }}">
+    {#    <link rel="stylesheet" href="{{ asset('css/createouting.css') }}">#}
 {% endblock %}
 {% block myTitle %}Création d'une sortie{% endblock %}
 
 {% block body %}
-
-    <div class="container col-8 col-sm-8 col-md-8 col-lg-10 col-xl-10">
-
-        {{ form_start(outingFormView) }}
-        <div class="d-flex flex-wrap">
-
-            <div class="form-l">
-                {{ form_label(outingFormView.name) }}
-                {{ form_widget(outingFormView.name) }}
-                {{ form_errors(outingFormView.name) }}
-            </div>
-            <div class="form-r">
-                {{ form_label(outingFormView.startTime) }}
-                {{ form_widget(outingFormView.startTime) }}
-                {{ form_errors(outingFormView.startTime) }}
-            </div>
-            <div class="form-l">
-                {{ form_label(outingFormView.duration) }}
-                {{ form_widget(outingFormView.duration) }}
-                {{ form_errors(outingFormView.duration) }}
-            </div>
-            <div class="form-r">
-                {{ form_label(outingFormView.limitDateTime) }}
-                {{ form_widget(outingFormView.limitDateTime) }}
-                {{ form_errors(outingFormView.limitDateTime) }}
-            </div>
-
-            <div class="form-l">
-                {{ form_label(outingFormView.infoOuting) }}
-                {{ form_widget(outingFormView.infoOuting) }}
-                {{ form_errors(outingFormView.infoOuting) }}
-            </div>
-            <div class="form-r">
-                {{ form_label(outingFormView.registerMax) }}
-                {{ form_widget(outingFormView.registerMax) }}
-                {{ form_errors(outingFormView.registerMax) }}
-            </div>
-
-            <div class="form-l">
-
-                {{ form_label(outingFormView.place) }}
-                {{ form_widget(outingFormView.place) }}
-                {{ form_errors(outingFormView.place) }}
-            </div>
+    {{ form_start(outingFormView) }}
+    <div class="row justify-content-center">
+        <div class="col-3 text-center">
+            {{ form_label(outingFormView.name) }}
+            {{ form_widget(outingFormView.name) }}
+            {{ form_errors(outingFormView.name) }}
         </div>
-        <div class="btn-form">
-            {{ form_end(outingFormView) }}
+        <div class="col-3 text-center">
+            {{ form_label(outingFormView.startTime) }}
+            {{ form_widget(outingFormView.startTime) }}
+            {{ form_errors(outingFormView.startTime) }}
         </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-3 text-center">
+            {{ form_label(outingFormView.duration) }}
+            {{ form_widget(outingFormView.duration) }}
+            {{ form_errors(outingFormView.duration) }}
+        </div>
+        <div class="col-3 text-center">
+            {{ form_label(outingFormView.limitDateTime) }}
+            {{ form_widget(outingFormView.limitDateTime) }}
+            {{ form_errors(outingFormView.limitDateTime) }}
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-3 text-center">
+            {{ form_label(outingFormView.infoOuting) }}
+            {{ form_widget(outingFormView.infoOuting) }}
+            {{ form_errors(outingFormView.infoOuting) }}
+        </div>
+        <div class="col-3 text-center">
+            {{ form_label(outingFormView.registerMax) }}
+            {{ form_widget(outingFormView.registerMax) }}
+            {{ form_errors(outingFormView.registerMax) }}
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-3 text-center">
+            {{ form_label(outingFormView.place) }}
+            {{ form_widget(outingFormView.place) }}
+            {{ form_errors(outingFormView.place) }}
+
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        {{ form_row(outingFormView.save) }}
+        {{ form_end(outingFormView) }}
     </div>
 {% endblock %}
