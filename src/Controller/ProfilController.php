@@ -29,12 +29,12 @@ class ProfilController extends AbstractController
 
 
         $newpassword=$this->getUser();
-        dump($request);
-dump($request->request->get('password'));
+        
 
         $validPassword = $encoder->isPasswordValid( $user->getPassword(), // the encoded password
             $request->request->get('password'),       // the submitted password
             $user->getSalt());
+
 
 
 

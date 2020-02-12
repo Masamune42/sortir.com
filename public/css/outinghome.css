@@ -1,57 +1,77 @@
-.result-cell {
+.result-tab {
+    width: 55rem;
+
+}
+
+.result-head {
+    width: 55rem;
+    font-weight: bold;
+}
+
+.result-head-row {
+    display: flex;
+}
+
+.result-head-cell {
+    border: 2px solid;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    text-align: center;
+    display: inline-block;
+    height: 3rem;
+}
+
+.result-body {
+    width: 55rem;
+    height: 200px;
+    overflow-y: scroll;
+}
+
+.result-body-row {
+    display: flex;
+}
+
+.result-body-cell {
     border: 1px solid;
     padding-left: 5px;
     padding-right: 5px;
     padding-top: 2px;
     padding-bottom: 2px;
     text-align: center;
-
+    display: inline-block;
+    height: 3rem;
 }
 
-.result-head {
-    border: 2px solid;
-    text-align: center;
+.result-col-1 {
+    width: 12rem;
 }
 
-.result-tab {
-    border: 2px solid;
-
+.result-col-2 {
+    width: 6rem;
 }
 
-.result-body{
-    height: 200px;
-    overflow-y: scroll;
-    position: absolute;
+.result-col-3 {
+    width: 6rem;
 }
 
-.result-col-1{
-    width: 10%;
+.result-col-4 {
+    width: 4rem;
 }
 
-.result-col-2{
-    width: 10%;
+.result-col-5 {
+    width: 4rem;
 }
 
-.result-col-3{
-    width: 10%;
+.result-col-6 {
+    width: 4rem;
 }
 
-.result-col-4{
-    width: 10%;
+.result-col-7 {
+    width: 7rem;
 }
 
-.result-col-5{
-    width: 10%;
-}
-
-.result-col-6{
-    width: 10%;
-}
-
-.result-col-7{
-    width: 10%;
-}
-
-.result-col-8{
-    width: 10%;
+.result-col-8 {
+    width: 10rem;
 }

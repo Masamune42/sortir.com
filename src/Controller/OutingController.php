@@ -32,7 +32,6 @@ class OutingController extends AbstractController
             $data = $homeOutingForm->getData();
 
 
-
             $outings = $outingRepository->findOutingForHome($this->getUser(), $data);
 
         }
@@ -56,9 +55,7 @@ class OutingController extends AbstractController
 
         $statutRepository = $entityManager->getRepository(Status::class);
 
-        $statutCreated = $statutRepository->findOneBy(['nameTech' => 'created']);
 
-        $outing->setStatus($statutCreated);
 
         $establishementUser = $this->getUser()->getEstablishment();
         $outing->setEstablishment($establishementUser);
@@ -69,8 +66,24 @@ class OutingController extends AbstractController
         $outingForm->handleRequest($request);
 
         if ($outingForm->isSubmitted() && $outingForm->isValid()) {
-            $entityManager->persist($outing);
-            $entityManager->flush();
+            if ($outingForm->getClickedButton() && 'save' === $outingForm->getClickedButton()->getName()) {
+                $statutCreated = $statutRepository->findOneBy(['nameTech' => 'created']);
+
+                $outing->setStatus($statutCreated);
+                $entityManager->persist($outing);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('home');
+            } else if ($outingForm->getClickedButton() && 'createOuting' === $outingForm->getClickedButton()->getName()) {
+                $statutCreated = $statutRepository->findOneBy(['nameTech' => 'open']);
+
+                $outing->setStatus($statutCreated);
+                $entityManager->persist($outing);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('home');
+            }
+
         }
 
         return $this->render(
