@@ -51,9 +51,10 @@
                         {{ form_errors(profilFormView.establishment) }}
                     </div>
                     <div>
-                        {{ form_label(profilFormView.password) }}
-                        {{ form_widget(profilFormView.password) }}
-                        {{ form_errors(profilFormView.password) }}
+                        <label for="verifPassword">Mot de passe </label>
+                        <input type="password" class="form-control"
+                               id="verifPassword" name="_verifPassword"
+                               placeholder="Votre mot de passe"/>
                     </div>
                 </div>
             </div>

@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProfilController extends AbstractController
 {
     /**
-     * @Route("/myprofil", name ="myprofil")
+     * @Route("/myprofil/{id}", name ="myprofil", requirements=)
      */
     public function myprofil(EntityManagerInterface $entityManager, Request $request)
     {
@@ -25,6 +25,7 @@ class ProfilController extends AbstractController
         $user->setPhone($this->getUser()->getPhone());
         $user->setMail($this->getUser()->getMail());
         $user->setEstablishment($this->getUser()->getEstablishment());
+
 
 
         $profilForm = $this->createForm(MyUserType::class, $user);

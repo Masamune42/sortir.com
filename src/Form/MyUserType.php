@@ -55,25 +55,25 @@ class MyUserType extends AbstractType
                 [
                     'label' => 'Email'
                 ])
-            ->add(
-                'password',
-                PasswordType::class,
-                [
-                    'label' => 'Mot de passe ',
-                    'invalid_message' => 'Les mots de passe doivent correspondre',
-                    'required' => false,
-                    'mapped' => false,
-                    'constraints' => [
-                        new NotBlank([
-                            'message' => 'Veuillez mettre un mot de passe',
-                        ]),
-                        new Length([
-                            'min' => 6,
-                            'minMessage' => 'Le mot de passe ne peux pas avoir moins de  {{ limit }} charactères',
-                            // max length allowed by Symfony for security reasons
-                            'max' => 1060,])
-                    ]
-                ])
+//            ->add(
+//                'password',
+//                PasswordType::class,
+//                [
+//                    'label' => 'Mot de passe ',
+//                    'invalid_message' => 'Les mots de passe doivent correspondre',
+//                    'required' => false,
+//                    'mapped' => false,
+//                    'constraints' => [
+//                        new NotBlank([
+//                            'message' => 'Veuillez mettre un mot de passe',
+//                        ]),
+//                        new Length([
+//                            'min' => 6,
+//                            'minMessage' => 'Le mot de passe ne peux pas avoir moins de  {{ limit }} charactères',
+//                            // max length allowed by Symfony for security reasons
+//                            'max' => 1060,])
+//                    ]
+//                ])
             ->add(
                 'establishment',
                 EntityType::class,
