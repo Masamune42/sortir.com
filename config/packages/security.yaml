@@ -13,17 +13,17 @@ security:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
     main:
-      remember_me:
-        secret:   '%kernel.secret%'
-        lifetime: 604800 # 1 week in seconds
-        path:     /
       pattern: ^/
       provider: user_provider
       anonymous: ~
       form_login:
         login_path: login
         check_path: login
-        default_target_path: home
+        default_target_path: outing_home
+      remember_me:
+        secret:   '%kernel.secret%'
+        lifetime: 604800 # 1 week in seconds
+        path:     /
       logout_on_user_change: true
       logout:
         path: logout

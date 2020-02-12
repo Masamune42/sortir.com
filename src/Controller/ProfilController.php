@@ -22,11 +22,7 @@ class ProfilController extends AbstractController
     {
         $user=$this->getUser();
 
-
-
         $encoder = $encoderFactory->getEncoder($user);
-
-
 
         $newpassword=$this->getUser();
         
@@ -36,14 +32,11 @@ class ProfilController extends AbstractController
             $user->getSalt());
 
 
-
-
         $profilForm = $this->createForm(MyUserType::class, $user);
         $profilForm->handleRequest($request);
 
         $passwordForm = $this->createForm(PasswordType::class, $newpassword);
         $passwordForm->handleRequest($request);
-
 
 
         if ($profilForm->isSubmitted() && $profilForm->isValid() && $validPassword ) {
