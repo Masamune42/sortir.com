@@ -68,7 +68,13 @@ class OutingType extends AbstractType
                 'save',
                 SubmitType::class,
                 [
-                    'label' => 'Envoyer',
+                    'label' => 'Enregistrer',
+                ]
+            )->add(
+                'createOuting',
+                SubmitType::class,
+                [
+                    'label' => 'Créer une sortie',
                 ]
             );
         //->add('organizer')
