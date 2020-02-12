@@ -60,13 +60,15 @@ class OutingRepository extends ServiceEntityRepository
 
         $rawresults = $qb->getQuery()->getResult();
 
-        //new filter on I am or I am not Registred
+        //filter on I am or I am not Registred
         if ($data['iAmRegistred'] xor $data['iAmNotRegistred']) { //exclusive OR
 
             if ($data['iAmRegistred']) {
                 $results = array_filter(
                     $rawresults,
-                    function ($outing) use ($user) {
+                    //callback function for the array filter
+                    function ($outing) use ($user) { //use ($user) so that the $user can be used in the callback function
+                        //return true if the current user is in the participant list, so the outing is kept by the filter
                         return in_array($user, $outing->getParticipant()->toArray());
                     }
                 );
