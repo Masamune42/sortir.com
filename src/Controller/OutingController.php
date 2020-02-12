@@ -25,23 +25,23 @@ class OutingController extends AbstractController
         $homeOutingForm = $this->createForm(OutingHomeType::class);
         $homeOutingForm->handleRequest($request);
 
+        $outings = null;
+
         if ($homeOutingForm->isSubmitted() && $homeOutingForm->isValid()) {
             $outingRepository = $entityManager->getRepository(Outing::class);
             $data = $homeOutingForm->getData();
 
 
-//            dump($data);
-//            die();
-
 
             $outings = $outingRepository->findOutingForHome($this->getUser(), $data);
+
         }
 
         return $this->render(
             'outing/home.html.twig',
             [
                 'homeOutingFormView' => $homeOutingForm->createView(),
-                'outings' => 'outings',
+                'outings' => $outings,
             ]
         );
     }
@@ -77,6 +77,7 @@ class OutingController extends AbstractController
             'outing/create.html.twig',
             ['outingFormView' => $outingForm->createView()]
         );
+
     }
 }
 
