@@ -67,7 +67,7 @@ class OutingController extends AbstractController
 
         if ($outingForm->isSubmitted() && $outingForm->isValid()) {
             if ($outingForm->getClickedButton() && 'save' === $outingForm->getClickedButton()->getName()) {
-                $statutCreated = $statutRepository->findOneBy(['nameTech' => 'created']);
+                $statutCreated = $statutRepository->findOneBy(['nameTech' => 'draft']);
 
                 $outing->setStatus($statutCreated);
                 $entityManager->persist($outing);
@@ -75,7 +75,7 @@ class OutingController extends AbstractController
 
                 return $this->redirectToRoute('home');
             } else if ($outingForm->getClickedButton() && 'createOuting' === $outingForm->getClickedButton()->getName()) {
-                $statutCreated = $statutRepository->findOneBy(['nameTech' => 'open']);
+                $statutCreated = $statutRepository->findOneBy(['nameTech' => 'published']);
 
                 $outing->setStatus($statutCreated);
                 $entityManager->persist($outing);

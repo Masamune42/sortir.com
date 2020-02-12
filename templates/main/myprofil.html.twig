@@ -71,29 +71,18 @@
                         <br>
                         <div>
 
-                            {{ form_widget(profilFormView.newpassword, { 'disabled':'disabled' }) }}
+
+                            {{ form_widget(profilFormView.newpassword) }}
                             {{ form_errors(profilFormView.newpassword) }}
                         </div>
+
 
                     </div>
 
 
                 </div>
             </div>
-        </div>
-        <br>
-        <hr>
-        <div class="validation">
-            <div class="card">
-                <div class="card-header">
-                    Valider Modification
-                </div>
-                <div>
-                    <label for="password">Mot de passe </label>
-                    <input type="password" class="form-control"
-                           id="password" name="password"
-                           placeholder="Votre mot de passe"/>
-                </div>
+
             </div>
         </div>
         {{ form_end(profilFormView) }}

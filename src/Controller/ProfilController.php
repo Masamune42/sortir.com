@@ -18,6 +18,7 @@ class ProfilController extends AbstractController
     /**
      * @Route("/myprofil", name ="myprofil")
      */
+
     public function myprofil(
         EntityManagerInterface $entityManager,
         EncoderFactoryInterface $encoderFactory,
@@ -32,18 +33,23 @@ class ProfilController extends AbstractController
         $newpassword = $this->getUser();
 
 
+
         $validPassword = $encoder->isPasswordValid(
             $user->getPassword(), // the encoded password
             $request->request->get('password'),       // the submitted password
+
             $user->getSalt()
         );
+
 
 
         $profilForm = $this->createForm(MyUserType::class, $user);
         $profilForm->handleRequest($request);
 
 
+
         if ($profilForm->isSubmitted() && $profilForm->isValid() && $validPassword) {
+
             dump($user);
 
             $entityManager->persist($user);

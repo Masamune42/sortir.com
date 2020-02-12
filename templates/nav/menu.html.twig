@@ -10,18 +10,29 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ path("outing_home") }}">Accueil </a>
             </li>
+            {% if is_granted('ROLE_USER') %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path("outing_create") }}">Créer une sortie </a>
+                </li>
+            {% endif %}
             <li class="nav-item">
-                <a class="nav-link" href="{{path("myprofil") }}">Mon profil </a>
+                <a class="nav-link" href="{{ path("myprofil") }}">Mon profil </a>
             </li>
             {% if is_granted('ROLE_USER') %}
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path("logout") }}">Se déconnecter </a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path("logout") }}">Se déconnecter </a>
+                </li>
             {% else %}
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path("login") }}">Connexion </a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path("login") }}">Connexion </a>
+                </li>
             {% endif %}
         </ul>
+        <div class="row">
+            <div class="date col d-none d-sm-none d-md-none d-lg-block d-xl-block">{{ "now"|date("d/m/Y") }}</div>
+            <div id="MyClockDisplay" class="clock col d-none d-sm-none d-md-none d-lg-block d-xl-block"
+                 onload="showTime()"></div>
+        </div>
     </div>
+
 </nav>

@@ -118,13 +118,14 @@ class MyUserType extends AbstractType
 //    }
 
 
-
             ->add(
                 'enregistrer',
                 SubmitType::class,
                 [
                     'label' => 'Enregistrer'
-                ]);
+                ])
+        ;
+
 
     }
 
