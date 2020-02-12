@@ -67,7 +67,10 @@ class MyUserType extends AbstractType
                     'required' => false
                 ]
 
+
             )
+
+
             ->add(
                 'enregistrer',
                 SubmitType::class,
