@@ -7,63 +7,69 @@
     <link rel="stylesheet" href="{{ asset('css/profil.css') }}">{% endblock %}
 {% block myTitle %}Mon Profil{% endblock %}
 {% block body %}
-    <br>{{ form_start(profilFormView) }}
-    <div class="container col-8 col-sm-8 col-md-8 col-lg-10 col-xl-10">
+    <br> {{ form_start(profilFormView) }}
+    <div class="container col-8 col-sm-8 col-md-8 col-lg-11 col-xl-11">
         <div class="d-flex flex-wrap">
-            <div class="picture">
+            <span class="col-10 col-sm-10 col-md-5 col-lg-5 col-xl-4">
                 <span class="card">
                     <h3 class="card-header">Ma photo de profil</h3>
                     <span class="card-body"></span>
                 </span>
-            </div>
-            <div class="infos">
+            </span>
+            <span class="col-10 col-sm-10 col-md-5 col-lg-5 col-xl-4">
                 <span class="card">
 
-                    <h3 class="card-header" style="margin-left: 0;margin-right: 0">Mes infos</h3>
+                    <h3 class="card-header">Mes infos</h3>
 
-                    <span class="card-body">
-                        <div>
-                            {{ form_label(profilFormView.username) }}
-                            {{ form_widget(profilFormView.username) }}
-                            {{ form_errors(profilFormView.username) }}
-                        </div>
-                        <div>
-                            {{ form_label(profilFormView.name) }}
-                            {{ form_widget(profilFormView.name) }}
-                            {{ form_errors(profilFormView.name) }}
-                        </div>
-                        <div>
-                            {{ form_label(profilFormView.firstname) }}
-                            {{ form_widget(profilFormView.firstname) }}
-                            {{ form_errors(profilFormView.firstname) }}
-                        </div>
-                        <div>
-                            {{ form_label(profilFormView.phone) }}
-                            {{ form_widget(profilFormView.phone) }}
-                            {{ form_errors(profilFormView.phone) }}
-                        </div>
-                        <div>
-                            {{ form_label(profilFormView.mail) }}
-                            {{ form_widget(profilFormView.mail) }}
-                            {{ form_errors(profilFormView.mail) }}
-                        </div>
-                        <div>
-                            {{ form_label(profilFormView.establishment) }}
-                            {{ form_widget(profilFormView.establishment) }}
-                            {{ form_errors(profilFormView.establishment) }}
-                        </div>
+                    <span class="card-body d-flex flex-wrap">
+
+                            <div class="widget">
+                                 <div>
+                                     {{ form_label(profilFormView.username) }}
+                                     {{ form_widget(profilFormView.username) }}
+                                     {{ form_errors(profilFormView.username) }}
+                                 </div>
+                                 <div class="widget">
+                                    {{ form_label(profilFormView.name) }}
+                                     {{ form_widget(profilFormView.name) }}
+                                     {{ form_errors(profilFormView.name) }}
+                                 </div>
+                                    <div class="widget">
+                                        {{ form_label(profilFormView.firstname) }}
+                                        {{ form_widget(profilFormView.firstname) }}
+                                        {{ form_errors(profilFormView.firstname) }}
+                                    </div>
+                            </div>
+                             <div class="widget">
+                                 <div class="widget">
+                                         {{ form_label(profilFormView.phone) }}
+                                     {{ form_widget(profilFormView.phone) }}
+                                     {{ form_errors(profilFormView.phone) }}
+                                 </div>
+                                    <div class="widget">
+                                         {{ form_label(profilFormView.mail) }}
+                                        {{ form_widget(profilFormView.mail) }}
+                                        {{ form_errors(profilFormView.mail) }}
+                                 </div>
+                                    <div class="widget">
+                                         {{ form_label(profilFormView.establishment) }}
+                                        {{ form_widget(profilFormView.establishment) }}
+                                        {{ form_errors(profilFormView.establishment) }}
+                                     </div>
+                             </div>
+
                     </span>
                 </span>
-            </div>
+            </span>
 
-            <div class="password">
+            <span class="col-10 col-sm-10 col-md-5 col-lg-5 col-xl-4">
                 <span class="card">
                     <h3 class="card-header">
                         Modifier mon mot de passe
                     </h3>
                     <div>
                         <br>
-                        <div>
+                        <div class="widgetpsw">
                             {{ form_widget(profilFormView.newpassword) }}
                             {{ form_errors(profilFormView.newpassword) }}
                         </div>
@@ -73,33 +79,34 @@
 
 
                 </span>
-            </div>
+            </span>
 
         </div>
-    </div>
+        <br>
 
-    <hr>
-    <div class="validation">
-        <div class="card">
-            <div class="card-header">
-                <strong>Valider mes modifications</strong>
+        <span class="validation">
+            <div class="d-flex justify-content-center">
+            <div class="card">
+                <span class="card-header">
+                    <h4 style="font-weight: bold">Valider mes modifications</h4>
+                </span>
+                <div>
+                    <label for="password">Mot de passe actuel </label>
+                    <input type="password" class="form-control"
+                           id="password" name="password"
+                           placeholder="Votre mot de passe actuel"/>
+                </div>
+                {{ form_end(profilFormView) }}
             </div>
-            <div>
-                <label for="password">Mot de passe actuel </label>
-                <input type="password" class="form-control"
-                       id="password" name="password"
-                       placeholder="Votre mot de passe actuel"/>
-            </div>
-
+                </div>
+        </span>
+        <br>
+        <div>
+            <a href="{{ path("home") }}" class="btn btn-secondary btn-lg active" role="button"
+               aria-pressed="true">Retour</a>
         </div>
-    </div>
-    {{ form_end(profilFormView) }}
-    <div>
-        <a href="{{ path("home") }}" class="btn btn-secondary btn-lg active" role="button"
-           aria-pressed="true">Retour</a>
-    </div>
 
-
+    </div>
 {% endblock %}
 
 {% block scriptJS %}

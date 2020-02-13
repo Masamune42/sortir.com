@@ -12,21 +12,8 @@ div {
     margin-left: auto;
 }
 
-
-.infos {
-    margin-top: 50px;
-    margin-right: auto;
-    margin-left: auto;
-}
-
-.password {
-    margin-top: 50px;
-    margin-right: auto;
-    margin-left: auto;
-}
-
-.validation {
-    margin-top: 50px;
+.widgetpsw{
+    width: 80%;
     margin-right: auto;
     margin-left: auto;
 }
