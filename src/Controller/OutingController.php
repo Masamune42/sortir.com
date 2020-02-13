@@ -73,6 +73,8 @@ class OutingController extends AbstractController
                 $entityManager->persist($outing);
                 $entityManager->flush();
 
+                $this->addFlash('success', 'Sortie sauvegardée.');
+
                 return $this->redirectToRoute('home');
             } else {
                 if ($outingForm->getClickedButton() && 'createOuting' === $outingForm->getClickedButton()->getName()) {
@@ -81,6 +83,8 @@ class OutingController extends AbstractController
                     $outing->setStatus($statutCreated);
                     $entityManager->persist($outing);
                     $entityManager->flush();
+
+                    $this->addFlash('success', 'Sortie publiée.');
 
                     return $this->redirectToRoute('home');
                 }
@@ -113,6 +117,7 @@ class OutingController extends AbstractController
         $entityManager->persist($outing);
         $entityManager->flush();
 
+        $this->addFlash('success', 'Sortie annulée.');
 
         return $this->redirectToRoute('outing_home');
     }

@@ -9,9 +9,18 @@
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
+
 {% include "nav/menu.html.twig" %}
 <h1 class="border border-dark rounded p-2 m-2 text-white bg-primary">{% block myTitle %}{% endblock %}</h1>
+{% for message in app.flashes('success') %}
 
+    <div class="alert alert-info alert-dismissible fade show">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{% endfor %}
 {% block body %}{% endblock %}
 {% block javascripts %}{% endblock %}
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
