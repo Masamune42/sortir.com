@@ -51,7 +51,9 @@ class ProfilController extends AbstractController
 
 
         if ($profilForm->isSubmitted() && $profilForm->isValid() && $validPassword) {
-
+            if (!empty($newp)){
+                $user->setPassword($encoder->encodePassword($newp, $user->getSalt()));
+            }
             $entityManager->persist($user);
             $entityManager->flush();
 

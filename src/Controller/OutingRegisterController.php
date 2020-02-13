@@ -43,7 +43,7 @@ class OutingRegisterController extends AbstractController
         $outing = $outingRepository->find($id);
 
         $outing->remove($user);
-        
+
         $entityManager->persist($outing);
         $entityManager->flush();
 
