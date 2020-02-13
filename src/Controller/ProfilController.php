@@ -23,7 +23,8 @@ class ProfilController extends AbstractController
         EntityManagerInterface $entityManager,
         EncoderFactoryInterface $encoderFactory,
         Request $request
-    ) {
+    )
+    {
         $user = $this->getUser();
 
 
@@ -31,7 +32,6 @@ class ProfilController extends AbstractController
 
 
         $newpassword = $this->getUser();
-
 
 
         $validPassword = $encoder->isPasswordValid(
@@ -42,10 +42,8 @@ class ProfilController extends AbstractController
         );
 
 
-
         $profilForm = $this->createForm(MyUserType::class, $user);
         $profilForm->handleRequest($request);
-
 
 
         if ($profilForm->isSubmitted() && $profilForm->isValid() && $validPassword) {
@@ -76,7 +74,8 @@ class ProfilController extends AbstractController
     function profils(
         $id,
         entityManagerInterface $entityManager
-    ) {
+    )
+    {
         $userRepository = $entityManager->getRepository(User::class);
 
         $user = $userRepository->find($id);
