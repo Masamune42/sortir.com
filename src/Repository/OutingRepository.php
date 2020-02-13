@@ -88,6 +88,8 @@ class OutingRepository extends ServiceEntityRepository
             $results = $rawresults;
         }
 
+
+
         return array_filter( //filter on status (to be coded in dql instead)
             $results,
             function ($outing) use ($user) {
