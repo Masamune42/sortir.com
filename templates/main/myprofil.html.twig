@@ -7,22 +7,21 @@
     <link rel="stylesheet" href="{{ asset('css/profil.css') }}">{% endblock %}
 {% block myTitle %}Mon Profil{% endblock %}
 {% block body %}
-    <br>
+    <br>{{ form_start(profilFormView) }}
     <div class="container col-8 col-sm-8 col-md-8 col-lg-10 col-xl-10">
         <div class="d-flex flex-wrap">
             <div class="picture">
-                <h2>Ma photo de profil</h2>
-                <hr>
+                <span class="card">
+                    <h3 class="card-header">Ma photo de profil</h3>
+                    <span class="card-body"></span>
+                </span>
             </div>
             <div class="infos">
-                <div class="card">
-                    <div class="card-header">
-                        Mes infos
-                    </div>
-                    <hr>
+                <span class="card">
 
-                    <div>
-                        {{ form_start(profilFormView) }}
+                    <h3 class="card-header" style="margin-left: 0;margin-right: 0">Mes infos</h3>
+
+                    <span class="card-body">
                         <div>
                             {{ form_label(profilFormView.username) }}
                             {{ form_widget(profilFormView.username) }}
@@ -53,25 +52,18 @@
                             {{ form_widget(profilFormView.establishment) }}
                             {{ form_errors(profilFormView.establishment) }}
                         </div>
-
-
-                    </div>
-                    <br>
-                </div>
+                    </span>
+                </span>
             </div>
 
             <div class="password">
-                <div class="card">
-                    <div class="card-header">
+                <span class="card">
+                    <h3 class="card-header">
                         Modifier mon mot de passe
-                    </div>
+                    </h3>
                     <div>
-
-                        <hr>
                         <br>
                         <div>
-
-
                             {{ form_widget(profilFormView.newpassword) }}
                             {{ form_errors(profilFormView.newpassword) }}
                         </div>
@@ -80,22 +72,36 @@
                     </div>
 
 
-                </div>
+                </span>
             </div>
 
-            </div>
         </div>
-        {{ form_end(profilFormView) }}
-        <hr>
-
-        <div>
-            <a href="{{ path("home") }}" class="btn btn-secondary btn-lg active" role="button"
-               aria-pressed="true">Retour</a>
-        </div>
-
     </div>
+
+    <hr>
+    <div class="validation">
+        <div class="card">
+            <div class="card-header">
+                <strong>Valider mes modifications</strong>
+            </div>
+            <div>
+                <label for="password">Mot de passe actuel </label>
+                <input type="password" class="form-control"
+                       id="password" name="password"
+                       placeholder="Votre mot de passe actuel"/>
+            </div>
+
+        </div>
+    </div>
+    {{ form_end(profilFormView) }}
+    <div>
+        <a href="{{ path("home") }}" class="btn btn-secondary btn-lg active" role="button"
+           aria-pressed="true">Retour</a>
+    </div>
+
 
 {% endblock %}
 
-{% block scriptJS %}<script src="{{ asset('js/myProfil.js') }}"></script>
+{% block scriptJS %}
+    <script src="{{ asset('js/myProfil.js') }}"></script>
 {% endblock %}
