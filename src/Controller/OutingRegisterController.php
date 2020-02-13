@@ -19,6 +19,8 @@ class OutingRegisterController extends AbstractController
         $outingRepository = $entityManager->getRepository(Outing::class);
         $outing = $outingRepository->find($id);
 
+        $entityManager->remove();
+
         return $this->render('outing_register/index.html.twig', [
             'controller_name' => 'OutingRegisterController',
         ]);
