@@ -88,11 +88,4 @@ class OutingRepository extends ServiceEntityRepository
 
         return $results;
     }
-
-public function addParticipant(){
-    $entityManager = $this->getEntityManager();
-    do {
-        $id = rand(1, 5);
-        $dql = <<<DQL
-}
 }

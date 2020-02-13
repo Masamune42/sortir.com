@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Outing;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,12 +15,13 @@ class OutingRegisterController extends AbstractController
      */
     public function register(EntityManagerInterface $entityManager, $id)
     {
-        $user = $this->getUser();
+        $userRepository = $entityManager->getRepository(User::class);
+        $user = $userRepository->find($this->getUser()->getId());
 
         $outingRepository = $entityManager->getRepository(Outing::class);
         $outing = $outingRepository->find($id);
 
-        $entityManager->remove();
+        $outing->addParticipant($user);
 
         return $this->render('outing_register/index.html.twig', [
             'controller_name' => 'OutingRegisterController',
@@ -28,9 +30,13 @@ class OutingRegisterController extends AbstractController
 
     public function remove(EntityManagerInterface $entityManager, $id)
     {
-        $user = $this->getUser();
+        $userRepository = $entityManager->getRepository(User::class);
+        $user = $userRepository->find($this->getUser()->getId());
 
         $outingRepository = $entityManager->getRepository(Outing::class);
+        $outing = $outingRepository->find($id);
+
+        $outing->remove($user);
 
         return $this->render('outing_register/index.html.twig', [
             'controller_name' => 'OutingRegisterController',
