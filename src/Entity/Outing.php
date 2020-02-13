@@ -246,18 +246,19 @@ class Outing
         ];
 
 
-        if ($this->status == 'draft') { //Draf outing
+        if ($this->status->getNameTech() == 'draft') { //Draf outing
             $result['display'] = 'En création';
             $result['deletable'] = true; //supprimer
             $result['modifiable'] = true; // modifier
             $result['publishable'] = true; //publier
 
-        } elseif ($this->status == 'canceled') { //canceled outing
+        } elseif ($this->status->getNameTech() == 'canceled') { //canceled outing
             $result['display'] = 'Annulée';
 
-        } elseif ($this->status == 'published') {
+        } elseif ($this->status->getNameTech() == 'published') {
             $now = new \DateTime('now');
-            $endTime = $this->startTime + 60 * $this->duration;
+            $endTime = $this->startTime;
+            $endTime->add(new \DateInterval('PT'.$this->duration.'M')); // endtime = start time + duration
 
             $result['showable'] = true;
 
@@ -266,7 +267,7 @@ class Outing
             } elseif ($this->startTime < $now) {
                 $result['display'] = 'En cours';
             } else {
-                if ($currentUser = $this->organizer) {
+                if ($currentUser == $this->organizer) {
                     $result['cancelable'] = true;
 
                 }
@@ -275,20 +276,20 @@ class Outing
                     $result['display'] = 'Clôturée';
 
                 } else {
-                    if (in_array($currentUser, $this->participant)) {
+                    if (in_array($currentUser, $this->participant->toArray())) {
                         $result['unregisterable'] = true;
-
                     }
 
-                    if (count($this->participant) < $this->registerMax) {
-                        $result['display'] = 'Complet';
-
-                    } else {
+                    if (count($this->participant->toArray()) < $this->registerMax) {
                         $result['display'] = 'Ouvert';
-                        if (!in_array($currentUser, $this->participant)) {
+                        if (!in_array($currentUser, $this->participant->toArray())) {
                             $result['registerable'] = true;
 
                         }
+
+                    } else {
+                        $result['display'] = 'Complet';
+
                     }
                 }
             }
