@@ -231,4 +231,69 @@ class Outing
 
         return $this;
     }
+
+    public function getStatusDisplayAndActions($currentUser)
+    {
+        $result = [
+            'display' => '', // état à afficher
+            'deletable' => false, //supprimer
+            'cancelable' => false, //annuler
+            'modifiable' => false, // modifier
+            'publishable' => false, //publier
+            'showable' => false, // afficher
+            'registerable' => false, // s'inscrire
+            'unregisterable' => false, //se desinscrire
+        ];
+
+
+        if ($this->status == 'draft') { //Draf outing
+            $result['display'] = 'En création';
+            $result['deletable'] = true; //supprimer
+            $result['modifiable'] = true; // modifier
+            $result['publishable'] = true; //publier
+
+        } elseif ($this->status == 'canceled') { //canceled outing
+            $result['display'] = 'Annulée';
+
+        } elseif ($this->status == 'published') {
+            $now = new \DateTime('now');
+            $endTime = $this->startTime + 60 * $this->duration;
+
+            $result['showable'] = true;
+
+            if ($endTime < $now) {
+                $result['display'] = 'Terminée';
+            } elseif ($this->startTime < $now) {
+                $result['display'] = 'En cours';
+            } else {
+                if ($currentUser = $this->organizer) {
+                    $result['cancelable'] = true;
+
+                }
+
+                if ($this->limitDateTime < $now) {
+                    $result['display'] = 'Clôturée';
+
+                } else {
+                    if (in_array($currentUser, $this->participant)) {
+                        $result['unregisterable'] = true;
+
+                    }
+
+                    if (count($this->participant) < $this->registerMax) {
+                        $result['display'] = 'Complet';
+
+                    } else {
+                        $result['display'] = 'Ouvert';
+                        if (!in_array($currentUser, $this->participant)) {
+                            $result['registerable'] = true;
+
+                        }
+                    }
+                }
+            }
+        }
+
+        return $result;
+    }
 }
