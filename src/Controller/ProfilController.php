@@ -32,6 +32,9 @@ class ProfilController extends AbstractController
 
         $newpassword = $this->getUser();
 
+        dump($request);
+        $newp=$request->request->get('my_user')['newpassword']['first'];
+        dump($newp);
 
         $validPassword = $encoder->isPasswordValid(
             $user->getPassword(), // the encoded password
@@ -47,8 +50,7 @@ class ProfilController extends AbstractController
 
         if ($profilForm->isSubmitted() && $profilForm->isValid() && $validPassword) {
 
-            dump($user);
-
+            $newp=$this->;
             $entityManager->persist($user);
             $entityManager->flush();
 

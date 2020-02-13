@@ -15,6 +15,7 @@
                 <hr>
             </div>
             <div class="infos">
+                {{ form_start(profilFormView) }}
                 <div class="card">
                     <div class="card-header">
                         Mes infos
@@ -22,7 +23,7 @@
                     <hr>
 
                     <div>
-                        {{ form_start(profilFormView) }}
+
                         <div>
                             {{ form_label(profilFormView.username) }}
                             {{ form_widget(profilFormView.username) }}
