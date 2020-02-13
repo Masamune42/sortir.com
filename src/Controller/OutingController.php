@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Establishment;
 use App\Entity\Outing;
 use App\Entity\Status;
+use App\Entity\User;
 use App\Form\OutingHomeType;
 use App\Form\OutingType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -56,7 +57,6 @@ class OutingController extends AbstractController
         $statutRepository = $entityManager->getRepository(Status::class);
 
 
-
         $establishementUser = $this->getUser()->getEstablishment();
         $outing->setEstablishment($establishementUser);
 
@@ -74,14 +74,16 @@ class OutingController extends AbstractController
                 $entityManager->flush();
 
                 return $this->redirectToRoute('home');
-            } else if ($outingForm->getClickedButton() && 'createOuting' === $outingForm->getClickedButton()->getName()) {
-                $statutCreated = $statutRepository->findOneBy(['nameTech' => 'published']);
+            } else {
+                if ($outingForm->getClickedButton() && 'createOuting' === $outingForm->getClickedButton()->getName()) {
+                    $statutCreated = $statutRepository->findOneBy(['nameTech' => 'published']);
 
-                $outing->setStatus($statutCreated);
-                $entityManager->persist($outing);
-                $entityManager->flush();
+                    $outing->setStatus($statutCreated);
+                    $entityManager->persist($outing);
+                    $entityManager->flush();
 
-                return $this->redirectToRoute('home');
+                    return $this->redirectToRoute('home');
+                }
             }
 
         }
@@ -91,6 +93,28 @@ class OutingController extends AbstractController
             ['outingFormView' => $outingForm->createView()]
         );
 
+    }
+
+    /**
+     * @Route("/delete/{id}",name="delete")
+     */
+    public function annuler(Outing $outing, EntityManagerInterface $entityManager, Request $request)
+    {
+        $statutRepository = $entityManager->getRepository(Status::class);
+        $statutCanceled = $statutRepository->findOneBy(['nameTech' => 'canceled']);
+
+        $motif = $request->request->get('motif');
+        $outing->setStatus($statutCanceled);
+
+        $currentInfos = $outing->getInfoOuting();
+        $newInfos = "Sortie annulée pour la raison suivante : \n".$motif."\nAncienne description :\n".$currentInfos;
+        $outing->setInfoOuting($newInfos);
+
+        $entityManager->persist($outing);
+        $entityManager->flush();
+
+
+        return $this->redirectToRoute('outing_home');
     }
 }
 
