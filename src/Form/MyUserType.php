@@ -86,11 +86,7 @@ class MyUserType extends AbstractType
                     'mapped' => false,
                     'required' => false,
                     'constraints' => [
-                        new NotBlank(
-                            [
-                                'message' => 'Veuillez mettre un mot de passe',
-                            ]
-                        ),
+
                         new Length(
                             [
                                 'min' => 6,
