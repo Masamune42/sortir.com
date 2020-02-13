@@ -68,18 +68,10 @@ class ProfilController extends AbstractController
     }
 
     /**
-     * @Route("/profils/{id}", name="profils")
+     * @Route("/profil/{id}", name="profil")
      */
-    public
-    function profils(
-        $id,
-        entityManagerInterface $entityManager
-    )
+    public function profil(User $user)
     {
-        $userRepository = $entityManager->getRepository(User::class);
-
-        $user = $userRepository->find($id);
-
         return $this->render('profil/profils.html.twig', compact('user'));
     }
 

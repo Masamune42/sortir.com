@@ -1,34 +1,51 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Profil {{  }}{% endblock %}
-
+{% block title %}Profil de {{ user.username }}{% endblock %}
+{% block myTitle %}
+    Profil de {{ user.username }}
+{% endblock %}
 {% block body %}
-<h1> {{ user.username }}</h1>
-
-    <div>
-        <div>
-    Prénom : {{ user.firstname }}
-        </div>
-
-        <div>
-    Nom : {{ user.name }}
-        </div>
-
-        <div>
-    Téléphone : {{ user.phone }}
-        </div>
-
-        <div>
-    Email : {{ user.mail }}
-        </div>
-
-        <div>
-    Ville de rattachement : {{ user.establishment }}
+    <div class="row justify-content-center">
+        <div class="card border-primary mb-3 mx-auto" style="max-width:50rem">
+            <div class="card-header text-center">
+                <img src="https://media-exp1.licdn.com/dms/image/C4E03AQGtbU4G_cPmHw/profile-displayphoto-shrink_200_200/0?e=1586995200&v=beta&t=7MaToQAOSmBr844rGalLnAFp95KuE5SiVk5y593o8qk"
+                     class="card-img-top rounded-circle">
+            </div>
+            <div class="card-body">
+                <h3 class="card-title text-center pb-2 mx-3 border-bottom border-primary bg-info rounded font-weight-bold">
+                    {{ user.username }}
+                </h3>
+                <p class="card-text">
+                <h4 class="text-center bg-secondary rounded">Informations</h4>
+                <table class="table text-center">
+                    <tr>
+                        <td class="table-info font-weight-bold rounded">Prénom</td>
+                        <td>{{ user.firstname }}</td>
+                    </tr>
+                    <tr>
+                        <td class="table-info font-weight-bold">Nom</td>
+                        <td>{{ user.name }}</td>
+                    </tr>
+                    <tr>
+                        <td class="table-info font-weight-bold">Téléphone</td>
+                        <td>{{ user.phone }}</td>
+                    </tr>
+                    <tr>
+                        <td class="table-info font-weight-bold">Email</td>
+                        <td>{{ user.mail }}</td>
+                    </tr>
+                    <tr>
+                        <td class="table-info font-weight-bold rounded">Ville de rattachement</td>
+                        <td>{{ user.establishment.name }}</td>
+                    </tr>
+                </table>
+                </p>
+            </div>
         </div>
 
     </div>
-
-    <div>
-    <button type="submit" class="btn btn-primary">Retour</button>
+    <div class="row justify-content-center">
+        <a type="submit" href="javascript:history.back()" class="btn btn-primary">Retour</a>
     </div>
+
 {% endblock %}
