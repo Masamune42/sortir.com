@@ -67,7 +67,7 @@
                     </div>
                     <div>
 
-                        <hr>
+
                         <br>
                         <div>
 
@@ -83,19 +83,33 @@
                 </div>
             </div>
 
-            </div>
         </div>
-        {{ form_end(profilFormView) }}
-        <hr>
-
-        <div>
-            <a href="{{ path("home") }}" class="btn btn-secondary btn-lg active" role="button"
-               aria-pressed="true">Retour</a>
-        </div>
-
     </div>
+
+    <hr>
+    <div class="validation">
+        <div class="card">
+            <div class="card-header">
+                <strong>Valider mes modifications</strong>
+            </div>
+            <div>
+                <label for="password">Mot de passe actuel </label>
+                <input type="password" class="form-control"
+                       id="password" name="password"
+                       placeholder="Votre mot de passe actuel"/>
+            </div>
+
+        </div>
+    </div>
+    {{ form_end(profilFormView) }}
+    <div>
+        <a href="{{ path("home") }}" class="btn btn-secondary btn-lg active" role="button"
+           aria-pressed="true">Retour</a>
+    </div>
+
 
 {% endblock %}
 
-{% block scriptJS %}<script src="{{ asset('js/myProfil.js') }}"></script>
+{% block scriptJS %}
+    <script src="{{ asset('js/myProfil.js') }}"></script>
 {% endblock %}
