@@ -107,15 +107,45 @@
         </div>
         <div class="result-body">
             {% for outing in outings %}
+                {% set sdAndActions = outing.getStatusDisplayAndActions(app.user) %}
                 <div class="result-body-row">
                     <span class="result-body-cell result-col-1 overflow-hidden">{{ outing.name }}</span>{#
                     #}<span class="result-body-cell result-col-2 overflow-hidden">{{ outing.startTime|date('d/m/Y H:i') }}</span>{#
                     #}<span class="result-body-cell result-col-3 overflow-hidden">{{ outing.limitDateTime|date('d/m/Y H:i') }}</span>{#
                     #}<span class="result-body-cell result-col-4 overflow-hidden">{{ outing.participant|length }}/{{ outing.registerMax }}</span>{#
-                    #}<span class="result-body-cell result-col-5 overflow-hidden">{{ outing.status.name }}</span>{#
+                    #}<span class="result-body-cell result-col-5 overflow-hidden">{{ sdAndActions['display'] }}</span>{#
                     #}<span class="result-body-cell result-col-6 overflow-hidden">{{ (app.user in outing.participant) ? 'X' : '' }}</span>{#
                     #}<span class="result-body-cell result-col-7 overflow-hidden">{{ outing.organizer.username }}</span>{#
-                    #}<span class="result-body-cell result-col-8 overflow-hidden"><b><i>To be implemented</i></b></span>
+                    #}<span class="result-body-cell result-col-8 overflow-hidden">
+                        {% if (sdAndActions['showable']) %}
+                            Afficher
+                        {% endif %}
+
+                        {% if (sdAndActions['deletable']) %}
+                            Supprimer
+                        {% endif %}
+
+                        {% if (sdAndActions['cancelable']) %}
+                            Annuler
+                        {% endif %}
+
+                        {% if (sdAndActions['modifiable']) %}
+                            Modifier
+                        {% endif %}
+
+                        {% if (sdAndActions['publishable']) %}
+                            Publier
+                        {% endif %}
+
+                        {% if (sdAndActions['unregisterable']) %}
+                            Se désinscrire
+                        {% endif %}
+
+                        {% if (sdAndActions['registerable']) %}
+                            S'inscrire
+                        {% endif %}
+
+                    </span>
                 </div>
             {% endfor %}
         </div>
