@@ -19,14 +19,22 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path("login") }}">Connexion </a>
                 </li>
+            {% else %}
+                <li class="nav-item d-none d-sm-block d-md-block d-lg-none d-xl-none">
+                    <a class="nav-link" href="{{ path("myprofil") }}">Mon Profil </a>
+                </li>
+                <li class="nav-item d-none d-sm-block d-md-block d-lg-none d-xl-none">
+                    <a class="nav-link" href="{{ path("logout") }}">Se déconnecter </a>
+                </li>
             {% endif %}
 
         </ul>
         {% if is_granted('ROLE_USER') %}
-            <div class="nav-item dropdown">
+            <div class="nav-item dropdown d-none d-sm-none d-md-none d-lg-block d-xl-block">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
-                    <img id="avatar" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png">
+                    <img id="avatar"
+                         src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png">
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="{{ path("myprofil") }}">Mon profil </a>
