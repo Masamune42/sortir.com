@@ -80,11 +80,11 @@ class MyUserType extends AbstractType
                 RepeatedType::class,
                 [
                     'type' => PasswordType::class,
-                    'first_options' => ['label' => 'Nouveau mot de passe'],
-                    'second_options' => ['label' => 'Confirmation'],
+                    'first_options' => ['label' => 'Nouveau mot de passe', 'attr' => ['oninput' => 'required()', 'onblur' => 'noRequired()'], 'required' => false],
+                    'second_options' => ['label' => 'Confirmation', 'required' => false],
                     'invalid_message' => 'Les mots de passe doivent correspondre',
-                    'required' => false,
                     'mapped' => false,
+                    'required' => false,
                     'constraints' => [
                         new NotBlank(
                             [
