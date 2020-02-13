@@ -26,6 +26,7 @@ class OutingRepository extends ServiceEntityRepository
             ->where("o.establishment = :establishment")
             ->setParameter('establishment', $data['establishment']);
 
+
         if ($data['nameContent'] !== null) {
             $qb->andWhere("o.name LIKE :nameContent");
             $qb->setParameter('nameContent', '%'.$data['nameContent'].'%');
@@ -44,8 +45,8 @@ class OutingRepository extends ServiceEntityRepository
         }
 
         if ($data['iAmOrganizer']) {
-            $qb->andWhere("o.organizer = :organizer");
-            $qb->setParameter('organizer', $user);
+            $qb->andWhere("o.organizer = :organizer2");
+            $qb->setParameter('organizer2', $user);
         }
 
         if ($data['passedOuting']) {
@@ -67,7 +68,8 @@ class OutingRepository extends ServiceEntityRepository
                 $results = array_filter(
                     $rawresults,
                     //callback function for the array filter
-                    function ($outing) use ($user) { //use ($user) so that the $user can be used in the callback function
+                    function ($outing) use ($user
+                    ) { //use ($user) so that the $user can be used in the callback function
                         //return true if the current user is in the participant list, so the outing is kept by the filter
                         return in_array($user, $outing->getParticipant()->toArray());
                     }
@@ -86,6 +88,17 @@ class OutingRepository extends ServiceEntityRepository
             $results = $rawresults;
         }
 
-        return $results;
+        return array_filter( //filter on status (to be coded in dql instead)
+            $results,
+            function ($outing) use ($user) {
+                return (
+                    ($outing->getStatus()->getNameTech() == 'published')
+                    || ($outing->getStatus()->getNameTech() == 'draft' && $outing->getOrganizer() == $user)
+                    || ($outing->getStatus()->getNameTech() == 'canceled'
+                        && (in_array($user, $outing->getParticipant()->toArray()) || ($outing->getOrganizer(
+                                ) == $user)))
+                );
+            }
+        );
     }
 }
