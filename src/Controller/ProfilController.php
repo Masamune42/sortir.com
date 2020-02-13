@@ -23,7 +23,8 @@ class ProfilController extends AbstractController
         EntityManagerInterface $entityManager,
         EncoderFactoryInterface $encoderFactory,
         Request $request
-    ) {
+    )
+    {
         $user = $this->getUser();
 
 
