@@ -23,11 +23,17 @@ class OutingRegisterController extends AbstractController
 
         $outing->addParticipant($user);
 
+        $entityManager->persist($outing);
+        $entityManager->flush();
+
         return $this->render('outing_register/index.html.twig', [
             'controller_name' => 'OutingRegisterController',
         ]);
     }
 
+    /**
+     * @Route("/outing/remove", name="outing_remove")
+     */
     public function remove(EntityManagerInterface $entityManager, $id)
     {
         $userRepository = $entityManager->getRepository(User::class);
@@ -37,6 +43,10 @@ class OutingRegisterController extends AbstractController
         $outing = $outingRepository->find($id);
 
         $outing->remove($user);
+        
+        $entityManager->persist($outing);
+        $entityManager->flush();
+
 
         return $this->render('outing_register/index.html.twig', [
             'controller_name' => 'OutingRegisterController',
