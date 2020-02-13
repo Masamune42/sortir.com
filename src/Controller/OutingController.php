@@ -33,7 +33,7 @@ class OutingController extends AbstractController
 
 
             $outings = $outingRepository->findOutingForHome($this->getUser(), $data);
-           
+
         }
 
         return $this->render(

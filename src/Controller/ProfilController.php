@@ -29,7 +29,9 @@ class ProfilController extends AbstractController
 
         $encoder = $encoderFactory->getEncoder($user);
 
+
         $newp=$request->request->get('my_user')['newpassword']['first'];
+
 
         // Verification of the password to validate the change.
         $validPassword = $encoder->isPasswordValid(
@@ -48,10 +50,13 @@ class ProfilController extends AbstractController
             if (!empty($newp)){
                 $user->setPassword($encoder->encodePassword($newp, $user->getSalt()));
             }
+            $this->addFlash('success', 'Profil modifié !');
             $entityManager->persist($user);
             $entityManager->flush();
 
+
             $this->redirectToRoute('myprofil');
+
         }
 
 
