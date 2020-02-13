@@ -33,7 +33,6 @@ class ProfilController extends AbstractController
         $newpassword = $this->getUser();
 
 
-
         $validPassword = $encoder->isPasswordValid(
             $user->getPassword(), // the encoded password
             $request->request->get('password'),       // the submitted password
@@ -42,10 +41,8 @@ class ProfilController extends AbstractController
         );
 
 
-
         $profilForm = $this->createForm(MyUserType::class, $user);
         $profilForm->handleRequest($request);
-
 
 
         if ($profilForm->isSubmitted() && $profilForm->isValid() && $validPassword) {
@@ -70,17 +67,10 @@ class ProfilController extends AbstractController
     }
 
     /**
-     * @Route("/profils/{id}", name="profils")
+     * @Route("/profil/{id}", name="profil")
      */
-    public
-    function profils(
-        $id,
-        entityManagerInterface $entityManager
-    ) {
-        $userRepository = $entityManager->getRepository(User::class);
-
-        $user = $userRepository->find($id);
-
+    public function profil(User $user)
+    {
         return $this->render('profil/profils.html.twig', compact('user'));
     }
 
