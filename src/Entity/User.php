@@ -75,6 +75,11 @@ class User implements UserInterface
      */
     private $outingParticipated;
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $picture;
+
     public function __construct()
     {
         $this->outingOrganized = new ArrayCollection();
@@ -190,6 +195,17 @@ class User implements UserInterface
     public function setEstablishment(?Establishment $establishment): self
     {
         $this->establishment = $establishment;
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+    public function setPicture(string $picture)
+    {
+        $this->picture = $picture;
 
         return $this;
     }
