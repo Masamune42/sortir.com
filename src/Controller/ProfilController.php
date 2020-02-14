@@ -57,6 +57,8 @@ class ProfilController extends AbstractController
 
             $this->redirectToRoute('myprofil');
 
+        } else if ($profilForm->isSubmitted() && !$validPassword) {
+            $this->addFlash('error', 'Mot de passe erroné !');
         }
 
 

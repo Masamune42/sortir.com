@@ -1,5 +1,6 @@
-h2 {
+h3 {
     text-align: center;
+    font-weight: bold;
 }
 
 div {
@@ -8,12 +9,27 @@ div {
 }
 
 .picture {
+    margin-top: 20px;
+}
+.widget{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.col-10{
     margin-right: auto;
     margin-left: auto;
 }
 
+.password{
+    margin-top: 20px;
+}
+
+.infos{
+    margin-top: 20px;
+}
+
 .widgetpsw{
-    width: 80%;
     margin-right: auto;
     margin-left: auto;
 }
