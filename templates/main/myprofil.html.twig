@@ -21,7 +21,11 @@
             <span class="picture col-10 col-sm-10 col-md-5 col-lg-5 col-xl-3">
                 <span class="card">
                     <h3 class="card-header">Ma photo de profil</h3>
-                    <span class="card-body"></span>
+                    <span class="card-body">
+                        {{ form_label(profilFormView.picture) }}
+                        {{ form_widget(profilFormView.picture) }}
+                        {{ form_errors(profilFormView.picture) }}
+                    </span>
                 </span>
             </span>
             <span class="infos col-10 col-sm-10 col-md-5 col-lg-5 col-xl-5">
