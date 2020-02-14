@@ -20,6 +20,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -32,7 +33,20 @@ class MyUserType extends AbstractType
                 'picture',
                 FileType::class,
                 [
-                    'label'=> 'Photo de profil'
+                    'label'=> 'Photo de profil',
+                    'mapped'=> false,
+                    'required'=> false,
+                    'constraints'=>[
+                        New File([
+                            'maxSize'=> '2048k',
+                            'mimeTypes'=> [
+                                'image/jpeg',
+                                'image/png',
+                                'image/gif'
+                            ],
+                            'mimeTypesMessage' => 'Veuillez choisir une image ou une gif !'
+                        ])
+                    ],
                 ]
             )
             ->add(

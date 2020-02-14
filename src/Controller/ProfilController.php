@@ -7,9 +7,10 @@ use App\Form\MyUserType;
 use App\Form\PasswordType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-
+use App\Service\UploadPP;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class ProfilController extends AbstractController
@@ -22,7 +23,7 @@ class ProfilController extends AbstractController
     public function myprofil(
         EntityManagerInterface $entityManager,
         EncoderFactoryInterface $encoderFactory,
-        Request $request
+        Request $request, UploadPP $uploadPP
     )
     {
         $user = $this->getUser();
@@ -32,6 +33,7 @@ class ProfilController extends AbstractController
 
         $newp=$request->request->get('my_user')['newpassword']['first'];
 
+        dump($request);
 
         // Verification of the password to validate the change.
         $validPassword = $encoder->isPasswordValid(
@@ -51,6 +53,11 @@ class ProfilController extends AbstractController
                 $user->setPassword($encoder->encodePassword($newp, $user->getSalt()));
             }
             $this->addFlash('success', 'Profil modifié !');
+            $picture = $request->files->get('my_user')['picture'];
+            if($picture){
+                $pictureName = $uploadPP->upload($picture);
+                $user->setPicture($pictureName);
+            }
             $entityManager->persist($user);
             $entityManager->flush();
 
