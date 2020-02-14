@@ -10,20 +10,25 @@
 
     <br> {{ form_start(profilFormView) }}
     <div class="container col-8 col-sm-8 col-md-8 col-lg-11 col-xl-11">
-    {% for message in app.flashes('success') %}
-        <div class="alert alert-success">
-            {{ message }}
-        </div>
-    {% endfor %}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-error">
+                {{ message }}
+            </div>
+        {% endfor %}
 
         <div class="d-flex flex-wrap">
-            <span class="col-10 col-sm-10 col-md-5 col-lg-5 col-xl-4">
+            <span class="picture col-10 col-sm-10 col-md-5 col-lg-5 col-xl-4">
                 <span class="card">
                     <h3 class="card-header">Ma photo de profil</h3>
                     <span class="card-body"></span>
                 </span>
             </span>
-            <span class="col-10 col-sm-10 col-md-5 col-lg-5 col-xl-4">
+            <span class="infos col-10 col-sm-10 col-md-5 col-lg-5 col-xl-4">
                 <span class="card">
 
                     <h3 class="card-header">Mes infos</h3>
@@ -69,12 +74,12 @@
                 </span>
             </span>
 
-            <span class="col-10 col-sm-10 col-md-5 col-lg-5 col-xl-4">
+            <span class="password col-10 col-sm-10 col-md-5 col-lg-5 col-xl-3">
                 <span class="card">
                     <h3 class="card-header">
                         Modifier mon mot de passe
                     </h3>
-                    <div>
+                    <div class="container">
                         <br>
                         <div class="widgetpsw">
                             {{ form_widget(profilFormView.newpassword) }}
@@ -91,22 +96,24 @@
         </div>
         <br>
 
-        <span class="validation">
-            <div class="d-flex justify-content-center">
-            <div class="card">
+
+        <div class="d-flex justify-content-center">
+                  <span class="col-10 col-sm-10 col-md-5 col-lg-5 col-xl-3">
+            <span class="card">
                 <span class="card-header">
-                    <h4 style="font-weight: bold">Valider mes modifications</h4>
+                    <h3>Valider mes modifications</h3>
                 </span>
-                <div>
+                <div class="container">
                     <label for="password">Mot de passe actuel </label>
                     <input type="password" class="form-control"
                            id="password" name="password"
                            placeholder="Votre mot de passe actuel"/>
                 </div>
                 {{ form_end(profilFormView) }}
-            </div>
-                </div>
-        </span>
+            </span>
+                  </span>
+        </div>
+
         <br>
         <div>
             <a href="{{ path("home") }}" class="btn btn-secondary btn-lg active" role="button"
