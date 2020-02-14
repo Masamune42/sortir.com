@@ -20,26 +20,31 @@ class User implements UserInterface
     private $id;
 
     /**
+     * @Assert\NotBlank(message="Veuillez remplir ce champ")
      * @ORM\Column(type="string", length=255)
      */
     private $username;
 
     /**
+     * @Assert\NotBlank(message="Veuillez remplir ce champ")
      * @ORM\Column(type="string", length=100)
      */
     private $name;
 
     /**
+     * @Assert\NotBlank(message="Veuillez remplir ce champ")
      * @ORM\Column(type="string", length=100)
      */
     private $firstname;
 
     /**
+     * @Assert\NotBlank(message="Veuillez remplir ce champ")
      * @ORM\Column(type="string", length=10)
      */
     private $phone;
 
     /**
+     * @Assert\NotBlank(message="Veuillez remplir ce champ")
      * @ORM\Column(type="string", length=255)
      */
     private $mail;
@@ -50,6 +55,7 @@ class User implements UserInterface
     private $password;
 
     /**
+     * @Assert\NotBlank(message="Veuillez remplir ce champ")
      * @ORM\Column(type="boolean")
      */
     private $administrator;
