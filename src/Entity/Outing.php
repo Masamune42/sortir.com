@@ -257,7 +257,7 @@ class Outing
 
         } elseif ($this->status->getNameTech() == 'published') {
             $now = new \DateTime('now');
-            $endTime = $this->startTime;
+            $endTime = clone($this->startTime);
             $endTime->add(new \DateInterval('PT'.$this->duration.'M')); // endtime = start time + duration
 
             $result['showable'] = true;

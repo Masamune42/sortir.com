@@ -49,12 +49,16 @@ class OutingRepository extends ServiceEntityRepository
             $qb->setParameter('organizer2', $user);
         }
 
+        $now = new \DateTime('now');
         if ($data['passedOuting']) {
+            $oneMonthBeforeNow = clone($now);
+            $oneMonthBeforeNow->sub(new \DateInterval('P1M'));//remove one month
+            $qb->andWhere("o.startTime > :oneMonthBeforeNow"); //the outings older than 1 month are not selected
+            $qb->setParameter('oneMonthBeforeNow', $oneMonthBeforeNow);
             $qb->andWhere("o.startTime < :now");
         } else {
             $qb->andWhere("o.startTime > :now");
         }
-        $now = new \DateTime('now');
         $qb->setParameter('now', $now);
 
         $qb->orderBy('o.startTime', 'ASC');
@@ -87,7 +91,6 @@ class OutingRepository extends ServiceEntityRepository
         } else {
             $results = $rawresults;
         }
-
 
 
         return array_filter( //filter on status (to be coded in dql instead)
