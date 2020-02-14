@@ -56,7 +56,7 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @Assert\NotBlank(message="Veuillez remplir ce champ")
+     *
      * @ORM\Column(type="boolean")
      */
     private $administrator;
@@ -86,6 +86,8 @@ class User implements UserInterface
      * @ORM\Column(type="string", nullable=true)
      */
     private $picture;
+
+
 
     public function __construct()
     {
@@ -206,16 +208,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPicture(): ?string
-    {
-        return $this->picture;
-    }
-    public function setPicture(string $picture)
-    {
-        $this->picture = $picture;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Outing[]
@@ -299,5 +291,17 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         // TODO: Implement eraseCredentials() method.
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): self
+    {
+        $this->picture = $picture;
+
+        return $this;
     }
 }
