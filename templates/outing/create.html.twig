@@ -15,7 +15,7 @@
             {{ form_widget(outingFormView.name) }}
             {{ form_errors(outingFormView.name) }}
         </div>
-        <div class="col-3 text-center">
+        <div class="col-3 text-center" id="date_time_start">
             {{ form_label(outingFormView.startTime) }}
             {{ form_widget(outingFormView.startTime) }}
             {{ form_errors(outingFormView.startTime) }}
@@ -28,7 +28,7 @@
             {{ form_widget(outingFormView.duration) }}
             {{ form_errors(outingFormView.duration) }}
         </div>
-        <div class="col-3 text-center">
+        <div class="col-3 text-center" id="date_time_limit">
             {{ form_label(outingFormView.limitDateTime) }}
             {{ form_widget(outingFormView.limitDateTime) }}
             {{ form_errors(outingFormView.limitDateTime) }}
@@ -92,14 +92,5 @@
         </div>
     </div>
 {% endblock %}
-{% block scriptJS %}<script>
-    $(function(){
-        if (!Modernizr.inputtypes.datetime) {
-            $('input[type=datetime-local]').datepicker({
-                    dateFormat : 'yy-mm-dd'
-                }
-            );
-        }
-    });
-</script>
+{% block scriptJS %}<script src="{{ asset('js/firefox.js') }}"></script>
 {% endblock %}

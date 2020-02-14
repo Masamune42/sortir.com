@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\OutingRepository")
@@ -19,21 +20,26 @@ class Outing
     private $id;
 
     /**
+     * @Assert\NotBlank(message="Veuillez remplir ce champ")
      * @ORM\Column(type="string", length=300)
      */
     private $name;
 
     /**
+     * @Assert\NotBlank(message="Veuillez remplir ce champ")
      * @ORM\Column(type="datetime")
      */
     private $startTime;
 
     /**
+     * @Assert\NotBlank(message="Veuillez remplir ce champ")
+     * @Assert\GreaterThanOrEqual(value=1, message="Ce champ doit être obligatoirement supérieur à 0")
      * @ORM\Column(type="integer")
      */
     private $duration;
 
     /**
+     * @Assert\NotBlank(message="Veuillez remplir ce champ")
      * @ORM\Column(type="datetime")
      */
     private $limitDateTime;
