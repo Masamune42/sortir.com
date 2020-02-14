@@ -60,7 +60,8 @@ class User implements UserInterface
     private $active;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Establishment", inversedBy="Users")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Establishment", inversedBy="users")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $establishment;
 

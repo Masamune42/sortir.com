@@ -36,7 +36,7 @@ class OutingController extends AbstractController
             $outings = $outingRepository->findOutingForHome($this->getUser(), $data);
 
         }
-
+        dump($outings);
         return $this->render(
             'outing/home.html.twig',
             [

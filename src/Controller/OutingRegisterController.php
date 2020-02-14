@@ -8,10 +8,13 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/outing", name="outing_", requirements={"id": "\d+"})
+ */
 class OutingRegisterController extends AbstractController
 {
     /**
-     * @Route("/outing/register", name="outing_register")
+     * @Route("/register/{id}", name="register", requirements={"id": "\d+"})
      */
     public function register(EntityManagerInterface $entityManager, $id)
     {
@@ -26,13 +29,13 @@ class OutingRegisterController extends AbstractController
         $entityManager->persist($outing);
         $entityManager->flush();
 
-        return $this->render('outing_register/index.html.twig', [
-            'controller_name' => 'OutingRegisterController',
-        ]);
+
+
+        return $this->redirectToRoute('outing_home');
     }
 
     /**
-     * @Route("/outing/remove", name="outing_remove")
+     * @Route("/remove/{id}", name="remove", requirements={"id": "\d+"})
      */
     public function remove(EntityManagerInterface $entityManager, $id)
     {
@@ -42,14 +45,12 @@ class OutingRegisterController extends AbstractController
         $outingRepository = $entityManager->getRepository(Outing::class);
         $outing = $outingRepository->find($id);
 
-        $outing->remove($user);
+        $outing->removeParticipant($user);
 
         $entityManager->persist($outing);
         $entityManager->flush();
 
 
-        return $this->render('outing_register/index.html.twig', [
-            'controller_name' => 'OutingRegisterController',
-        ]);
+        return $this->redirectToRoute('outing_home');
     }
 }

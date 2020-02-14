@@ -134,11 +134,11 @@
                         {% endif %}
 
                         {% if (sdAndActions['unregisterable']) %}
-                            Se désinscrire
+                            <a href="{{ path('outing_remove', {'id' : outing.id}) }}"> Se désinscrire</a>
                         {% endif %}
 
                         {% if (sdAndActions['registerable']) %}
-                            S'inscrire
+                            <a href="{{ path('outing_register', {'id' : outing.id}) }}">S'inscrire</a>
                         {% endif %}
 
                         {% if (sdAndActions['cancelable']) %}
@@ -181,7 +181,6 @@
 
                     </span>
                 </div>
-
             {% endfor %}
         </div>
     </div>
