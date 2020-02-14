@@ -21,6 +21,18 @@
         </button>
     </div>
 {% endfor %}
+
+{% for message in app.flashes('warning') %}
+
+    <div class="alert-warning">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{% endfor %}
+
+
 {% block body %}{% endblock %}
 {% block javascripts %}{% endblock %}
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

@@ -6,12 +6,15 @@ use App\Entity\Establishment;
 use App\Entity\Outing;
 use App\Entity\Status;
 use App\Entity\User;
+use App\Form\CSVType;
 use App\Form\OutingHomeType;
 use App\Form\OutingType;
 use Doctrine\ORM\EntityManagerInterface;
+use League\Csv\Reader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/outing", name="outing_")
@@ -119,6 +122,77 @@ class OutingController extends AbstractController
         $this->addFlash('success', 'Sortie annulée.');
 
         return $this->redirectToRoute('outing_home');
+    }
+
+
+    /**
+     * @Route("/csvadd", name="csvadd")
+     */
+    public function csvadd(Request $request, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $encoder)
+    {
+        $csvForm = $this->createForm(CSVType::class);
+
+        $csvForm->handleRequest($request);
+
+        if ($csvForm->isSubmitted() && $csvForm->isValid()) {
+
+            $file = $csvForm['csv_file']->getData()->openFile();
+
+            $reader = Reader::createFromFileObject($file)
+                ->setHeaderOffset(0);
+
+            $estabishmentRepository = $entityManager->getRepository(Establishment::class);
+
+            $correctData = true;
+            foreach ($reader as $record) {
+
+                if(!isset($record['password'])
+                    || !isset($record['username'])
+                    || !isset($record['firstname'])
+                    || !isset($record['name'])
+                    || !isset($record['phone'])
+                    || !isset($record['mail'])
+                    || !isset($record['administrator'])
+                    || !isset($record['active'])
+                    || !isset($record['establishment'])
+                ){
+                    $correctData = false;
+                    break;
+                }
+
+                $user = new User();
+                $password = $record['password'];
+                $encodedPassword = $encoder->encodePassword($user, $password);
+                $user->setUsername($record['username'])
+                    ->setPassword($encodedPassword)
+                    ->setFirstname($record['firstname'])
+                    ->setName($record['name'])
+                    ->setPhone($record['phone'])
+                    ->setMail($record['mail'])
+                    ->setAdministrator($record['administrator'] == 1)
+                    ->setActive($record['active'] ==1)
+                    ->setEstablishment($estabishmentRepository->findByName($record['establishment'])[0]);
+                $entityManager->persist($user);
+            }
+
+            if ($correctData){
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Utilisateurs intégrés avec succès');
+                return $this->redirectToRoute('outing_home');
+            } else {
+                $this->addFlash('warning', 'données incorrectes, veuillez vérifier votre fichier');
+            }
+
+        }
+
+
+        return $this->render(
+            'outing/csvusersadd.html.twig',
+            [
+                'csvFormView' => $csvForm->createView(),
+            ]
+        );
     }
 }
 
