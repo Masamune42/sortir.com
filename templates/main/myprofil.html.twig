@@ -15,20 +15,16 @@
                 {{ message }}
             </div>
         {% endfor %}
-        {% for message in app.flashes('error') %}
-            <div class="alert alert-error">
-                {{ message }}
-            </div>
-        {% endfor %}
+
 
         <div class="d-flex flex-wrap">
-            <span class="picture col-10 col-sm-10 col-md-5 col-lg-5 col-xl-4">
+            <span class="picture col-10 col-sm-10 col-md-5 col-lg-5 col-xl-3">
                 <span class="card">
                     <h3 class="card-header">Ma photo de profil</h3>
                     <span class="card-body"></span>
                 </span>
             </span>
-            <span class="infos col-10 col-sm-10 col-md-5 col-lg-5 col-xl-4">
+            <span class="infos col-10 col-sm-10 col-md-5 col-lg-5 col-xl-5">
                 <span class="card">
 
                     <h3 class="card-header">Mes infos</h3>
@@ -103,12 +99,22 @@
                 <span class="card-header">
                     <h3>Valider mes modifications</h3>
                 </span>
+
                 <div class="container">
+                    <br>
                     <label for="password">Mot de passe actuel </label>
                     <input type="password" class="form-control"
                            id="password" name="password"
-                           placeholder="Votre mot de passe actuel"/>
+                           placeholder="Votre mot de passe actuel"/><br>
                 </div>
+
+                {% for message in app.flashes('error') %}
+
+                    <div class="alert alert-warning alert-dismissible fade show">
+        {{ message }}
+
+    </div>
+                {% endfor %}
                 {{ form_end(profilFormView) }}
             </span>
                   </span>
