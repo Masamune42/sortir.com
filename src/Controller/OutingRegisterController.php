@@ -18,8 +18,7 @@ class OutingRegisterController extends AbstractController
      */
     public function register(EntityManagerInterface $entityManager, $id)
     {
-        $userRepository = $entityManager->getRepository(User::class);
-        $user = $userRepository->find($this->getUser()->getId());
+        $user = $this->getUser();
 
         $outingRepository = $entityManager->getRepository(Outing::class);
         $outing = $outingRepository->find($id);
@@ -45,8 +44,7 @@ class OutingRegisterController extends AbstractController
      */
     public function remove(EntityManagerInterface $entityManager, $id)
     {
-        $userRepository = $entityManager->getRepository(User::class);
-        $user = $userRepository->find($this->getUser()->getId());
+        $user = $this->getUser();
 
         $outingRepository = $entityManager->getRepository(Outing::class);
         $outing = $outingRepository->find($id);

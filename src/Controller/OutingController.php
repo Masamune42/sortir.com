@@ -155,7 +155,16 @@ class OutingController extends AbstractController
     /**
      * @Route("/details/{id}",name="details", requirements={"id : \d+"})
      */
-    public function details(Outing $outing, EntityManagerInterface $entityManager){
+    public function details($id, Outing $outing, EntityManagerInterface $entityManager){
+        $user = $this->getUser();
+
+        $outingRepository = $entityManager->getRepository(Outing::class);
+        $outing = $outingRepository->find($id);
+
+
+        return $this->render(
+            'outing/details.html.twig', compact($outing)
+        );
 
     }
 }
