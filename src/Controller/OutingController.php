@@ -144,6 +144,11 @@ class OutingController extends AbstractController
         return $this->redirectToRoute('outing_home');
     }
 
+    /**
+     * @Route("/details/{id}",name="details", requirements={"id : \d+"})
+     */
+    public function details(Outing $outing, EntityManagerInterface $entityManager){
 
+    }
 }
 
