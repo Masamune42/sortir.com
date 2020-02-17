@@ -153,6 +153,28 @@ class OutingController extends AbstractController
     }
 
     /**
+     * @Route("/delete/{id}",name="delete")
+     */
+    public function delete(Outing $outing, EntityManagerInterface $entityManager, Request $request)
+    {
+        $user = $this->getUser();
+
+        if ($outing->getStatusDisplayAndActions($user)['deletable']) {
+
+            $entityManager->remove($outing);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Sortie supprimée.');
+
+        } else {
+            $this->addFlash('warning', 'Vous ne pouvez pas vous supprimer cette sortie.');
+        }
+
+
+        return $this->redirectToRoute('outing_home');
+    }
+
+    /**
      * @Route("/details/{id}",name="details", requirements={"id : \d+"})
      */
     public function details($id, Outing $outing, EntityManagerInterface $entityManager){
