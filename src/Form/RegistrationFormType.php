@@ -2,34 +2,45 @@
 
 namespace App\Form;
 
-
 use App\Entity\Establishment;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
-
-class MyUserType extends AbstractType
+class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('imageFile', FileType::class, ['required' => false])
             ->add(
                 'username',
                 TextType::class,
                 [
                     'label' => 'Pseudo',
+                ]
+            )
+            ->add(
+                'agreeTerms',
+                CheckboxType::class,
+                [
+                    'label' => "Conditions d'utilisations",
+                    'mapped' => false,
+                    'constraints' => [
+                        new IsTrue(
+                            [
+                                'message' => 'Veuillez accepter nos termes',
+                            ]
+                        ),
+                    ],
                 ]
             )
             ->add(
@@ -74,51 +85,30 @@ class MyUserType extends AbstractType
 
             )
             ->add(
-                'newpassword',
-                RepeatedType::class,
+                'password',
+                PasswordType::class,
                 [
-                    'type' => PasswordType::class,
-                    'first_options' => [
-                        'label' => 'Nouveau mot de passe',
-                        'attr' => [
-                            'oninput' => 'required()',
-                            'onblur' => 'noRequired()',
-                            'autocomplete' => 'nouveau mot de passe',
-                        ],
-                        'required' => false,
-                    ],
-                    'second_options' => [
-                        'label' => 'Confirmation',
-                        'required' => false,
-                        'attr' => ['autocomplete' => 'off'],
-                    ],
-
-                    'invalid_message' => 'Les mots de passe doivent correspondre',
+                    // instead of being set onto the object directly,
+                    // this is read and encoded in the controller
+                    'label'=> 'Mot de passe',
                     'mapped' => false,
-                    'required' => false,
                     'constraints' => [
-
+                        new NotBlank(
+                            [
+                                'message' => 'Veuillez entrer un mot de passe',
+                            ]
+                        ),
                         new Length(
                             [
                                 'min' => 6,
                                 'minMessage' => 'Le mot de passe ne peux pas avoir moins de  {{ limit }} charactères',
                                 // max length allowed by Symfony for security reasons
-                                'max' => 1060,
+                                'max' => 4096,
                             ]
                         ),
                     ],
                 ]
-
-            )
-            ->add(
-                'enregistrer',
-                SubmitType::class,
-                [
-                    'label' => 'Enregistrer',
-                ]
             );
-
-
     }
 
     public function configureOptions(OptionsResolver $resolver)

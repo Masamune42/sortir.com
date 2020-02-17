@@ -254,12 +254,19 @@ class Outing
 
         if ($this->status->getNameTech() == 'draft') { //Draf outing
             $result['display'] = 'En création';
-            $result['deletable'] = true; //supprimer
-            $result['modifiable'] = true; // modifier
-            $result['publishable'] = true; //publier
 
+            if ($currentUser == $this->organizer) {
+                $result['deletable'] = true; //supprimer
+                $result['modifiable'] = true; // modifier
+                $result['publishable'] = true; //publier
+            }
         } elseif ($this->status->getNameTech() == 'canceled') { //canceled outing
             $result['display'] = 'Annulée';
+
+            if ($currentUser == $this->organizer || in_array($currentUser, $this->participant->toArray())) {
+                $result['showable'] = true; //showable if the user is participant or organizer
+
+            }
 
         } elseif ($this->status->getNameTech() == 'published') {
             $now = new \DateTime('now');
