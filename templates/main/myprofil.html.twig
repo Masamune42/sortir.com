@@ -10,12 +10,6 @@
 
     <br> {{ form_start(profilFormView) }}
     <div class="container col-8 col-sm-8 col-md-8 col-lg-11 col-xl-11">
-        {% for message in app.flashes('success') %}
-            <div class="alert alert-success">
-                {{ message }}
-            </div>
-        {% endfor %}
-
 
         <div class="d-flex flex-wrap">
             <span class="picture col-10 col-sm-10 col-md-10 col-lg-5 col-xl-3">
