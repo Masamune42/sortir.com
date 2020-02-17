@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Twig\Extra\Intl\IntlExtension;
 
 /**
  * @Route("/outing", name="outing_")
@@ -182,7 +183,8 @@ class OutingController extends AbstractController
 
         $outingRepository = $entityManager->getRepository(Outing::class);
         $outing = $outingRepository->find($id);
-dump($outing);
+
+
 
         return $this->render(
             'outing/details.html.twig', compact('outing')

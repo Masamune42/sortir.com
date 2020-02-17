@@ -20,7 +20,7 @@
             <table class="table text-center">
                 <tr>
                     <td class="table-info font-weight-bold rounded">Début de la sortie</td>
-                    <td>{{ outing.startTime|date('j F Y \\à H:i', 'Europe/Paris') }}</td>
+                    <td>{{ outing.startTime|format_datetime('null', 'null', locale='fr') }}</td>
                 </tr>
                 <tr>
                     <td class="table-info font-weight-bold">Durée</td>
