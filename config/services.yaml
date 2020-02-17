@@ -31,4 +31,4 @@ services:
         arguments:
             $fichier: '%pp%'
 
-
+    Twig\Extra\Intl\IntlExtension: ~
