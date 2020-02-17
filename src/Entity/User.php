@@ -94,7 +94,7 @@ class User implements UserInterface
     private $picture;
     /**
      * @Vich\UploadableField(mapping="profil_image", fileNameProperty="picture")
-     * @Assert\File(maxSize="4096k", maxSizeMessage="L'image ne doit pas dépasser la taille de 4Mo")
+     * @Assert\Image(maxSize="4096k", maxSizeMessage="L'image ne doit pas dépasser la taille de 4Mo")
      */
     private $imageFile;
 
@@ -353,14 +353,4 @@ class User implements UserInterface
         return $this;
     }
 
-    public function serialize()
-    {
-        $this->$imageFile = base64_encode($this->$imageFile);
-    }
-
-    public function unserialize($serialized)
-    {
-        $this->$imageFile = base64_decode($this->$imageFile);
-
-    }
 }

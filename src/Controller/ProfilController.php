@@ -33,6 +33,7 @@ class ProfilController extends AbstractController
         Request $request, UploadPP $uploadPP
     )
     {
+//        phpinfo();
         $user = $this->getUser();
 
         $encoder = $encoderFactory->getEncoder($user);

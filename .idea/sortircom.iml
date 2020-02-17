@@ -83,11 +83,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/security-http" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/service-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/stopwatch" />
-<<<<<<< HEAD
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/string" />
-=======
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/translation" />
->>>>>>> 98ca6322cc5d98130f2352c854324e88f454a67a
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/translation-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/twig-bridge" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/twig-bundle" />
