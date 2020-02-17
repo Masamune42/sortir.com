@@ -39,7 +39,8 @@ class ProfilController extends AbstractController
 
 
         $newp=$request->request->get('my_user')['newpassword']['first'];
-
+        
+        // dump($request);
 
 
         // Verification of the password to validate the change.
@@ -60,13 +61,15 @@ class ProfilController extends AbstractController
                 $user->setPassword($encoder->encodePassword($newp, $user->getSalt()));
             }
             $this->addFlash('success', 'Profil modifié !');
-            $picture = $request->files->get('my_user')['picture'];
-            if($picture){
-                $pictureName = $uploadPP->upload($picture);
-                $user->setPicture($pictureName);
-            }
+//            $picture = $request->files->get('my_user')['picture'];
+//            if($picture){
+//                $pictureName = $uploadPP->upload($picture);
+//                $user->setPicture($pictureName);
+//            }
             $entityManager->persist($user);
             $entityManager->flush();
+
+            $user->setImageFile(null);
 
 
             $this->redirectToRoute('profil_myprofil');
@@ -81,7 +84,7 @@ class ProfilController extends AbstractController
 
         return $this->render(
             'main/myprofil.html.twig',
-            compact('profilFormView', $user)
+            compact('profilFormView', $user, 'user')
         );
     }
 

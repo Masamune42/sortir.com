@@ -24,3 +24,9 @@ a.navbar-brand img {
     height: 38px;
     width: 38px;
 }
+
+imgProfil{
+    width: 150px;
+    height: 120px;
+    object-fit: cover;
+}
