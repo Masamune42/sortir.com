@@ -29,59 +29,60 @@ class MyUserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add(
-                'picture',
-                FileType::class,
-                [
-                    'label'=> 'Photo de profil',
-                    'mapped'=> false,
-                    'required'=> false,
-                    'constraints'=>[
-                        New File([
-                            'maxSize'=> '2048k',
-                            'mimeTypes'=> [
-                                'image/jpeg',
-                                'image/png',
-                                'image/gif'
-                            ],
-                            'mimeTypesMessage' => 'Veuillez choisir une image ou une gif !'
-                        ])
-                    ],
-                ]
-            )
+//            ->add(
+//                'picture',
+//                FileType::class,
+//                [
+//                    'label'=> 'Photo de profil',
+//                    'mapped'=> false,
+//                    'required'=> false,
+//                    'constraints'=>[
+//                        New File([
+//                            'maxSize'=> '2048k',
+//                            'mimeTypes'=> [
+//                                'image/jpeg',
+//                                'image/png',
+//                                'image/gif'
+//                            ],
+//                            'mimeTypesMessage' => 'Veuillez choisir une image ou une gif !'
+//                        ])
+//                    ],
+//                ]
+//            )
+            ->add('imageFile', FileType::class, ['required' => false])
             ->add(
                 'username',
                 TextType::class,
                 [
-                    'label' => 'Pseudo'
+                    'label' => 'Pseudo',
                 ]
             )
             ->add(
                 'name',
                 TextType::class,
                 [
-                    'label' => 'Nom'
+                    'label' => 'Nom',
                 ]
             )
             ->add(
                 'firstname',
                 TextType::class,
                 [
-                    'label' => 'Prénom'
+                    'label' => 'Prénom',
                 ]
             )
             ->add(
                 'phone',
                 TextType::class,
                 [
-                    'label' => 'Téléphone'
+                    'label' => 'Téléphone',
                 ]
             )
             ->add(
                 'mail',
                 EmailType::class,
                 [
-                    'label' => 'Email'
+                    'label' => 'Email',
                 ]
             )
             ->add(
@@ -92,7 +93,7 @@ class MyUserType extends AbstractType
                     'placeholder' => 'Choisir une ville',
                     'class' => Establishment::class,
                     'choice_label' => 'name',
-                    'required' => false
+                    'required' => false,
                 ]
 
 
@@ -102,8 +103,16 @@ class MyUserType extends AbstractType
                 RepeatedType::class,
                 [
                     'type' => PasswordType::class,
-                    'first_options' => ['label' => 'Nouveau mot de passe', 'attr' => ['oninput' => 'required()', 'onblur' => 'noRequired()', 'autocomplete' => 'off'], 'required' => false],
-                    'second_options' => ['label' => 'Confirmation', 'required' => false,'attr' => ['autocomplete' => 'off']],
+                    'first_options' => [
+                        'label' => 'Nouveau mot de passe',
+                        'attr' => ['oninput' => 'required()', 'onblur' => 'noRequired()', 'autocomplete' => 'off'],
+                        'required' => false,
+                    ],
+                    'second_options' => [
+                        'label' => 'Confirmation',
+                        'required' => false,
+                        'attr' => ['autocomplete' => 'off'],
+                    ],
                     'invalid_message' => 'Les mots de passe doivent correspondre',
                     'mapped' => false,
                     'required' => false,
@@ -140,17 +149,19 @@ class MyUserType extends AbstractType
                 'enregistrer',
                 SubmitType::class,
                 [
-                    'label' => 'Enregistrer'
-                ])
-        ;
+                    'label' => 'Enregistrer',
+                ]
+            );
 
 
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
-            'data_class' => User::class,
-        ]);
+        $resolver->setDefaults(
+            [
+                'data_class' => User::class,
+            ]
+        );
     }
 }
