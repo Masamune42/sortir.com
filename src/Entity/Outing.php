@@ -261,6 +261,11 @@ class Outing
         } elseif ($this->status->getNameTech() == 'canceled') { //canceled outing
             $result['display'] = 'Annulée';
 
+            if ($currentUser == $this->organizer || in_array($currentUser, $this->participant->toArray())) {
+                $result['showable'] = true; //showable if the user is participant or organizer
+
+            }
+
         } elseif ($this->status->getNameTech() == 'published') {
             $now = new \DateTime('now');
             $endTime = clone($this->startTime);

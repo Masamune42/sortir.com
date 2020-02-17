@@ -122,28 +122,50 @@ class OutingController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}",name="delete")
+     * @Route("/cancel/{id}",name="cancel")
      */
     public function annuler(Outing $outing, EntityManagerInterface $entityManager, Request $request)
     {
-        $statutRepository = $entityManager->getRepository(Status::class);
-        $statutCanceled = $statutRepository->findOneBy(['nameTech' => 'canceled']);
+        $user = $this->getUser();
 
-        $motif = $request->request->get('motif');
-        $outing->setStatus($statutCanceled);
+        if ($outing->getStatusDisplayAndActions($user)['cancelable']) {
+            $statutRepository = $entityManager->getRepository(Status::class);
+            $statutCanceled = $statutRepository->findOneBy(['nameTech' => 'canceled']);
 
-        $currentInfos = $outing->getInfoOuting();
-        $newInfos = "Sortie annulée pour la raison suivante : \n".$motif."\nAncienne description :\n".$currentInfos;
-        $outing->setInfoOuting($newInfos);
+            $motif = $request->request->get('motif');
+            $outing->setStatus($statutCanceled);
 
-        $entityManager->persist($outing);
-        $entityManager->flush();
+            $currentInfos = $outing->getInfoOuting();
+            $newInfos = "Sortie annulée pour la raison suivante : \n".$motif."\nAncienne description :\n".$currentInfos;
+            $outing->setInfoOuting($newInfos);
 
-        $this->addFlash('success', 'Sortie annulée.');
+            $entityManager->persist($outing);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Sortie annulée.');
+
+        } else {
+            $this->addFlash('warning', 'Vous ne pouvez pas vous annuler cette sortie.');
+        }
+
 
         return $this->redirectToRoute('outing_home');
     }
 
+    /**
+     * @Route("/details/{id}",name="details", requirements={"id : \d+"})
+     */
+    public function details($id, Outing $outing, EntityManagerInterface $entityManager){
+        $user = $this->getUser();
 
+        $outingRepository = $entityManager->getRepository(Outing::class);
+        $outing = $outingRepository->find($id);
+
+
+        return $this->render(
+            'outing/details.html.twig', compact($outing)
+        );
+
+    }
 }
 
