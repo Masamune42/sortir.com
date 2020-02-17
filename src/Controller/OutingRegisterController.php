@@ -24,11 +24,17 @@ class OutingRegisterController extends AbstractController
         $outingRepository = $entityManager->getRepository(Outing::class);
         $outing = $outingRepository->find($id);
 
-        $outing->addParticipant($user);
+        if ($outing->getStatusDisplayAndActions($user)['registerable']) {
+            $outing->addParticipant($user);
 
-        $entityManager->persist($outing);
-        $entityManager->flush();
+            $entityManager->persist($outing);
+            $entityManager->flush();
 
+            $this->addFlash('success', 'Vous avez bien été inscrit à cette sortie.');
+
+        } else {
+            $this->addFlash('warning', 'Vous ne pouvez pas vous inscrire à cette sortie.');
+        }
 
 
         return $this->redirectToRoute('outing_home');
@@ -45,11 +51,16 @@ class OutingRegisterController extends AbstractController
         $outingRepository = $entityManager->getRepository(Outing::class);
         $outing = $outingRepository->find($id);
 
-        $outing->removeParticipant($user);
+        if ($outing->getStatusDisplayAndActions($user)['unregisterable']) {
+            $outing->removeParticipant($user);
 
-        $entityManager->persist($outing);
-        $entityManager->flush();
+            $entityManager->persist($outing);
+            $entityManager->flush();
+            $this->addFlash('success', 'Vous avez bien été désinscrit à cette sortie.');
 
+        } else {
+            $this->addFlash('warning', 'Vous ne pouvez pas vous désinscrire à cette sortie.');
+        }
 
         return $this->redirectToRoute('outing_home');
     }
