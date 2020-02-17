@@ -126,7 +126,9 @@
                         {% endif %}
 
                         {% if (sdAndActions['deletable']) %}
-                            Supprimer
+                            <a href="{{ path('outing_delete', {'id': outing.id}) }}">
+                                Supprimer
+                            </a>
                         {% endif %}
 
                         {% if (sdAndActions['modifiable']) %}
