@@ -14,8 +14,14 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path("outing_create") }}">Créer une sortie </a>
                 </li>
+
+            {% endif %}
+            {% if is_granted('ROLE_ADMIN') %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path("profil_csvadd") }}">importer utilisatateurs en CSV</a>
+                    <a class="nav-link" href="{{ path("admin_csvadd") }}">importer utilisatateurs en CSV</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path("admin_app_register") }}">Création compte utilisateur</a>
                 </li>
             {% endif %}
             {% if not is_granted('ROLE_USER') %}
@@ -34,7 +40,8 @@
         </ul>
         {% if is_granted('ROLE_USER') %}
             <div class="nav-item dropdown d-none d-sm-none d-md-none d-lg-block d-xl-block">
-                <a style="color: #3E3F3A" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                <a style="color: #3E3F3A" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                   data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
                     <img id="avatar"
                          src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png">
