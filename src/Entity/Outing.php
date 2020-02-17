@@ -254,10 +254,12 @@ class Outing
 
         if ($this->status->getNameTech() == 'draft') { //Draf outing
             $result['display'] = 'En création';
-            $result['deletable'] = true; //supprimer
-            $result['modifiable'] = true; // modifier
-            $result['publishable'] = true; //publier
 
+            if ($currentUser == $this->organizer) {
+                $result['deletable'] = true; //supprimer
+                $result['modifiable'] = true; // modifier
+                $result['publishable'] = true; //publier
+            }
         } elseif ($this->status->getNameTech() == 'canceled') { //canceled outing
             $result['display'] = 'Annulée';
 
