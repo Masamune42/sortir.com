@@ -56,10 +56,10 @@ class OutingRegisterController extends AbstractController
 
             $entityManager->persist($outing);
             $entityManager->flush();
-            $this->addFlash('success', 'Vous avez bien été désinscrit à cette sortie.');
+            $this->addFlash('success', 'Vous avez bien été désinscrit de cette sortie.');
 
         } else {
-            $this->addFlash('warning', 'Vous ne pouvez pas vous désinscrire à cette sortie.');
+            $this->addFlash('warning', 'Vous ne pouvez pas vous désinscrire de cette sortie.');
         }
 
         return $this->redirectToRoute('outing_home');
