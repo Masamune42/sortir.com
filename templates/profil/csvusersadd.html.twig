@@ -35,6 +35,18 @@
 
     {{ form_end(csvFormView) }}
 
+    <br>
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            Le fichier csv doit être sous le format suivant :
+            <div class="border border-dark rounded">
+                establishment,username,name,firstname,phone,mail,password,administrator,active <br>
+                Campus de Niort,Boby,Kennedy,Robert,0102030405,boby@mail.fr,Boby,0,1<br>
+                Campus de Faraday,Jeannette,Calment,Jeanne,0199999999,jeanette@mail.com,Jeannette,0,1
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
 
 
