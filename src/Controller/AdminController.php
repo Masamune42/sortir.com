@@ -39,6 +39,7 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->addFlash('success', 'Compte Utilisateur créé');
             // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(

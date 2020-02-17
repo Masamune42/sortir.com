@@ -5,7 +5,46 @@
 {% block stylesheets %}
     {#    <link rel="stylesheet" href="{{ asset('css/createouting.css') }}">#}
 {% endblock %}
-{% block myTitle %}Création d'une sortie{% endblock %}
+{% block myTitle %}Détails de la sortie{% endblock %}
+
+<div class="row justify-content-center">
+    <div class="card border-primary mb-3 mx-auto" style="max-width:150rem">
+        <div class="card-header text-center">
+            <h2>{{ outing.name }}</h2>
+        </div>
+        <div class="card-body">
+            <h3 class="card-title text-center pb-2 mx-3 border-bottom border-primary bg-info rounded font-weight-bold">
+                {{ outing.username }}
+            </h3>
+            <p class="card-text">
+            <h4 class="text-center bg-secondary rounded">Informations</h4>
+            <table class="table text-center">
+                <tr>
+                    <td class="table-info font-weight-bold rounded">Début de la sortie</td>
+                    <td>{{ outing.startTime }}</td>
+                </tr>
+                <tr>
+                    <td class="table-info font-weight-bold">Durée</td>
+                    <td>{{ outing.name }}</td>
+                </tr>
+                <tr>
+                    <td class="table-info font-weight-bold">Téléphone</td>
+                    <td>{{ outing.phone }}</td>
+                </tr>
+                <tr>
+                    <td class="table-info font-weight-bold">Email</td>
+                    <td>{{ outing.mail }}</td>
+                </tr>
+                <tr>
+                    <td class="table-info font-weight-bold rounded">Ville de rattachement</td>
+                    <td>{{ user.establishment.name }}</td>
+                </tr>
+            </table>
+            </p>
+        </div>
+    </div>
+
+</div>
 
 {% block body %}
 

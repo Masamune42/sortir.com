@@ -24,28 +24,7 @@ class MyUserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add(
-                'picture',
-                FileType::class,
-                [
-                    'label' => 'Photo de profil',
-                    'mapped' => false,
-                    'required' => false,
-                    'constraints' => [
-                        New File(
-                            [
-                                'maxSize' => '2048k',
-                                'mimeTypes' => [
-                                    'image/jpeg',
-                                    'image/png',
-                                    'image/gif',
-                                ],
-                                'mimeTypesMessage' => 'Veuillez choisir une image ou une gif !',
-                            ]
-                        ),
-                    ],
-                ]
-            )
+            ->add('imageFile', FileType::class, ['required' => false])
             ->add(
                 'username',
                 TextType::class,
@@ -99,9 +78,21 @@ class MyUserType extends AbstractType
                 RepeatedType::class,
                 [
                     'type' => PasswordType::class,
+                    'first_options' => [
+                        'label' => 'Nouveau mot de passe',
+                        'attr' => [
+                            'oninput' => 'required()',
+                            'onblur' => 'noRequired()',
+                            'autocomplete' => 'nouveau mot de passe',
+                        ],
+                        'required' => false,
+                    ],
+                    'second_options' => [
+                        'label' => 'Confirmation',
+                        'required' => false,
+                        'attr' => ['autocomplete' => 'off'],
+                    ],
 
-                    'first_options' => ['label' => 'Nouveau mot de passe', 'attr' => ['oninput' => 'required()', 'onblur' => 'noRequired()', 'autocomplete' => 'nouveau mot de passe'], 'required' => false],
-                    'second_options' => ['label' => 'Confirmation', 'required' => false,'attr' => ['autocomplete' => 'off']],
                     'invalid_message' => 'Les mots de passe doivent correspondre',
                     'mapped' => false,
                     'required' => false,
