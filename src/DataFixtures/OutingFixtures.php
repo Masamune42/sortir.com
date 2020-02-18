@@ -145,6 +145,20 @@ class OutingFixtures extends Fixture
             ->setEstablishment($establishment4);
         $manager->persist($user5);
 
+        $user6 = new User();
+        $password6 = 'utilisateur_supprimé';
+        $encodedPassword6 = $this->encoder->encodePassword($user6, $password6);
+        $user6->setUsername("utilisateur_supprimé")
+            ->setPassword($encodedPassword6)
+            ->setFirstname("NA")
+            ->setName("NA")
+            ->setPhone("0000000000")
+            ->setMail("NA@NA.NA")
+            ->setAdministrator(false)
+            ->setActive(false)
+            ->setEstablishment($establishment4);
+        $manager->persist($user6);
+
 
         // 47.2258726,-1.6265994
         $place1 = new Place();

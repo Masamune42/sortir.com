@@ -137,18 +137,58 @@ class AdminController extends AbstractController
     /**
      * @Route("/deactivate/{id}",name="deactivate", requirements={"id : \d+"})
      */
-    public function delete(User $userToDeactivate, EntityManagerInterface $entityManager)
+    public function deactivate(User $userToDeactivate, EntityManagerInterface $entityManager)
     {
         //deactivate the user
         $userToDeactivate->setActive(false);
         $entityManager->persist($userToDeactivate);
+        $entityManager->flush();
 
+        //unregister to all not started outings that the user is registered to
+        $this->unregister($userToDeactivate, $entityManager);
+
+
+        $this->addFlash('success', 'Utilisateurs '.$userToDeactivate->getUsername().' désactivé.');
+
+        return $this->redirectToRoute('outing_home');
+
+    }
+
+    /**
+     * @Route("/delete/{id}",name="delete", requirements={"id : \d+"})
+     */
+    public function delete(User $userToDelete, EntityManagerInterface $entityManager)
+    {
+
+        //unregister to all not started outings that the user is registered to
+        $this->unregister($userToDelete, $entityManager);
+
+        //change the organizer to all outings organized bu this user
+        $outingsToReorganize = $entityManager->getRepository(Outing::class)->findBy(['organizer' => $userToDelete]);
+        $ghostOrganizer =  $entityManager->getRepository(User::class)->findBy(['username' => 'utilisateur_supprimé'])[0];
+
+        foreach ($outingsToReorganize as $outing){
+            $outing->setOrganizer($ghostOrganizer);
+            $entityManager->persist($outing);
+        }
+
+        //delete user
+        $entityManager->remove($userToDelete);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Utilisateurs '.$userToDelete->getUsername().' désactivé.');
+
+        return $this->redirectToRoute('outing_home');
+
+    }
+
+    private function unregister($user, EntityManagerInterface $entityManager){
         //unregister to all not started outings that the user is registered to
         $outingsToUnregister = [];
         $outingRepository = $entityManager->getRepository(Outing::class);
         foreach ($entityManager->getRepository(Establishment::class)->findAll() as $establishment) {
             $outingsToUnregister = array_merge($outingsToUnregister, $outingRepository->findOutingForHome(
-                $userToDeactivate,
+                $user,
                 [
                     'establishment'=>$establishment,
                     'nameContent'=>null,
@@ -161,16 +201,11 @@ class AdminController extends AbstractController
                 ]));
         }
         foreach ($outingsToUnregister as $outingToUnregister){
-            $outingToUnregister->removeParticipant($userToDeactivate);
+            $outingToUnregister->removeParticipant($user);
             $entityManager->persist($outingToUnregister);
         }
 
         $entityManager->flush();
-
-        $this->addFlash('success', 'Utilisateurs '.$userToDeactivate->getUsername().' désactivé.');
-
-        return $this->redirectToRoute('outing_home');
-
     }
 
 }
