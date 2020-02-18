@@ -2,21 +2,84 @@
 
 {% block title %}{{ outing.name }}{% endblock %}
 {% block stylesheets %}
-    {#    <link rel="stylesheet" href="{{ asset('css/createouting.css') }}">#}
+        <link rel="stylesheet" href="{{ asset('css/details.css') }}">
 {% endblock %}
 {% block myTitle %}Détails de la sortie{% endblock %}
 {% block body %}
-    <div class="row justify-content-center">
-        <div class="card border-primary mb-3 mx-auto" style="max-width:50rem">
+    <div class="d-flex justify-content-center">
+        <div class="card border-primary mb-3 mx-auto align-self-start col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
             <div class="card-header text-center">
                 <h2>{{ outing.name }}</h2>
             </div>
             <div class="card-body">
                 <h3 class="card-title text-center pb-2 mx-3 border-bottom border-primary bg-info rounded font-weight-bold">
-                    {{ outing.name }}
+                    Informations
                 </h3>
                 <p class="card-text">
-                <h4 class="text-center bg-secondary rounded">Informations</h4>
+                <div class="d-flex justify-content-center">
+                <table class="table text-center col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+
+
+                        <tr>
+                            <td class="table-info font-weight-bold rounded">Lieux de sortie</td>
+                            <td>{{ outing.place.name }} à {{ outing.place.city.name }}</td>
+                        </tr>
+                        <tr>
+                            <td class="table-info font-weight-bold">Status</td>
+                            <td>{{ outing.status.name }}</td>
+                        </tr>
+                        <tr>
+                            <td class="table-info font-weight-bold">Organisateur</td>
+                            <td><a href="{{ path('profil_byid', {'id':  outing.organizer.id}) }}" >{{ outing.organizer.username }}</a> </td>
+                        </tr>
+                    <tr>
+                            <td class="table-info font-weight-bold">Etablissement de l'organisateur</td>
+                            <td>{{ outing.establishment.name }}</td>
+                        </tr>
+                </table>
+                    <table class="table text-center col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                        <tr>
+                            <td class="table-info font-weight-bold rounded">Début de la sortie</td>
+                            <td>{{ outing.startTime|format_datetime('short', 'short', locale='fr') }}</td>
+                        </tr>
+                        <tr>
+                            <td class="table-info font-weight-bold">Durée</td>
+                            <td>{% if outing.duration < 60 %}
+                                    {{ outing.duration }} minutes
+                                {% elseif outing.duration < 120 %}
+                                    {{ (outing.duration/60)|round(0, 'floor') }} heure et {{ outing.duration%60 }} minutes
+                                {% else %}
+                                    {{ (outing.duration/60)|round(0, 'floor') }} heures et {{ outing.duration%60 }} minutes {% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td class="table-info font-weight-bold">Date limite d'inscription</td>
+                            <td>{{ outing.limitDateTime|format_datetime('short', 'short', locale='fr') }}</td>
+                        </tr>
+                        <tr>
+                            <td class="table-info font-weight-bold">Nombre max. de participant</td>
+                            <td>{{ outing.registerMax }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <table class="table text-center">
+                    <tr>
+                        <td class="table-info font-weight-bold rounded">Infos supplémentaire</td>
+                        <td>{{ outing.infoOuting }}</td>
+
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="card border-primary mb-3 mx-auto col-10 col-sm-10 col-md-10 col-lg-2 col-xl-2">
+            <div class="card-header text-center">
+                <h2>{{ outing.name }}</h2>
+            </div>
+            <div class="card-body">
+                <h3 class="card-title text-center pb-2 mx-3 border-bottom border-primary bg-info rounded font-weight-bold">
+                    Informations
+                </h3>
+                <p class="card-text">
                 <table class="table text-center">
                     <tr>
                         <td class="table-info font-weight-bold rounded">Début de la sortie</td>
@@ -28,8 +91,8 @@
                                 {{ outing.duration }} minutes
                             {% elseif outing.duration < 120 %}
                                 {{ (outing.duration/60)|round(0, 'floor') }} heure et {{ outing.duration%60 }} minutes
-                                {% else %}
-                                    {{ (outing.duration/60)|round(0, 'floor') }} heures et {{ outing.duration%60 }} minutes {% endif %}</td>
+                            {% else %}
+                                {{ (outing.duration/60)|round(0, 'floor') }} heures et {{ outing.duration%60 }} minutes {% endif %}</td>
                     </tr>
                     <tr>
                         <td class="table-info font-weight-bold">Date limite d'inscription</td>
@@ -39,12 +102,14 @@
                         <td class="table-info font-weight-bold">Nombre max. de participant</td>
                         <td>{{ outing.registerMax }}</td>
                     </tr>
+
+
                     <tr>
                         <td class="table-info font-weight-bold rounded">Infos supplémentaire</td>
                         <td>{{ outing.infoOuting }}</td>
                     </tr>
                 </table>
-                </p>
+
             </div>
         </div>
 
