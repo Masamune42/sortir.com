@@ -90,6 +90,14 @@ class User implements UserInterface
      */
     private $picture;
 
+    /**
+     * @var string token for when the user forgot his password
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected  $resetToken;
+
+
+
 
     public function __construct()
     {
@@ -312,6 +320,22 @@ class User implements UserInterface
         $this->picture = $picture;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getResetToken(): string
+    {
+        return $this->resetToken;
+    }
+
+    /**
+     * @param string $resetToken
+     */
+    public function setResetToken(?string $resetToken): void
+    {
+        $this->resetToken = $resetToken;
     }
 
 }

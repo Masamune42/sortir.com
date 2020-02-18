@@ -40,6 +40,10 @@
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
             <button type="submit" class="btn btn-info">Valider</button>
+
+            <div>
+                <a href="{{ path('security_forgotten_password') }}">Mot de passe oublié</a>
+            </div>
         </form>
     </div>
 

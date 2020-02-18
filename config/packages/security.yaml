@@ -49,6 +49,7 @@ security:
   # Note: Only the *first* access control that matches will be used
   access_control:
     - { path: ^/admin, roles: ROLE_ADMIN }
+    - { path: ^/security, roles: IS_AUTHENTICATED_ANONYMOUSLY}
     - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
     - { path: ^/deactivated, roles: ROLE_DEACTIVATED}
     - { path: ^/redictionafterlogin, roles: [ROLE_DEACTIVATED, ROLE_USER]}

@@ -11,6 +11,8 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  * @method User|null findOneBy(array $criteria, array $orderBy = null)
  * @method User[]    findAll()
  * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method User|null findOneByMail($mail)
+ * @method User|null findOneByToken($token)
  */
 class UserRepository extends ServiceEntityRepository
 {
@@ -19,7 +21,7 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-    // /**
+    // /*
     //  * @return User[] Returns an array of User objects
     //  */
     /*

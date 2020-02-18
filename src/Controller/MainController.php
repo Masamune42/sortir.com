@@ -5,9 +5,12 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+
 
 class MainController extends AbstractController
 {
@@ -52,11 +55,12 @@ class MainController extends AbstractController
     {
         $user = $this->getUser();
 
-        if ($user->getActive()){
+        if ($user->getActive()) {
             return $this->redirectToRoute('outing_home');
         } else {
             return $this->redirectToRoute('deactivated');
         }
     }
+
 
 }
