@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Group;
+use App\Entity\User;
+use App\Form\GroupMemberType;
 use App\Form\GroupType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -63,14 +65,37 @@ class GroupController extends AbstractController
     /**
      * @Route("/detail/{id}", name="detail", requirements={"id : \d+"})
      */
-    public function detail(Group $group)
+    public function detail(Group $group, Request $request, EntityManagerInterface $entityManager)
     {
+        $addMemberForm = $this->createForm(GroupMemberType::class);
+        $addMemberForm->handleRequest($request);
 
+        if ($addMemberForm->isSubmitted() && $addMemberForm->isValid()){
+
+            $userRepository = $entityManager->getRepository(User::class);
+            $newMemberUsernameOrMail = $addMemberForm->getData()['usernameOrMail'];
+            $newMember = $userRepository->findByUsernameOrMail($newMemberUsernameOrMail, $newMemberUsernameOrMail);
+
+            if (count($newMember) > 0){
+                $newMember = $newMember[0];
+                if (!in_array($newMember, $group->getParticipants()->toArray())){
+                    $group->addParticipant($newMember);
+                    $entityManager->persist($group);
+                    $entityManager->flush();
+                    $this->addFlash('success', $newMember->getUserName().' ajouté(e) au groupe '.$group->getName());
+                } else {
+                    $this->addFlash('warning', $newMember->getUserName().' fait déjà partie du groupe');
+                }
+            } else {
+                $this->addFlash('warning', 'Utilisateur introuvable.');
+            }
+        }
 
         return $this->render(
             'group/detail.html.twig',
             [
                 'group' => $group,
+                'addMemberFormView'=>$addMemberForm->createView(),
             ]
         );
     }
