@@ -20,8 +20,8 @@
                         {% if user.picture is not null %}
                             <img src="{{ asset('images/profil/' ~ user.picture) }}" class="imgProfil card-img-top" >
                         {% endif %}
+                        {{ form_row(profilFormView.picture) }}
 
-                        {{ form_row(profilFormView.imageFile) }}
                     </span>
                 </span>
             </span>

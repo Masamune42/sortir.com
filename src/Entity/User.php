@@ -8,13 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @Vich\Uploadable
  * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
  */
 class User implements UserInterface
@@ -92,32 +88,6 @@ class User implements UserInterface
      * @ORM\Column(type="string", nullable=true)
      */
     private $picture;
-    /**
-     * @Vich\UploadableField(mapping="profil_image", fileNameProperty="picture")
-     * @Assert\File(maxSize="4096k", maxSizeMessage="L'image ne doit pas dépasser la taille de 4Mo")
-     */
-    private $imageFile;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $updated_at;
-
-    public function setImageFile(?File $imageFile = null): self
-    {
-        $this->imageFile = $imageFile;
-        if ($this->imageFile instanceof UploadedFile) {
-            $this->updated_at = new \DateTime('now');
-        }
-
-        return $this;
-    }
-
-
-    public function getImageFile(): ?File
-    {
-        return $this->imageFile;
-    }
 
 
     public function __construct()
@@ -343,26 +313,4 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updated_at;
-    }
-
-    public function setUpdatedAt(?\DateTimeInterface $updated_at): self
-    {
-        $this->updated_at = $updated_at;
-
-        return $this;
-    }
-
-    public function serialize()
-    {
-        $this->$imageFile = base64_encode($this->$imageFile);
-    }
-
-    public function unserialize($serialized)
-    {
-        $this->$imageFile = base64_decode($this->$imageFile);
-
-    }
 }
