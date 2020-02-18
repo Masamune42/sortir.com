@@ -167,6 +167,10 @@ class AdminController extends AbstractController
 
         $entityManager->flush();
 
+        $this->addFlash('success', 'Utilisateurs '.$userToDeactivate->getUsername().' désactivé.');
+
+        return $this->redirectToRoute('outing_home');
+
     }
 
 }
