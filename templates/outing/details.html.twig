@@ -26,7 +26,7 @@
                         <td>{{ outing.startTime|format_datetime('short', 'short', locale='fr') }}</td>
                     </tr>
                     <tr>
-                        <td class="table-info font-weight-bold">Status</td>
+                        <td class="table-info font-weight-bold">Statut</td>
                         <td>{{ outing.status.name }}</td>
                         <td class="table-info font-weight-bold">Durée</td>
                         <td>{% if outing.duration < 60 %}
