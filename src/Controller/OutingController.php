@@ -40,6 +40,7 @@ class OutingController extends AbstractController
             $outings = $outingRepository->findOutingForHome($this->getUser(), $data);
 
         }
+
         return $this->render(
             'outing/home.html.twig',
             [
@@ -51,30 +52,32 @@ class OutingController extends AbstractController
 
     /**
      * @Route("/create", name="create")
+     * @Route("/modify/{id}", name="modify", requirements={"id : \d+"})
      */
-    public function create(Request $request, EntityManagerInterface $entityManager)
+    public function create(Outing $outing = null, Request $request, EntityManagerInterface $entityManager)
     {
-        $outing = new Outing();
-        $outing->setOrganizer($this->getUser());
+
+        if (!$outing) {
+            $outing = new Outing();
+            $outing->setOrganizer($this->getUser());
+
+            $establishementUser = $this->getUser()->getEstablishment();
+            $outing->setEstablishment($establishementUser);
+        }
 
         $statutRepository = $entityManager->getRepository(Status::class);
 
-
-        $establishementUser = $this->getUser()->getEstablishment();
-        $outing->setEstablishment($establishementUser);
-
-
         $outingForm = $this->createForm(OutingType::class, $outing);
 
-        if ($request->request->has('date_start_firefox')){
+        if ($request->request->has('date_start_firefox')) {
 
-            $date_start= $request->request->get('date_start_firefox');
-            $time_start= $request->request->get('time_start_firefox');
-            $date_limit= $request->request->get('date_limit_firefox');
-            $time_limit= $request->request->get('time_limit_firefox');
+            $date_start = $request->request->get('date_start_firefox');
+            $time_start = $request->request->get('time_start_firefox');
+            $date_limit = $request->request->get('date_limit_firefox');
+            $time_limit = $request->request->get('time_limit_firefox');
 
-            $date_time_start=$date_start.'T'.$time_start;
-            $date_time_limit=$date_limit.'T'.$time_limit;
+            $date_time_start = $date_start.'T'.$time_start;
+            $date_time_limit = $date_limit.'T'.$time_limit;
 
             $outing_temp = $request->request->get('outing');
             $outing_temp['startTime'] = $date_time_start;
@@ -98,7 +101,7 @@ class OutingController extends AbstractController
 
                 $this->addFlash('success', 'Sortie sauvegardée.');
 
-                return $this->redirectToRoute('home');
+                return $this->redirectToRoute('outing_home');
             } else {
                 if ($outingForm->getClickedButton() && 'createOuting' === $outingForm->getClickedButton()->getName()) {
                     $statutCreated = $statutRepository->findOneBy(['nameTech' => 'published']);
@@ -109,7 +112,7 @@ class OutingController extends AbstractController
 
                     $this->addFlash('success', 'Sortie publiée.');
 
-                    return $this->redirectToRoute('home');
+                    return $this->redirectToRoute('outing_home');
                 }
             }
 
@@ -117,7 +120,9 @@ class OutingController extends AbstractController
 
         return $this->render(
             'outing/create.html.twig',
-            ['outingFormView' => $outingForm->createView()]
+            ['outingFormView' => $outingForm->createView(),
+                'outing' => $outing,
+                'modif' => $outing->getId() !== null]
         );
 
     }
@@ -203,16 +208,19 @@ class OutingController extends AbstractController
     /**
      * @Route("/{id}",name="detail", requirements={"id : \d+"})
      */
-    public function details($id, Outing $outing, EntityManagerInterface $entityManager){
+    public function details($id, Outing $outing, EntityManagerInterface $entityManager)
+    {
         $user = $this->getUser();
+
+        $statutRepository = $entityManager->getRepository(Status::class);
 
         $outingRepository = $entityManager->getRepository(Outing::class);
         $outing = $outingRepository->find($id);
 
 
-
         return $this->render(
-            'outing/details.html.twig', compact('outing')
+            'outing/details.html.twig',
+            compact('outing')
         );
 
     }
