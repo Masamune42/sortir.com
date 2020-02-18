@@ -111,11 +111,7 @@ class AdminController extends AbstractController
                     $corruptedLine = true;
 
                 } elseif (count(//check if there is already a user with the same user name or the same email
-                        $userRepository->findBy(
-                            [
-                                'username' => $record['username'],
-                                'mail' => $record['mail'],
-                            ]
+                        $userRepository->findByUsernameOrMail($record['username'],$record['mail']
                         )
                     ) != 0) {
                     $doubleUser = true;
