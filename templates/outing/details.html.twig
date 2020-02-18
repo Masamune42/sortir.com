@@ -7,7 +7,7 @@
 {% block myTitle %}Détails de la sortie{% endblock %}
 {% block body %}
     <div class="d-flex flex-wrap">
-        <div class="card border-primary mb-3 align-self-start col-10 col-sm-10 col-md-10 col-lg-6 col-xl-6" id="outing">
+        <div class="card border-primary mb-3 align-self-center col-10 col-sm-10 col-md-10 col-lg-6 col-xl-6" id="outing">
             <div class="card-header text-center">
                 <h2>{{ outing.name }}</h2>
             </div>
@@ -68,40 +68,44 @@
                 </h4>
                 <p class="card-text">
                 <table class="table text-center">
+                    {% for user in outing.participant %}
                     <tr>
-                        <td class="table-info font-weight-bold rounded">Début de la sortie</td>
-                        <td>{{ outing.startTime|format_datetime('short', 'short', locale='fr') }}</td>
+                        <td class="table-info font-weight-bold rounded"><a href="{{ path('profil_byid', {'id':  user.id}) }}"><img src="{{ asset('images/profil/' ~ user.picture) }}" class="imgProfil card-img-top rounded-circle"> {{ user.username }}</a></td>
                     </tr>
-                    <tr>
-                        <td class="table-info font-weight-bold">Durée</td>
-                        <td>{% if outing.duration < 60 %}
-                                {{ outing.duration }} minutes
-                            {% elseif outing.duration < 120 %}
-                                {{ (outing.duration/60)|round(0, 'floor') }} heure et {{ outing.duration%60 }} minutes
-                            {% else %}
-                                {{ (outing.duration/60)|round(0, 'floor') }} heures et {{ outing.duration%60 }} minutes {% endif %}</td>
-                    </tr>
-                    <tr>
-                        <td class="table-info font-weight-bold">Date limite d'inscription</td>
-                        <td>{{ outing.limitDateTime|format_datetime('short', 'short', locale='fr') }}</td>
-                    </tr>
-                    <tr>
-                        <td class="table-info font-weight-bold">Nombre max. de participant</td>
-                        <td>{{ outing.registerMax }}</td>
-                    </tr>
-
-
-                    <tr>
-                        <td class="table-info font-weight-bold rounded">Infos supplémentaire</td>
-                        <td>{{ outing.infoOuting }}</td>
-                    </tr>
+                    {% endfor %}
                 </table>
-
             </div>
         </div>
+        {% set sdAndActions = outing.getStatusDisplayAndActions(app.user) %}
+        {% if (sdAndActions['deletable']) %}
+            <a href="{{ path('outing_delete', {'id': outing.id}) }}">
+                Supprimer
+            </a>
+        {% endif %}
 
+        {% if (sdAndActions['modifiable']) %}
+            <a href="{{ path('outing_modify', {'id': outing.id}) }}">Modifier</a>
+        {% endif %}
+
+        {% if (sdAndActions['publishable']) %}
+            <a href="{{ path('outing_publish', {'id': outing.id}) }}">
+                Publier
+            </a>
+        {% endif %}
+
+        {% if (sdAndActions['unregisterable']) %}
+            <a href="{{ path('outing_remove', {'id' : outing.id}) }}"> Se désinscrire</a>
+        {% endif %}
+
+        {% if (sdAndActions['registerable']) %}
+            <a href="{{ path('outing_register', {'id' : outing.id}) }}">S'inscrire</a>
+        {% endif %}
     </div>
-
+    <div class="modal-footer">
+        <a type="button" href="javascript:history.back()" class="btn btn-primary">
+            Retourner à la page précédente
+        </a>
+    </div>
 {% endblock %}
 {% block javascripts %}<script>
 ("#infos").innerText;
