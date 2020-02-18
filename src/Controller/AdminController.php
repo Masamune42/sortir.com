@@ -82,8 +82,23 @@ class AdminController extends AbstractController
 
             $estabishmentRepository = $entityManager->getRepository(Establishment::class);
 
-            $correctData = true;
+
+            $userRepository = $entityManager->getRepository(User::class);
+
+            $corruptedLine = false;
+            $doubleUser = false;
+            $nbNewUsers = 0;
             foreach ($reader as $record) {
+                if (isset($record['establishment'])){
+                    $establishment = $estabishmentRepository->findByName($record['establishment']);
+                    if (count($establishment)>0){
+                        $record['establishment'] = $establishment[0];
+                    } else {
+                        unset($record['establishment']); //if the establishment is not found, unset establishment
+                    }
+                }
+
+
 
                 if (!isset($record['password'])
                     || !isset($record['username'])
@@ -95,35 +110,58 @@ class AdminController extends AbstractController
                     || !isset($record['active'])
                     || !isset($record['establishment'])
                 ) {
-                    $correctData = false;
-                    break;
+                    $corruptedLine = true;
+
+                } elseif (count(//check if there is already a user with the same user name or the same email
+                        $userRepository->findBy(
+                            [
+                                'username' => $record['username'],
+                                'mail' => $record['mail'],
+                            ]
+                        )
+                    ) != 0) {
+                    $doubleUser = true;
+                } else {
+                    $user = new User();
+                    $password = $record['password'];
+                    $encodedPassword = $encoder->encodePassword($user, $password);
+                    $user->setUsername($record['username'])
+                        ->setPassword($encodedPassword)
+                        ->setFirstname($record['firstname'])
+                        ->setName($record['name'])
+                        ->setPhone($record['phone'])
+                        ->setMail($record['mail'])
+                        ->setAdministrator($record['administrator'] == 1)
+                        ->setActive($record['active'] == 1)
+                        ->setEstablishment($record['establishment']);
+                    $entityManager->persist($user);
+                    $nbNewUsers++;
                 }
 
-                $user = new User();
-                $password = $record['password'];
-                $encodedPassword = $encoder->encodePassword($user, $password);
-                $user->setUsername($record['username'])
-                    ->setPassword($encodedPassword)
-                    ->setFirstname($record['firstname'])
-                    ->setName($record['name'])
-                    ->setPhone($record['phone'])
-                    ->setMail($record['mail'])
-                    ->setAdministrator($record['administrator'] == 1)
-                    ->setActive($record['active'] == 1)
-                    ->setEstablishment($estabishmentRepository->findByName($record['establishment'])[0]);
-                $entityManager->persist($user);
             }
 
-            if ($correctData) {
+            if ($doubleUser) {
+                $this->addFlash(
+                    'warning',
+                    'Un ou plusieurs utilisateurs ont un nom d\'utilisateur ou un email déjà utilisé(s), veuillez vérifier votre fichier'
+                );
+            }
+
+            if ($corruptedLine) {
+                $this->addFlash(
+                    'warning',
+                    'Une ou plusieurs lignes ne sont pas au bon format ou ont des informations manquantes, veuillez vérifier votre fichier'
+                );
+            }
+
+            if ($nbNewUsers > 0){
                 $entityManager->flush();
 
-                $this->addFlash('success', 'Utilisateurs intégrés avec succès');
-
-                return $this->redirectToRoute('outing_home');
-            } else {
-                $this->addFlash('warning', 'données incorrectes, veuillez vérifier votre fichier');
+                $this->addFlash('success', $nbNewUsers.' nouveau(x) utilisateur(s) ajouté(s).');
             }
 
+
+            return $this->redirectToRoute('admin_csvadd');
         }
 
         return $this->render(
@@ -163,13 +201,17 @@ class AdminController extends AbstractController
         //unregister to all not started outings that the user is registered to
         $this->unregister($userToDelete, $entityManager);
 
-        //change the organizer to all outings organized bu this user
+        //change the organizer to all outings organized bu this user if there are participant, delete it otherwise
         $outingsToReorganize = $entityManager->getRepository(Outing::class)->findBy(['organizer' => $userToDelete]);
-        $ghostOrganizer =  $entityManager->getRepository(User::class)->findBy(['username' => 'utilisateur_supprimé'])[0];
+        $ghostOrganizer = $entityManager->getRepository(User::class)->findBy(['username' => 'utilisateur_supprimé'])[0];
 
-        foreach ($outingsToReorganize as $outing){
-            $outing->setOrganizer($ghostOrganizer);
-            $entityManager->persist($outing);
+        foreach ($outingsToReorganize as $outing) {
+            if (count($outing->getParticipant()) == 0) {
+                $entityManager->remove($outing);
+            } else {
+                $outing->setOrganizer($ghostOrganizer);
+                $entityManager->persist($outing);
+            }
         }
 
         //delete user
@@ -182,25 +224,30 @@ class AdminController extends AbstractController
 
     }
 
-    private function unregister($user, EntityManagerInterface $entityManager){
+    private function unregister($user, EntityManagerInterface $entityManager)
+    {
         //unregister to all not started outings that the user is registered to
         $outingsToUnregister = [];
         $outingRepository = $entityManager->getRepository(Outing::class);
         foreach ($entityManager->getRepository(Establishment::class)->findAll() as $establishment) {
-            $outingsToUnregister = array_merge($outingsToUnregister, $outingRepository->findOutingForHome(
-                $user,
-                [
-                    'establishment'=>$establishment,
-                    'nameContent'=>null,
-                    'dateMin'=>null,
-                    'dateMax'=>null,
-                    'iAmOrganizer'=>false,
-                    'passedOuting'=>false,
-                    'iAmNotRegistred'=>false,
-                    'iAmRegistred'=>true,
-                ]));
+            $outingsToUnregister = array_merge(
+                $outingsToUnregister,
+                $outingRepository->findOutingForHome(
+                    $user,
+                    [
+                        'establishment' => $establishment,
+                        'nameContent' => null,
+                        'dateMin' => null,
+                        'dateMax' => null,
+                        'iAmOrganizer' => false,
+                        'passedOuting' => false,
+                        'iAmNotRegistred' => false,
+                        'iAmRegistred' => true,
+                    ]
+                )
+            );
         }
-        foreach ($outingsToUnregister as $outingToUnregister){
+        foreach ($outingsToUnregister as $outingToUnregister) {
             $outingToUnregister->removeParticipant($user);
             $entityManager->persist($outingToUnregister);
         }
