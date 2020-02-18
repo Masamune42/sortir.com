@@ -44,6 +44,14 @@
         </div>
 
     </div>
+
+    {% if (app.user.administrator and user.active) %} //if the user is active and if I'm connected as admin, I can deactivate the user
+        <div class="row justify-content-center">
+            <a type="submit" href="{{ path('admin_deactivate', {'id': user.id}) }}" class="btn btn-primary">Désactiver cet utilisateur</a>
+        </div>
+        <br>
+    {% endif %}
+
     <div class="row justify-content-center">
         <a type="submit" href="javascript:history.back()" class="btn btn-primary">Retour</a>
     </div>
