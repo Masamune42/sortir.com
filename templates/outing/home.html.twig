@@ -134,7 +134,7 @@
                         {% endif %}
 
                         {% if (sdAndActions['modifiable']) %}
-                            Modifier
+                            <a href="{{ path('outing_modify', {'id': outing.id}) }}">Modifier</a>
                         {% endif %}
 
                         {% if (sdAndActions['publishable']) %}
