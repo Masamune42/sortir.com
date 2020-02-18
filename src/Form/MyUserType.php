@@ -24,7 +24,18 @@ class MyUserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('imageFile', FileType::class, ['required' => false])
+            ->add('picture', FileType::class, [
+                'label' => 'Image du profil',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '8192k',
+                        'mimeTypes' => ['image/*'],
+                        'mimeTypesMessage' => 'Veuillez choisir une image'
+                    ])
+                ]
+            ])
             ->add(
                 'username',
                 TextType::class,
