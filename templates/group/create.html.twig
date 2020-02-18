@@ -1,0 +1,40 @@
+{% form_theme groupFormView 'bootstrap_4_layout.html.twig' %}
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block myTitle %}Créer un nouveau groupe privé{% endblock %}
+
+{% block body %}
+
+    {{ form_start(groupFormView) }}
+
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            {{ form_label(groupFormView.name) }}
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            {{ form_widget(groupFormView.name) }}
+            {{ form_errors(groupFormView.name) }}
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            {{ form_widget(groupFormView.submit) }}
+        </div>
+    </div>
+
+    {{ form_end(groupFormView) }}
+
+{% endblock %}
+
+{% block title %}
+Créer un groupe
+{% endblock %}
+
+{% block scriptJS %}{% endblock %}
+

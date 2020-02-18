@@ -30,3 +30,8 @@ imgProfil{
     height: 120px;
     object-fit: cover;
 }
+
+.menu-icon{
+    font-size: 2em;
+    color: rgba(255, 255, 255, 0.5);
+}

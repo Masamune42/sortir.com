@@ -14,13 +14,6 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class MainController extends AbstractController
 {
-    /**
-     * @Route("/", name="home")
-     */
-    public function index(Request $request)
-    {
-        return $this->render('main/index.html.twig');
-    }
 
     /**
      * @Route("/login", name="login")

@@ -8,11 +8,16 @@
     <div class="collapse navbar-collapse" id="navbarColor02">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="{{ path("outing_home") }}">Accueil </a>
+                <a class="nav-link d-flex align-items-center" href="{{ path("outing_home") }}"><span class="menu-icon"><i
+                                class="fa fa-home"></i></span>&nbsp;Accueil</a>
             </li>
             {% if is_granted('ROLE_USER') %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path("outing_create") }}">Créer une sortie </a>
+                    <div>
+                        <a class="nav-link d-flex align-items-center" href="{{ path("outing_create") }}" style="color: color: #3E3F3A;"><span
+                                    class="menu-icon"><i class="fas fa-plus-circle"></i></span>&nbsp;Créer
+                            une sortie </a>
+                    </div>
                 </li>
 
             {% endif %}
@@ -24,16 +29,12 @@
                     <a class="nav-link" href="{{ path("admin_app_register") }}">Création compte utilisateur</a>
                 </li>
             {% endif %}
-            {% if not is_granted('ROLE_USER') %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path("login") }}">Connexion </a>
-                </li>
-            {% else %}
+            {% if is_granted('ROLE_USER') %}
                 <li class="nav-item d-none d-sm-block d-md-block d-lg-none d-xl-none">
-                    <a class="nav-link" href="{{ path("profil_myprofil") }}">Mon Profil </a>
+                    <a class="nav-link d-flex align-items-center" href="{{ path("profil_myprofil") }}"><span class="menu-icon"><i class="fas fa-user"></i></span>&nbsp;Mon Profil </a>
                 </li>
                 <li class="nav-item d-none d-sm-block d-md-block d-lg-none d-xl-none">
-                    <a class="nav-link" href="{{ path("logout") }}">Se déconnecter </a>
+                    <a class="nav-link d-flex align-items-center" href="{{ path("logout") }}"><span class="menu-icon"><i class="fas fa-sign-out-alt"></i></span>&nbsp;Se déconnecter </a>
                 </li>
             {% endif %}
 
@@ -52,9 +53,9 @@
                     {{ app.user.username }}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ path("profil_myprofil") }}">Mon profil </a>
+                    <a class="dropdown-item d-flex align-items-center" href="{{ path("profil_myprofil") }}"><span style="" class="menu-icon-small"><i class="fas fa-user"></i></span></i>&nbsp;Mon profil </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ path("logout") }}">Se déconnecter </a>
+                    <a class="dropdown-item d-flex align-items-center" href="{{ path("logout") }}"><span class="menu-icon-small"><i class="fas fa-sign-out-alt"></i></span>&nbsp;Se déconnecter </a>
                 </div>
             </div>
         {% endif %}

@@ -1,0 +1,56 @@
+{% form_theme addMemberFormView 'bootstrap_4_layout.html.twig' %}
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block myTitle %}Groupe {{ group.name }}{% endblock %}
+
+{% block body %}
+    <h2>
+        Créateur du groupe :  <a href="{{ path('profil_byid', {'id':  group.creator.id}) }}">{{ group.creator.username }}</a>
+    </h2>
+    <h2>
+        Liste des membres :
+    </h2>
+    <ul>
+        {% for member in group.participants %}
+            <li>
+                <a href="{{ path('profil_byid', {'id':  member.id}) }}">
+                    {{ member.username }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {{ form_start(addMemberFormView) }}
+
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            {{ form_label(addMemberFormView.usernameOrMail) }}
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            {{ form_widget(addMemberFormView.usernameOrMail) }}
+            {{ form_errors(addMemberFormView.usernameOrMail) }}
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            {{ form_widget(addMemberFormView.submit) }}
+        </div>
+    </div>
+
+    {{ form_end(addMemberFormView) }}
+
+
+{% endblock %}
+
+{% block title %}
+    Détail groupe
+{% endblock %}
+
+{% block scriptJS %}{% endblock %}
+

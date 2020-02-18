@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\City;
 use App\Entity\Establishment;
 use App\Entity\Outing;
+use App\Entity\Place;
 use App\Entity\Status;
 use App\Entity\User;
 use App\Form\CSVType;
@@ -23,7 +25,7 @@ use Twig\Extra\Intl\IntlExtension;
 class OutingController extends AbstractController
 {
     /**
-     * @Route("/home", name="home")
+     * @Route("/", name="home")
      */
     public function home(Request $request, EntityManagerInterface $entityManager)
     {
@@ -56,6 +58,13 @@ class OutingController extends AbstractController
      */
     public function create(Outing $outing = null, Request $request, EntityManagerInterface $entityManager)
     {
+        //Verify if the request contain a demand to create a place and/or a city
+        if($request->request->get('place_name') != null){
+            $place = new Place();
+            $city = new City();
+
+
+        }
 
         if (!$outing) {
             $outing = new Outing();

@@ -3,7 +3,7 @@
 
 {% block title %}Créer une sortie{% endblock %}
 {% block stylesheets %}
-    {#    <link rel="stylesheet" href="{{ asset('css/createouting.css') }}">#}
+        <link rel="stylesheet" href="{{ asset('css/createouting.css') }}">
 {% endblock %}
 {% block myTitle %}Création d'une sortie{% endblock %}
 
@@ -50,9 +50,52 @@
     <br>
     <div class="row justify-content-center">
         <div class="col-3 text-center">
-            {{ form_label(outingFormView.place) }}
+            {{ form_label(outingFormView.place) }}&nbsp;&nbsp;<a data-toggle="modal"
+                                                                 data-target="#exampleModal"
+                                                                 href=""><i class="fas fa-plus-circle"></i></a>
             {{ form_widget(outingFormView.place) }}
             {{ form_errors(outingFormView.place) }}
+
+{#             Dynamic window to add a place and its city#}
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Ajout d'un lieu</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Veuillez entrer le nom du lieu, sa ville ainsi que son code postal.
+                        </div>
+                        <form action="" method="post">
+                            <div class="form-group">
+                                <label for="place_name" class="col-form-label">Nom du lieu : </label>
+                                <input name="place_name" class="form-control input" id="place_name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="city_name" class="col-form-label">Ville : </label>
+                                <input name="city_name" class="form-control input" id="city_name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="city_post_code" class="col-form-label">Code Postal : </label>
+                                <input name="city_post_code" class="form-control input" id="city_post_code" required>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Enregistrer">
+                        </form>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <div>
+                                <button type="button"
+                                        class="btn btn-warning"
+                                        data-dismiss="modal">Annuler</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>

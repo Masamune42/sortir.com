@@ -18,7 +18,8 @@
 
                     <span class="card-body">
                         {% if user.picture is not null %}
-                            <img src="{{ asset('images/profil/' ~ user.picture) }}" class="imgProfil card-img-top" >
+                            <a href="{{ path('profil_delete_pic', {'id': user.id}) }}" class="btn btn-danger">Supprimer l'image</a>
+                            <img src="{{ asset('images/profil/' ~ user.picture) }}" class="imgProfil card-img-top">
                         {% endif %}
                         {{ form_row(profilFormView.picture) }}
 
@@ -123,7 +124,7 @@
 
         <br>
         <div>
-            <a href="{{ path("home") }}" class="btn btn-secondary btn-lg active" role="button"
+            <a href="javascript:history.back()" class="btn btn-secondary btn-lg active" role="button"
                aria-pressed="true">Retour</a>
         </div>
 
