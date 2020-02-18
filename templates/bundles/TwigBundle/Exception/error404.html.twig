@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PAGE INCONNUE{% endblock %}
+
+{% block myTitle %}Page non trouvée{% endblock %}
+
+{% block body %}
+    <div class="row justify-content-center">
+        <div class="col text-center">
+            <h2>Tu t'es perdu (comme le pain...)? Attends je vais t'aider, clic là : <a
+                        href="{{ path('outing_home') }}">ICI</a>
+            </h2>
+            <img src="{{ asset('images/i68316-pain-perdu.jpg') }}">
+        </div>
+
+    </div>
+
+{% endblock %}
