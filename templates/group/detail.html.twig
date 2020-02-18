@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block myTitle %}Groupe {{ group.name }}{% endblock %}
+
+{% block body %}
+    <h2>
+        Créateur du groupe : {{ group.creator.username }}
+    </h2>
+    <h2>
+        Liste des membres :
+    </h2>
+    <ul>
+        {% for member in group.participants %}
+            <li>
+                <a href="{{ path('profil_byid', {'id':  member.id}) }}">
+                    {{ member.username }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+
+{% endblock %}
+
+{% block title %}
+    Détail groupe
+{% endblock %}
+
+{% block scriptJS %}{% endblock %}
+
