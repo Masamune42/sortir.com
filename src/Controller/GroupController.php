@@ -41,12 +41,13 @@ class GroupController extends AbstractController
 
         if ($groupForm->isSubmitted() && $groupForm->isValid()) {
             $group->setCreator($this->getUser());
+            $group->addParticipant($this->getUser());
             $entityManager->persist($group);
             $entityManager->flush();
 
             $this->addFlash('success', 'Groupe privé créé avec succès, vous pouvez maintenant inviter des membres.');
 
-            return $this->redirectToRoute('group_create'); //TODO à rediriger vers la page du groupe
+            return $this->redirectToRoute('group_detail', ['id' => $group->getId()]);
 
         }
 
@@ -55,6 +56,21 @@ class GroupController extends AbstractController
             'group/create.html.twig',
             [
                 'groupFormView' => $groupForm->createView(),
+            ]
+        );
+    }
+
+    /**
+     * @Route("/detail/{id}", name="detail", requirements={"id : \d+"})
+     */
+    public function detail(Group $group)
+    {
+
+
+        return $this->render(
+            'group/detail.html.twig',
+            [
+                'group' => $group,
             ]
         );
     }
