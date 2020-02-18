@@ -101,7 +101,7 @@ class OutingRepository extends ServiceEntityRepository
                     || ($outing->getStatus()->getNameTech() == 'draft' && $outing->getOrganizer() == $user)
                     || ($outing->getStatus()->getNameTech() == 'canceled'
                         && (in_array($user, $outing->getParticipant()->toArray()) || ($outing->getOrganizer(
-                                ) == $user)))
+                                ) == $user || $user->getAdministrator()))) //get canceled outings ouly if I'm administator, organizer, or participant
                 );
             }
         );
