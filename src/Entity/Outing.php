@@ -263,8 +263,8 @@ class Outing
         } elseif ($this->status->getNameTech() == 'canceled') { //canceled outing
             $result['display'] = 'Annulée';
 
-            if ($currentUser == $this->organizer || in_array($currentUser, $this->participant->toArray())) {
-                $result['showable'] = true; //showable if the user is participant or organizer
+            if ($currentUser == $this->organizer || $currentUser->getAdministrator() || in_array($currentUser, $this->participant->toArray())) {
+                $result['showable'] = true; //showable if the user is participant, organizer, or admin
 
             }
 
@@ -280,7 +280,7 @@ class Outing
             } elseif ($this->startTime < $now) {
                 $result['display'] = 'En cours';
             } else {
-                if ($currentUser == $this->organizer) {
+                if ($currentUser == $this->organizer ||  $currentUser->getAdministrator()) { //as organizer or administrator, I can cancel an outing
                     $result['cancelable'] = true;
 
                 }

@@ -90,7 +90,7 @@ class OutingType extends AbstractType
                 'createOuting',
                 SubmitType::class,
                 [
-                    'label' => 'Créer une sortie',
+                    'label' => 'Publier',
                 ]
             );
         //->add('organizer')
