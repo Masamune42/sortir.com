@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Establishment;
+use App\Entity\Outing;
 use App\Entity\User;
 use App\Form\CSVType;
 use App\Form\RegistrationFormType;
@@ -19,21 +20,14 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  */
 class AdminController extends AbstractController
 {
-    /**
-     * @Route("/admin", name="admin")
-     */
-    public function index()
-    {
-        return $this->render('admin/index.html.twig', [
-            'controller_name' => 'AdminController',
-        ]);
-    }
 
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): \Symfony\Component\HttpFoundation\Response
-    {
+    public function register(
+        Request $request,
+        UserPasswordEncoderInterface $passwordEncoder
+    ): \Symfony\Component\HttpFoundation\Response {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -59,16 +53,22 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('outing_home');
         }
 
-        return $this->render('admin/register.html.twig', [
-            'registrationForm' => $form->createView(),
-        ]);
+        return $this->render(
+            'admin/register.html.twig',
+            [
+                'registrationForm' => $form->createView(),
+            ]
+        );
     }
 
     /**
      * @Route("/csvadd", name="csvadd")
      */
-    public function csvadd(Request $request, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $encoder)
-    {
+    public function csvadd(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        UserPasswordEncoderInterface $encoder
+    ) {
         $csvForm = $this->createForm(CSVType::class);
 
         $csvForm->handleRequest($request);
@@ -85,7 +85,7 @@ class AdminController extends AbstractController
             $correctData = true;
             foreach ($reader as $record) {
 
-                if(!isset($record['password'])
+                if (!isset($record['password'])
                     || !isset($record['username'])
                     || !isset($record['firstname'])
                     || !isset($record['name'])
@@ -94,7 +94,7 @@ class AdminController extends AbstractController
                     || !isset($record['administrator'])
                     || !isset($record['active'])
                     || !isset($record['establishment'])
-                ){
+                ) {
                     $correctData = false;
                     break;
                 }
@@ -109,22 +109,22 @@ class AdminController extends AbstractController
                     ->setPhone($record['phone'])
                     ->setMail($record['mail'])
                     ->setAdministrator($record['administrator'] == 1)
-                    ->setActive($record['active'] ==1)
+                    ->setActive($record['active'] == 1)
                     ->setEstablishment($estabishmentRepository->findByName($record['establishment'])[0]);
                 $entityManager->persist($user);
             }
 
-            if ($correctData){
+            if ($correctData) {
                 $entityManager->flush();
 
                 $this->addFlash('success', 'Utilisateurs intégrés avec succès');
+
                 return $this->redirectToRoute('outing_home');
             } else {
                 $this->addFlash('warning', 'données incorrectes, veuillez vérifier votre fichier');
             }
 
         }
-
 
         return $this->render(
             'admin/csvusersadd.html.twig',
@@ -133,4 +133,40 @@ class AdminController extends AbstractController
             ]
         );
     }
+
+    /**
+     * @Route("/deactivate/{id}",name="deactivate", requirements={"id : \d+"})
+     */
+    public function delete(User $userToDeactivate, EntityManagerInterface $entityManager)
+    {
+        //deactivate the user
+        $userToDeactivate->setActive(false);
+        $entityManager->persist($userToDeactivate);
+
+        //unregister to all not started outings that the user is registered to
+        $outingsToUnregister = [];
+        $outingRepository = $entityManager->getRepository(Outing::class);
+        foreach ($entityManager->getRepository(Establishment::class)->findAll() as $establishment) {
+            $outingsToUnregister = array_merge($outingsToUnregister, $outingRepository->findOutingForHome(
+                $userToDeactivate,
+                [
+                    'establishment'=>$establishment,
+                    'nameContent'=>null,
+                    'dateMin'=>null,
+                    'dateMax'=>null,
+                    'iAmOrganizer'=>false,
+                    'passedOuting'=>false,
+                    'iAmNotRegistred'=>false,
+                    'iAmRegistred'=>true,
+                ]));
+        }
+        foreach ($outingsToUnregister as $outingToUnregister){
+            $outingToUnregister->removeParticipant($userToDeactivate);
+            $entityManager->persist($outingToUnregister);
+        }
+
+        $entityManager->flush();
+
+    }
+
 }
