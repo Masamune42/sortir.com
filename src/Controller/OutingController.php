@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Twig\Extra\Intl\IntlExtension;
 
 /**
  * @Route("/outing", name="outing_")
@@ -124,7 +125,7 @@ class OutingController extends AbstractController
     /**
      * @Route("/cancel/{id}",name="cancel")
      */
-    public function annuler(Outing $outing, EntityManagerInterface $entityManager, Request $request)
+    public function cancel(Outing $outing, EntityManagerInterface $entityManager, Request $request)
     {
         $user = $this->getUser();
 
@@ -145,7 +146,32 @@ class OutingController extends AbstractController
             $this->addFlash('success', 'Sortie annulée.');
 
         } else {
-            $this->addFlash('warning', 'Vous ne pouvez pas vous annuler cette sortie.');
+            $this->addFlash('warning', 'Vous ne pouvez pas annuler cette sortie.');
+        }
+
+
+        return $this->redirectToRoute('outing_home');
+    }
+
+    /**
+     * @Route("/publish/{id}",name="publish")
+     */
+    public function publish(Outing $outing, EntityManagerInterface $entityManager, Request $request)
+    {
+        $user = $this->getUser();
+
+        if ($outing->getStatusDisplayAndActions($user)['publishable']) {
+            $statutRepository = $entityManager->getRepository(Status::class);
+
+            $outing->setStatus($statutRepository->findOneBy(['nameTech' => 'published']));
+
+            $entityManager->persist($outing);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Sortie publiée.');
+
+        } else {
+            $this->addFlash('warning', 'Vous ne pouvez pas publier cette sortie.');
         }
 
 
@@ -175,7 +201,7 @@ class OutingController extends AbstractController
     }
 
     /**
-     * @Route("/details/{id}",name="details", requirements={"id : \d+"})
+     * @Route("/{id}",name="detail", requirements={"id : \d+"})
      */
     public function details($id, Outing $outing, EntityManagerInterface $entityManager){
         $user = $this->getUser();
@@ -184,8 +210,9 @@ class OutingController extends AbstractController
         $outing = $outingRepository->find($id);
 
 
+
         return $this->render(
-            'outing/details.html.twig', compact($outing)
+            'outing/details.html.twig', compact('outing')
         );
 
     }

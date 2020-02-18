@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Service\UploadPP;
+use App\Service\UploadProfilPic;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -30,7 +30,7 @@ class ProfilController extends AbstractController
     public function myprofil(
         EntityManagerInterface $entityManager,
         EncoderFactoryInterface $encoderFactory,
-        Request $request, UploadPP $uploadPP
+        Request $request, UploadProfilPic $uploadProfilPic
     )
     {
 //        phpinfo();
@@ -61,17 +61,17 @@ class ProfilController extends AbstractController
             if (!empty($newp)){
                 $user->setPassword($encoder->encodePassword($newp, $user->getSalt()));
             }
+            $picture = $profilForm->get('picture')->getData();
+
+            if ($picture) {
+                $pictureName = $uploadProfilPic->upload($picture);
+                $user->setPicture($pictureName);
+            }
+
             $this->addFlash('success', 'Profil modifié !');
-//            $picture = $request->files->get('my_user')['picture'];
-//            if($picture){
-//                $pictureName = $uploadPP->upload($picture);
-//                $user->setPicture($pictureName);
-//            }
+
             $entityManager->persist($user);
             $entityManager->flush();
-
-            $user->setImageFile(null);
-
 
             $this->redirectToRoute('profil_myprofil');
 

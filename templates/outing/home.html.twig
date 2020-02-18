@@ -115,14 +115,22 @@
                     #}<span class="result-body-cell result-col-4 overflow-hidden">{{ outing.participant|length }}/{{ outing.registerMax }}</span>{#
                     #}<span class="result-body-cell result-col-5 overflow-hidden">{{ sdAndActions['display'] }}</span>{#
                     #}<span class="result-body-cell result-col-6 overflow-hidden">{{ (app.user in outing.participant) ? 'X' : '' }}</span>{#
-                    #}<span class="result-body-cell result-col-7 overflow-hidden">{{ outing.organizer.username }}</span>{#
+                    #}<span class="result-body-cell result-col-7 overflow-hidden">
+                        <a href="{{ path('profil_byid', {'id':  outing.organizer.id}) }}">
+                            {{ outing.organizer.username }}
+                        </a>
+                    </span>{#
                     #}<span class="result-body-cell result-col-8 overflow-hidden">
                         {% if (sdAndActions['showable']) %}
-                            Afficher
+                            <a href="{{ path('outing_detail', {'id': outing.id}) }}">
+                                Afficher
+                            </a>
                         {% endif %}
 
                         {% if (sdAndActions['deletable']) %}
-                            Supprimer
+                            <a href="{{ path('outing_delete', {'id': outing.id}) }}">
+                                Supprimer
+                            </a>
                         {% endif %}
 
                         {% if (sdAndActions['modifiable']) %}
@@ -130,7 +138,9 @@
                         {% endif %}
 
                         {% if (sdAndActions['publishable']) %}
-                            Publier
+                            <a href="{{ path('outing_publish', {'id': outing.id}) }}">
+                                Publier
+                            </a>
                         {% endif %}
 
                         {% if (sdAndActions['unregisterable']) %}
