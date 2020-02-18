@@ -98,8 +98,6 @@ class AdminController extends AbstractController
                     }
                 }
 
-
-
                 if (!isset($record['password'])
                     || !isset($record['username'])
                     || !isset($record['firstname'])

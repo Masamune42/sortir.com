@@ -82,6 +82,11 @@ class Outing
      */
     private $participant;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Group", inversedBy="outings")
+     */
+    private $usersGroup;
+
     public function __construct()
     {
         $this->participant = new ArrayCollection();
@@ -309,5 +314,17 @@ class Outing
         }
 
         return $result;
+    }
+
+    public function getUsersGroup(): ?Group
+    {
+        return $this->usersGroup;
+    }
+
+    public function setUsersGroup(?Group $usersGroup): self
+    {
+        $this->usersGroup = $usersGroup;
+
+        return $this;
     }
 }

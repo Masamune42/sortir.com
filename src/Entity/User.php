@@ -90,11 +90,23 @@ class User implements UserInterface
      */
     private $picture;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Group", mappedBy="creator", orphanRemoval=true)
+     */
+    private $groupsCreated;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Group", mappedBy="participants")
+     */
+    private $groupsJoined;
+
 
     public function __construct()
     {
         $this->outingOrganized = new ArrayCollection();
         $this->outingParticipated = new ArrayCollection();
+        $this->groupsCreated = new ArrayCollection();
+        $this->groupsJoined = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -310,6 +322,65 @@ class User implements UserInterface
     public function setPicture(?string $picture): self
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Group[]
+     */
+    public function getGroupsCreated(): Collection
+    {
+        return $this->groupsCreated;
+    }
+
+    public function addGroupsCreated(Group $groupsCreated): self
+    {
+        if (!$this->groupsCreated->contains($groupsCreated)) {
+            $this->groupsCreated[] = $groupsCreated;
+            $groupsCreated->setCreator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupsCreated(Group $groupsCreated): self
+    {
+        if ($this->groupsCreated->contains($groupsCreated)) {
+            $this->groupsCreated->removeElement($groupsCreated);
+            // set the owning side to null (unless already changed)
+            if ($groupsCreated->getCreator() === $this) {
+                $groupsCreated->setCreator(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Group[]
+     */
+    public function getGroupsJoined(): Collection
+    {
+        return $this->groupsJoined;
+    }
+
+    public function addGroupsJoined(Group $groupsJoined): self
+    {
+        if (!$this->groupsJoined->contains($groupsJoined)) {
+            $this->groupsJoined[] = $groupsJoined;
+            $groupsJoined->addParticipant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupsJoined(Group $groupsJoined): self
+    {
+        if ($this->groupsJoined->contains($groupsJoined)) {
+            $this->groupsJoined->removeElement($groupsJoined);
+            $groupsJoined->removeParticipant($this);
+        }
 
         return $this;
     }
