@@ -274,10 +274,12 @@ class User implements UserInterface
      */
     public function getRoles()
     {
-        if ($this->administrator === true){
+        if ($this->administrator){
             return["ROLE_ADMIN"];
-        }else {
+        }elseif ($this->getActive()) {
             return ["ROLE_USER"];
+        } else {
+            return ["ROLE_DEACTIVATED"];
         }
 
         // TODO: Implement getRoles() method.

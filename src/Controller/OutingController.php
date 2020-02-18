@@ -184,7 +184,7 @@ class OutingController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}",name="delete")
+     * @Route("/delete/{id}",name="delete", requirements={"id : \d+"})
      */
     public function delete(Outing $outing, EntityManagerInterface $entityManager, Request $request)
     {

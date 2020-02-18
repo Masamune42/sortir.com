@@ -16,8 +16,6 @@ class MainController extends AbstractController
      */
     public function index(Request $request)
     {
-
-
         return $this->render('main/index.html.twig');
     }
 
@@ -39,5 +37,26 @@ class MainController extends AbstractController
     }
 
 
+    /**
+     * @Route("/deactivated", name="deactivated")
+     */
+    public function deactivated(AuthenticationUtils $authenticationUtils, Request $request, SessionInterface $session)
+    {
+        return $this->render('main/deactivated.html.twig');
+    }
+
+    /**
+     * @Route("/redictionafterlogin", name="redirection_after_login")
+     */
+    public function redirection(AuthenticationUtils $authenticationUtils, Request $request, SessionInterface $session)
+    {
+        $user = $this->getUser();
+
+        if ($user->getActive()){
+            return $this->redirectToRoute('outing_home');
+        } else {
+            return $this->redirectToRoute('deactivated');
+        }
+    }
 
 }

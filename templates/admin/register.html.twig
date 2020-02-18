@@ -1,63 +1,72 @@
 {% form_theme registrationForm 'bootstrap_4_layout.html.twig' %}
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/register.css') }}">{% endblock %}
+
 {% block title %}Création compte{% endblock %}
 
 {% block body %}
     <h1> Création compte utilisateur </h1>
+    <div class="container">
+        {{ form_start(registrationForm) }}
 
-    {{ form_start(registrationForm) }}
+        <div class="d-flex justify-content-around">
+            <div class="form-group col-sm-6">
+                {{ form_label(registrationForm.username) }}
+                {{ form_widget(registrationForm.username) }}
+                {{ form_errors(registrationForm.username) }}
+            </div>
+            <br>
+            <div class="form-group col-md-6">
+                {{ form_label(registrationForm.password) }}
+                {{ form_widget(registrationForm.password) }}
+                {{ form_errors(registrationForm.password) }}
+            </div>
+        </div>
+        <div class="d-flex justify-content-around">
+            <div class="form-group col-md-6">
+                {{ form_label(registrationForm.name) }}
+                {{ form_widget(registrationForm.name) }}
+                {{ form_errors(registrationForm.name) }}
+            </div>
+            <br>
+            <div class="form-group col-md-6">
+                {{ form_label(registrationForm.firstname) }}
+                {{ form_widget(registrationForm.firstname) }}
+                {{ form_errors(registrationForm.firstname) }}
+            </div>
+        </div>
 
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            {{ form_label(registrationForm.username) }}
-            {{ form_widget(registrationForm.username) }}
-            {{ form_errors(registrationForm.username) }}
+
+        <div class="d-flex justify-content-around">
+            <div class="form-group col-md-6">
+                {{ form_label(registrationForm.mail) }}
+                {{ form_widget(registrationForm.mail) }}
+                {{ form_errors(registrationForm.mail) }}
+            </div>
+            <br>
+            <div class="form-group col-md-4">
+                {{ form_label(registrationForm.phone) }}
+                {{ form_widget(registrationForm.phone) }}
+                {{ form_errors(registrationForm.phone) }}
+            </div>
+            <br>
+            <div class="form-group col-md-2">
+                {{ form_label(registrationForm.establishment) }}
+                {{ form_widget(registrationForm.establishment) }}
+                {{ form_errors(registrationForm.establishment) }}
+            </div>
         </div>
-        <div class="form-group col-md-6">
-            {{ form_label(registrationForm.password) }}
-            {{ form_widget(registrationForm.password) }}
-            {{ form_errors(registrationForm.password) }}
+        <br>
+        <div>
+            {{ form_label(registrationForm.agreeTerms) }}
+            {{ form_widget(registrationForm.agreeTerms) }}
+            {{ form_errors(registrationForm.agreeTerms) }}
         </div>
+        <br>
+        <hr>
+        <button class="btn btn-primary">Créer</button>
+        {{ form_end(registrationForm) }}
     </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            {{ form_label(registrationForm.name) }}
-            {{ form_widget(registrationForm.name) }}
-            {{ form_errors(registrationForm.name) }}
-        </div>
-
-        <div class="form-group col-md-6">
-            {{ form_label(registrationForm.firstname) }}
-            {{ form_widget(registrationForm.firstname) }}
-            {{ form_errors(registrationForm.firstname) }}
-        </div>
-    </div>
-    </div>
-
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            {{ form_label(registrationForm.mail) }}
-            {{ form_widget(registrationForm.mail) }}
-            {{ form_errors(registrationForm.mail) }}
-        </div>
-
-        <div class="form-group col-md-4">
-            {{ form_label(registrationForm.phone) }}
-            {{ form_widget(registrationForm.phone) }}
-            {{ form_errors(registrationForm.phone) }}
-        </div>
-        <div class="form-group col-md-2">
-            {{ form_label(registrationForm.establishment) }}
-            {{ form_widget(registrationForm.establishment) }}
-            {{ form_errors(registrationForm.establishment) }}
-        </div>
-    </div>
-
-    </div>
-
-    </span>
-
-    <button class="btn btn-primary">Créer</button>
-    {{ form_end(registrationForm) }}
 {% endblock %}
