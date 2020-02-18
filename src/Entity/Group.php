@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\GroupRepository")
+ * @ORM\Table(name="usergroup")
  */
 class Group
 {
