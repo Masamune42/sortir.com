@@ -163,13 +163,17 @@ class AdminController extends AbstractController
         //unregister to all not started outings that the user is registered to
         $this->unregister($userToDelete, $entityManager);
 
-        //change the organizer to all outings organized bu this user
+        //change the organizer to all outings organized bu this user if there are participant, delete it otherwise
         $outingsToReorganize = $entityManager->getRepository(Outing::class)->findBy(['organizer' => $userToDelete]);
         $ghostOrganizer =  $entityManager->getRepository(User::class)->findBy(['username' => 'utilisateur_supprimé'])[0];
 
         foreach ($outingsToReorganize as $outing){
-            $outing->setOrganizer($ghostOrganizer);
-            $entityManager->persist($outing);
+            if (count($outing->getParticipant()) == 0){
+                $entityManager->remove($outing);
+            } else {
+                $outing->setOrganizer($ghostOrganizer);
+                $entityManager->persist($outing);
+            }
         }
 
         //delete user
