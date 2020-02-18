@@ -17,3 +17,13 @@
 .btn-form{
     text-align: center
 }
+
+i{
+    font-size: 2em;
+}
+
+.input.form-control{
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
