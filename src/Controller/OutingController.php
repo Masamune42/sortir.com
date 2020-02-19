@@ -57,10 +57,14 @@ class OutingController extends AbstractController
      * @Route("/create", name="create")
      * @Route("/modify/{id}", name="modify", requirements={"id : \d+"})
      */
-    public function create(Outing $outing = null, Request $request, EntityManagerInterface $entityManager, CreatePlaceAndCity $createPlaceAndCity)
-    {
+    public function create(
+        Outing $outing = null,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        CreatePlaceAndCity $createPlaceAndCity
+    ) {
         //Verify if the request contain a demand to create a place and/or a city
-        if($request->request->get('place_name') != null){
+        if ($request->request->get('place_name') != null) {
             $createPlaceAndCity = $createPlaceAndCity->createPlace($request);
         }
 
@@ -71,6 +75,9 @@ class OutingController extends AbstractController
             $establishementUser = $this->getUser()->getEstablishment();
             $outing->setEstablishment($establishementUser);
         }
+
+        $cityRepository = $entityManager->getRepository(City::class);
+        $cities = $cityRepository->findAll();
 
         $statutRepository = $entityManager->getRepository(Status::class);
 
@@ -99,6 +106,15 @@ class OutingController extends AbstractController
         $outingForm->handleRequest($request);
 
         if ($outingForm->isSubmitted() && $outingForm->isValid()) {
+            $name = $request->request->get('outing')['name'];
+//            dump($name);
+//            die();
+            if ($name === "Moria") {
+//                dump($name);
+//                die();
+                return $this->redirectToRoute('easter_egg');
+            }
+
             if ($outingForm->getClickedButton() && 'save' === $outingForm->getClickedButton()->getName()) {
                 $statutCreated = $statutRepository->findOneBy(['nameTech' => 'draft']);
 
@@ -121,15 +137,20 @@ class OutingController extends AbstractController
 
                     return $this->redirectToRoute('outing_home');
                 }
+
+
             }
 
         }
 
         return $this->render(
             'outing/create.html.twig',
-            ['outingFormView' => $outingForm->createView(),
+            [
+                'outingFormView' => $outingForm->createView(),
                 'outing' => $outing,
-                'modif' => $outing->getId() !== null]
+                'modif' => $outing->getId() !== null,
+                'cities' => $cities,
+            ]
         );
 
     }
