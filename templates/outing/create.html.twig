@@ -161,14 +161,34 @@
 {% endblock %}
 {% block scriptJS %}
     <script>
-        var radio1 = $('#existed');
-        var radio2 = $('#register');
+        $("#select_cities").on("click", disabled1);
+        $("#register").on("click", disabled2);
 
-        if (radio1.onclick){
-            document.getElementById('select_cities').setAttribute('disabled');
+
+        // var radio1 = document.getElementById('select_cities');
+        function disabled1(){
+            document.getElementById('select_cities').setAttribute('disabled', 'false');
+            document.getElementById('city_name').setAttribute('disabled', 'true');
+            document.getElementById('city_name').setAttribute('disabled', 'true');
         }
 
+        function disabled2(){
+            document.getElementById('select_cities').setAttribute('disabled', 'true');
+            document.getElementById('city_name').setAttribute('disabled', 'false');
+            document.getElementById('city_name').setAttribute('disabled', 'false');
+        }
 
+        // var radio2 = document.getElementById('register');
+        // if (radio1.getAttribute("checked")){
+        //     document.getElementById('select_cities').setAttribute('disabled', 'false');
+        //     document.getElementById('city_name').setAttribute('disabled', 'true');
+        //     document.getElementById('city_name').setAttribute('disabled', 'true');
+        // }
+        // if (radio2.getAttribute("checked")) {
+        //     document.getElementById('select_cities').setAttribute('disabled', 'true');
+        //     document.getElementById('city_name').setAttribute('disabled', 'false');
+        //     document.getElementById('city_name').setAttribute('disabled', 'false');
+        // }
     </script>
     <script src="{{ asset('js/createOuting.js') }}"></script>
 {% endblock %}
