@@ -38,7 +38,7 @@
                     {% endif %}
                 </td>
                 <td>
-                    {% if not user.administrator %}
+                    {% if not user.administrator and user.username != 'utilisateur_supprimé' %}
                         <a type="submit" href="{{ path('admin_delete', {'id': user.id}) }}" class="btn btn-danger">
                             Supprimer</a>
 
