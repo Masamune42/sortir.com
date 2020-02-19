@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\City;
+use App\Entity\Group;
 use App\Entity\Outing;
 use App\Entity\Place;
 use App\Entity\User;
@@ -89,22 +90,26 @@ class OutingType extends AbstractType
                 ]
             )
             //not compulsory: related private group
-//            ->add(
-//                'usersGroup',
-//                EntityType::class,
-//                [
-//                    'class' => User::class,
-//                    'query_builder' => function (GroupRepository $er) {
-//                        return $er->createQueryBuilder('g')
-//                            ->join('g.participants', 'p')
-//                            ->where("p = :user")
-//                            ->setParameter('user', $this->security->getUser());
-//                    },
-//                    'choice_label' => 'name',
-//                    'required' => false,
-//                    'empty_data' => null,
-//                ]
-//            )
+            ->add(
+                'usersGroup',
+                EntityType::class,
+                [
+                    'class' => Group::class,
+                    'query_builder' => function (GroupRepository $er) {
+                        return $er->createQueryBuilder('g')
+                            ->join('g.participants', 'p')
+                            ->where("p = :user")
+                            ->setParameter('user', $this->security->getUser());
+                    },
+                    'choice_label' => function (Group $group) {
+                        return 'LIMITÉ À : '.$group->getName();
+                    },
+                    'required' => false,
+                    'empty_data' => null,
+                    'label'=>'Ouvert à',
+                    'placeholder'=>'OUVERT A TOUS LES UTILISATEURS',
+                ]
+            )
             // A créer plus tard en gérant la sélection de la ville et ensuite du lieu
 //            ->add(
 //                'city',
