@@ -52,15 +52,22 @@
 
     </div>
 
-    {% if (app.user.administrator and user.active) %} {#if the user is active and if I'm connected as admin, I can deactivate the user#}
+    {% if (app.user.administrator and not user.administrator) %} {#if the user is active and if I'm connected as admin, I can deactivate the user#}
         <div class="row justify-content-center">
-            <a type="submit" href="{{ path('admin_deactivate', {'id': user.id}) }}" class="btn btn-primary">Désactiver
-                cet utilisateur</a>
+            {% if user.active %}
+                <a type="submit" href="{{ path('admin_deactivate', {'id': user.id}) }}" class="btn btn-primary">Désactiver
+                    cet utilisateur</a>
+
+            {% else %}
+                <a type="submit" href="{{ path('admin_reactivate', {'id': user.id}) }}" class="btn btn-primary">Réactiver
+                    cet utilisateur</a>
+
+            {% endif %}
         </div>
         <br>
     {% endif %}
 
-    {% if (app.user.administrator and user.username != 'utilisateur_supprimé') %} {#if I'm connected as admin, I can delete the user#}
+    {% if (app.user.administrator and not user.administrator and user.username != 'utilisateur_supprimé') %} {#if I'm connected as admin, I can delete the user#}
         <div class="row justify-content-center">
             <a type="submit" href="{{ path('admin_delete', {'id': user.id}) }}" class="btn btn-primary">Supprimer cet
                 utilisateur</a>
