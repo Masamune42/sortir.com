@@ -35,6 +35,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path("admin_app_register") }}">Création compte utilisateur</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path("admin_users_list") }}">Liste des utilisateurs</a>
+                </li>
             {% endif %}
             {% if is_granted('ROLE_USER') %}
                 <li class="nav-item d-none d-sm-block d-md-block d-lg-none d-xl-none">

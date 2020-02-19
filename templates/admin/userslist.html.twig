@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateurs{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block myTitle %}Liste des utilisateurs de sortir.com{% endblock %}
+
+
+{% block body %}
+
+    <ul>
+        {% for user in usersList %}
+            <li>
+                <a href="{{ path('profil_byid', {'id':  user.id}) }}">
+                    {{ user.username }}
+                </a>
+                {% if user.administrator %}
+                    (administrateur)
+                {% endif %}
+
+                {% if user.active %}
+                    <a type="submit" href="{{ path('admin_deactivate', {'id': user.id}) }}" class="btn btn-primary">
+                        Désactiver cet utilisateur</a>
+                {% else %}
+                    (inactif)
+                {% endif %}
+                <a type="submit" href="{{ path('admin_delete', {'id': user.id}) }}" class="btn btn-primary">
+                    Supprimer cet utilisateur</a>
+
+            </li>
+        {% endfor %}
+    </ul>
+
+
+{% endblock %}
+
+
+{% block scriptJS %}{% endblock %}
