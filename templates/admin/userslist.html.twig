@@ -43,6 +43,11 @@
                     {% if user.active %}
                         <a type="submit" href="{{ path('admin_deactivate', {'id': user.id}) }}" class="btn btn-warning">
                             Désactiver</a>
+
+                    {% else %}
+                        <a type="submit" href="{{ path('admin_reactivate', {'id': user.id}) }}" class="btn btn-primary">
+                            Réactiver</a>
+
                     {% endif %}
                 </td>
             </tr>

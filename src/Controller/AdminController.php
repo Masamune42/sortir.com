@@ -187,6 +187,22 @@ class AdminController extends AbstractController
     }
 
     /**
+     * @Route("/reactivate/{id}",name="reactivate", requirements={"id : \d+"})
+     */
+    public function reactivate(User $userToDeactivate, EntityManagerInterface $entityManager)
+    {
+        //reactivate the user
+        $userToDeactivate->setActive(true);
+        $entityManager->persist($userToDeactivate);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Utilisateurs '.$userToDeactivate->getUsername().' résactivé.');
+
+        return $this->redirectToRoute('admin_users_list');
+
+    }
+
+    /**
      * @Route("/delete/{id}",name="delete", requirements={"id : \d+"})
      */
     public function delete(User $userToDelete, EntityManagerInterface $entityManager)
