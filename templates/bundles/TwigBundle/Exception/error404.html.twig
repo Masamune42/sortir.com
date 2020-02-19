@@ -1,8 +1,6 @@
-{% extends 'base.html.twig' %}
-
+{% extends 'errorbase.html.twig' %}
+{% block stylesheets %}<link rel="stylesheet" href="{{ asset('css/page404.css') }}">{% endblock %}
 {% block title %}PAGE INCONNUE{% endblock %}
-
-{% block myTitle %}Page non trouvée{% endblock %}
 
 {% block body %}
     <div class="row justify-content-center">
