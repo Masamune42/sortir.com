@@ -1,20 +1,52 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello GroupController!{% endblock %}
+{% block stylesheets %}{% endblock %}
+
+{% block myTitle %}Groupes privés{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <a type="button" class="btn btn-primary" href="{{ path('group_create') }}">Créer un nouveau groupe privé</a>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/sortircom/src/Controller/GroupController.php'|file_link(0) }}">src/Controller/GroupController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/sortircom/templates/group/home.html.twig'|file_link(0) }}">templates/group/index.html.twig</a></code></li>
-    </ul>
-</div>
+    {% if groupsCreated is not empty %}
+        <h2>
+            Groupes dont vous êtes le créateur :
+        </h2>
+        <ul>
+            {% for group in groupsCreated %}
+                <li>
+                    <a href="{{ path('group_detail', {'id':  group.id}) }}">
+                        {{ group.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if groupsParticipant is not empty %}
+        <h2>
+            Autres groupes dont vous faites partie :
+        </h2>
+        <ul>
+            {% for group in groupsParticipant %}
+                <li>
+                    <a href="{{ path('group_detail', {'id':  group.id}) }}">
+                        {{ group.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+
+
+
 {% endblock %}
+
+{% block title %}
+    Groupes privés
+{% endblock %}
+
+{% block scriptJS %}{% endblock %}
+
+

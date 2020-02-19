@@ -19,6 +19,17 @@ class GroupRepository extends ServiceEntityRepository
         parent::__construct($registry, Group::class);
     }
 
+    public function findByParticipantButNotCreator($user)
+    {
+        $qb = $this->createQueryBuilder('g')
+            ->join('g.participants', 'p')
+            ->where("p = :user")
+            ->andWhere("g.creator <> :user")
+            ->setParameter('user', $user);
+
+        return $qb->getQuery()->getResult();
+    }
+
     // /**
     //  * @return Group[] Returns an array of Group objects
     //  */
