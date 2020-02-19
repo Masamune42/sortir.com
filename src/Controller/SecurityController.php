@@ -83,7 +83,7 @@ class SecurityController extends AbstractController
 
             $mailer->send($message);
 
-            $this->addFlash('notice', 'Mail envoyé');
+            $this->addFlash('success', 'Mail envoyé');
 
             return $this->redirectToRoute('outing_home');
 
