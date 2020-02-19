@@ -98,7 +98,7 @@
     <table id="dtVerticalScrollExample" class="table table-striped table-bordered table-sm table-hover" cellspacing="0"
            width="100%">
         <thead>
-        <tr class="table-warning">
+        <tr class="table-success">
             <th class="th-sm">Nom de la sortie
             </th>
             <th class="th-sm">Date de la sortie
@@ -204,7 +204,7 @@
         {% endfor %}
         </tbody>
         <tfoot>
-        <tr class="table table-warning">
+        <tr class="table table-success">
             <th>Nom de la sortie
             </th>
             <th>Date de la sortie
@@ -237,5 +237,6 @@
 {% block scriptJS %}
     <script src="{{ asset('js/outing.js') }}"></script>
     <!-- MDBootstrap Datatables  -->
-    <script type="text/javascript" src="{{ asset('js/datatables.min.js') }}"></script>{% endblock %}
+    <script type="text/javascript" src="{{ asset('js/datatables.min.js') }}"></script>
+{% endblock %}
 

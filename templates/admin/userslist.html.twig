@@ -9,7 +9,7 @@
 
 {% block body %}
 
-    <table>
+    <table class="table table-striped table-bordered">
         <thead>
         <tr>
             <th>Nom</th>
@@ -21,41 +21,43 @@
 
         <tbody>
         {% for user in usersList %}
-            <tr>
-                <td>
-                    <a href="{{ path('profil_byid', {'id':  user.id}) }}">
-                        {{ user.username }}
-                    </a>
-                </td>
-                <td>
-                    {% if user.active %}
-                        X
-                    {% endif %}
-                </td>
-                <td>
-                    {% if user.administrator %}
-                        X
-                    {% endif %}
-                </td>
-                <td>
-                    {% if not user.administrator %}
-                        <a type="submit" href="{{ path('admin_delete', {'id': user.id}) }}" class="btn btn-danger">
-                            Supprimer</a>
-
+            {% if user.username != 'utilisateur_supprimé' %}
+                <tr>
+                    <td>
+                        <a href="{{ path('profil_byid', {'id':  user.id}) }}">
+                            {{ user.username }}
+                        </a>
+                    </td>
+                    <td>
                         {% if user.active %}
-                            <a type="submit" href="{{ path('admin_deactivate', {'id': user.id}) }}"
-                               class="btn btn-warning">
-                                Désactiver</a>
-
-                        {% else %}
-                            <a type="submit" href="{{ path('admin_reactivate', {'id': user.id}) }}"
-                               class="btn btn-primary">
-                                Réactiver</a>
-
+                            X
                         {% endif %}
-                    {% endif %}
-                </td>
-            </tr>
+                    </td>
+                    <td>
+                        {% if user.administrator %}
+                            X
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if not user.administrator and user.username != 'utilisateur_supprimé' %}
+                            <a type="submit" href="{{ path('admin_delete', {'id': user.id}) }}" class="btn btn-danger">
+                                Supprimer</a>
+
+                            {% if user.active %}
+                                <a type="submit" href="{{ path('admin_deactivate', {'id': user.id}) }}"
+                                   class="btn btn-warning">
+                                    Désactiver</a>
+
+                            {% else %}
+                                <a type="submit" href="{{ path('admin_reactivate', {'id': user.id}) }}"
+                                   class="btn btn-primary">
+                                    Réactiver</a>
+
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endif %}
         {% endfor %}
         </tbody>
     </table>
