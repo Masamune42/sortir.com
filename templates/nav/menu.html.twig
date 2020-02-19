@@ -30,10 +30,16 @@
             {% endif %}
             {% if is_granted('ROLE_ADMIN') %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path("admin_csvadd") }}">importer utilisatateurs en CSV</a>
+                    <a class="nav-link d-flex align-items-center" href="{{ path("admin_csvadd") }}">
+                        <span class="menu-icon"><i class="fas fa-file-csv"></i></span>importer utilisatateurs en CSV</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path("admin_app_register") }}">Création compte utilisateur</a>
+                    <a class="nav-link d-flex align-items-center" href="{{ path("admin_app_register") }}">
+                        <span class="menu-icon"><i class="fas fa-user-plus"></i></span>Création compte utilisateur</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center" href="{{ path("admin_users_list") }}">
+                        <span class="menu-icon"><i class="fas fa-address-book"></i></span>Liste des utilisateurs</a>
                 </li>
             {% endif %}
             {% if is_granted('ROLE_USER') %}
