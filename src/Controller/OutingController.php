@@ -106,9 +106,9 @@ class OutingController extends AbstractController
         $outingForm->handleRequest($request);
 
         if ($outingForm->isSubmitted() && $outingForm->isValid()) {
-            if ($outingForm->getData()['name'] === 'Moria') {
-                $this->redirectToRoute('easter_egg');
-            }
+//            if ($outingForm->getData()['name'] === 'Moria') {
+//                $this->redirectToRoute('easter_egg');
+//            }
 
             if ($outingForm->getClickedButton() && 'save' === $outingForm->getClickedButton()->getName()) {
                 $statutCreated = $statutRepository->findOneBy(['nameTech' => 'draft']);
