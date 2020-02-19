@@ -41,7 +41,8 @@ class SecurityController extends AbstractController
         \Swift_Mailer $mailer,
         TokenGeneratorInterface $tokenGenerator
     ): Response {
-        dump($request);
+
+
         if ($request->isMethod('POST')) {
             $mail = $request->request ->get('mail');
 
@@ -69,15 +70,18 @@ class SecurityController extends AbstractController
             $url = $this->generateUrl(
                 'security_reset_password',
                 array('token' => $token),
-                UrlGeneratorInterface::ABSOLUTE_PATH
+                UrlGeneratorInterface::ABSOLUTE_URL
             );
+
+
+
 
 
             $message = (new \Swift_Message('Mot de passe oublié'))
                 ->setFrom('sortircom.noreply@gmail.com')
                 ->setTo($user->getMail())
                 ->setBody(
-                    "Bonjour, Voici le token pour reseter votre mot de passe : ".$url,
+                    "Bonjour, Voici le token pour reseter votre mot de passe : <a href='$url'>$url</a>",
                     'text/html'
                 );
 
@@ -100,7 +104,7 @@ class SecurityController extends AbstractController
         if ($request->isMethod('POST')) {
             $entityManager = $this->getDoctrine()->getManager();
 
-            $user = $entityManager->getRepository(User::class)->findOneByToken($token);
+            $user = $entityManager->getRepository(User::class)->findOneByResetToken($token);
             /* @var $user User */
 
             if ($user === null) {
@@ -114,7 +118,7 @@ class SecurityController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $this->addFlash('notice', 'Mot de passe mis à jour');
+            $this->addFlash('success', 'Mot de passe mis à jour');
 
             return $this->redirectToRoute('outing_home');
 

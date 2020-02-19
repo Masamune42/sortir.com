@@ -12,7 +12,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  * @method User[]    findAll()
  * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  * @method User|null findOneByMail($mail)
- * @method User|null findOneByToken($token)
+ * @method User|null findOneByResetToken($token)
  */
 class UserRepository extends ServiceEntityRepository
 {
