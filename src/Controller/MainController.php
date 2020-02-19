@@ -14,6 +14,13 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class MainController extends AbstractController
 {
+    /**
+     * @Route("/", name="home")
+     */
+    public function home()
+    {
+        return $this->redirectToRoute('outing_home');
+    }
 
     /**
      * @Route("/login", name="login")

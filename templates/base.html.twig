@@ -45,17 +45,6 @@
 
 {% endfor %}
 
-{% for message in app.flashes('notice') %}
-
-    <div class="alert-notice">
-        {{ message }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-
-{% endfor %}
-
 
 {% block body %}{% endblock %}
 {% block javascripts %}{% endblock %}
