@@ -268,7 +268,10 @@ class Outing
         } elseif ($this->status->getNameTech() == 'canceled') { //canceled outing
             $result['display'] = 'Annulée';
 
-            if ($currentUser == $this->organizer || $currentUser->getAdministrator() || in_array($currentUser, $this->participant->toArray())) {
+            if ($currentUser == $this->organizer || $currentUser->getAdministrator() || in_array(
+                    $currentUser,
+                    $this->participant->toArray()
+                )) {
                 $result['showable'] = true; //showable if the user is participant, organizer, or admin
 
             }
@@ -278,14 +281,21 @@ class Outing
             $endTime = clone($this->startTime);
             $endTime->add(new \DateInterval('PT'.$this->duration.'M')); // endtime = start time + duration
 
-            $result['showable'] = true;
+            //check is showable depending on the private group restriction
+            if ($this->getUsersGroup() == null || in_array(
+                    $currentUser,
+                    $this->getUsersGroup()->getParticipants()->toArray()
+                )) {
+                $result['showable'] = true;
+            }
 
             if ($endTime < $now) {
                 $result['display'] = 'Terminée';
             } elseif ($this->startTime < $now) {
                 $result['display'] = 'En cours';
             } else {
-                if ($currentUser == $this->organizer ||  $currentUser->getAdministrator()) { //as organizer or administrator, I can cancel an outing
+                if ($currentUser == $this->organizer || $currentUser->getAdministrator(
+                    )) { //as organizer or administrator, I can cancel an outing
                     $result['cancelable'] = true;
 
                 }
@@ -300,7 +310,15 @@ class Outing
 
                     if (count($this->participant->toArray()) < $this->registerMax) {
                         $result['display'] = 'Ouvert';
-                        if (!in_array($currentUser, $this->participant->toArray())) {
+
+                        if ((!in_array(
+                                $currentUser,
+                                $this->participant->toArray()
+                            ))//check if participant is not already registred
+                            && ($this->getUsersGroup() == null || in_array(
+                                    $currentUser,
+                                    $this->getUsersGroup()->getParticipants()->toArray()
+                                ))) {//check is showable depending on the private group restriction
                             $result['registerable'] = true;
 
                         }
