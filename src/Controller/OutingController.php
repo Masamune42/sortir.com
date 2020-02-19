@@ -67,7 +67,7 @@ class OutingController extends AbstractController
         if ($request->request->get('city_name') != null){
 
            $createPlaceAndCity->createCity($request);
-           
+
         }
 
         if ($request->request->get('place_name') != null) {

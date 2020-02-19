@@ -19,18 +19,37 @@ class CreatePlaceAndCity
         $this->entityManager = $entityManager;
     }
 
+    public function createCity(Request $request)
+    {
+        $city = new City();
+        dump('Je créé la ville');
+        $city->setName($request->request->get('city_name'))
+            ->setPostCode($request->request->get('city_post_code'));
+        dump($city);
+        $this->entityManager->persist($city);
+        $this->entityManager->flush();
+
+    }
 
     public function createPlace(Request $request)
     {
 
         $place = new Place();
         dump('Je créé la place');
-        $cityManager= $this->entityManager->getRepository(City::class);
-        $place->setName($request->request->get('place_name'));
-        $city = $cityManager->findOneBy(['postCode' => $request->request->get('select_postCode')]);
+        $cityManager = $this->entityManager->getRepository(City::class);
+        $city= null;
+        if($request->request->get('select_postCode')) {
+            $city = $cityManager->findOneBy(['postCode' => $request->request->get('select_postCode')]);
+
+        } else {
+            $city = $cityManager->findOneBy(['postCode' => $request->request->get('city_post_code')]);
+        }
+
         dump($city);
-        $place->setCity($city->getId());
-        $place->setStreet($request->request->get('place_street'));
+
+        $place->setName($request->request->get('place_name'));
+        $place->setCity($city)
+            ->setStreet($request->request->get('place_street'));
 
 
         $this->entityManager->persist($place);
@@ -38,15 +57,5 @@ class CreatePlaceAndCity
         dump('la place est créée');
     }
 
-    public function createCity(Request $request)
-    {
-        $city = new City();
-        dump('Je créé la ville');
-        $city->setName($request->request->get('city_name'));
-        $city->setPostCode($request->request->get('city_post_code'));
-        dump($city);
-        $this->entityManager->persist($city);
-        $this->entityManager->flush();
 
-    }
 }
