@@ -74,11 +74,14 @@ class OutingController extends AbstractController
         //Verify if the request contain a demand to create a place and/or a city
         if ($request->request->get('city_name') != null) {
 
-            $createPlaceAndCity->createCity($request);
+            if (preg_match('/^[0-9]{5,7}$/', $request->request->get('city_post_code'))) {
+                $createPlaceAndCity->createCity($request);
+                $createPlaceAndCity->createPlace($request);
+            } else {
+                $this->addFlash('danger', 'Un code postal doit contenir entre 5 et 7 chiffres');
+            }
 
-        }
-
-        if ($request->request->get('place_name') != null) {
+        } else if ($request->request->get('place_name') != null) {
             $createPlaceAndCity->createPlace($request);
         }
 
