@@ -76,6 +76,15 @@
                                 <label for="place_name" class="col-form-label">Nom du lieu : </label>
                                 <input name="place_name" class="form-control input" id="place_name" required>
                             </div>
+                            <div class="d-flex justify-content-center">
+                            <input type="radio" name="type" checked="checked" id="existed"><label for="existed" style="margin-left: 5px; margin-top: 10px">Ville déjà enregistrée</label></div>
+                            <div class="form-group" id="form-city">
+                            {{ form_label(outingFormView.city) }}
+                            {{ form_widget(outingFormView.city) }}
+                            {{ form_errors(outingFormView.city) }}
+                            </div>
+                            <div class="d-flex justify-content-center">
+                            <input type="radio" name="type" id="register"><label for="register" style="margin-left: 5px; margin-top: 10px">Nouvelle ville</label></div>
                             <div class="form-group">
                                 <label for="city_name" class="col-form-label">Ville : </label>
                                 <input name="city_name" class="form-control input" id="city_name" required>
