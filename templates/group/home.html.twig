@@ -6,6 +6,10 @@
 
 {% block body %}
 
+    {% if groupsCreated is empty and groupsParticipant is empty %}
+        Vous ne faites partie d'aucun groupe, n'hésitez pas à 
+    {% endif %}
+
     <a type="button" class="btn btn-primary" href="{{ path('group_create') }}">Créer un nouveau groupe privé</a>
 
     {% if groupsCreated is not empty %}
