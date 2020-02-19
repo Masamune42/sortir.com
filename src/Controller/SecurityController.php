@@ -44,7 +44,7 @@ class SecurityController extends AbstractController
 
 
         if ($request->isMethod('POST')) {
-            $mail = $request->request ->get('mail');
+            $mail = $request->request->get('mail');
 
 
             $entityManager = $this->getDoctrine()->getManager();
@@ -72,9 +72,6 @@ class SecurityController extends AbstractController
                 array('token' => $token),
                 UrlGeneratorInterface::ABSOLUTE_URL
             );
-
-
-
 
 
             $message = (new \Swift_Message('Mot de passe oublié'))
