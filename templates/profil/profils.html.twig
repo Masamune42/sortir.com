@@ -8,8 +8,15 @@
     <div class="row justify-content-center">
         <div class="card border-primary mb-3 mx-auto" style="max-width:50rem">
             <div class="card-header text-center">
-                <img src="{{ asset('images/profil/' ~ user.picture) }}"
-                     class="card-img-top rounded-circle imgProfil">
+                {% if user.picture is not null %}
+                    <img src="{{ asset('images/profil/' ~ user.picture) }}"
+                         class="card-img-top imgProfil">
+                {% else %}
+
+                    <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                         class="card-img-top rounded-circle imgProfil">
+                {% endif %}
+
             </div>
             <div class="card-body">
                 <h3 class="card-title text-center pb-2 mx-3 border-bottom border-primary bg-info rounded font-weight-bold">
@@ -47,14 +54,16 @@
 
     {% if (app.user.administrator and user.active) %} {#if the user is active and if I'm connected as admin, I can deactivate the user#}
         <div class="row justify-content-center">
-            <a type="submit" href="{{ path('admin_deactivate', {'id': user.id}) }}" class="btn btn-primary">Désactiver cet utilisateur</a>
+            <a type="submit" href="{{ path('admin_deactivate', {'id': user.id}) }}" class="btn btn-primary">Désactiver
+                cet utilisateur</a>
         </div>
         <br>
     {% endif %}
 
     {% if (app.user.administrator and user.username != 'utilisateur_supprimé') %} {#if I'm connected as admin, I can delete the user#}
         <div class="row justify-content-center">
-            <a type="submit" href="{{ path('admin_delete', {'id': user.id}) }}" class="btn btn-primary">Supprimer cet utilisateur</a>
+            <a type="submit" href="{{ path('admin_delete', {'id': user.id}) }}" class="btn btn-primary">Supprimer cet
+                utilisateur</a>
         </div>
         <br>
     {% endif %}
