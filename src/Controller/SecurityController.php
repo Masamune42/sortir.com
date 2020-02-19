@@ -41,8 +41,10 @@ class SecurityController extends AbstractController
         \Swift_Mailer $mailer,
         TokenGeneratorInterface $tokenGenerator
     ): Response {
+        dump($request);
         if ($request->isMethod('POST')) {
             $mail = $request->request ->get('mail');
+
 
             $entityManager = $this->getDoctrine()->getManager();
             $user = $entityManager->getRepository(User::class)->findOneByMail($mail);
@@ -69,6 +71,7 @@ class SecurityController extends AbstractController
                 array('token' => $token),
                 UrlGeneratorInterface::ABSOLUTE_PATH
             );
+
 
             $message = (new \Swift_Message('Mot de passe oublié'))
                 ->setFrom('vianney.newgame@gmail.com')
