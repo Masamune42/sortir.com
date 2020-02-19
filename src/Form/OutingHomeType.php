@@ -24,7 +24,9 @@ class OutingHomeType extends AbstractType
                     'class' => Establishment::class,
                     'choice_label' => 'name',
                     'label' => 'Site : ',
-                    'required'=>true,
+                    'required' => false,
+                    'empty_data' => null,
+                    'placeholder'=>'TOUS',
                 ]
             )
             ->add(
