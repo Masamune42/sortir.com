@@ -56,6 +56,16 @@
                         <td class="table-info font-weight-bold rounded" colspan="1">Infos supplémentaire</td>
                         <td id="infos" colspan="3">{{ outing.infoOuting }}</td>
                     </tr>
+
+                    {% if outing.usersgroup is not null  %}
+                        <tr>
+                            <td colspan="4">Sortie limitée au groupe
+                                <a href="{{ path('group_detail', {'id':  outing.usersgroup.id}) }}">
+                                    {{ outing.usersgroup.name }}
+                                </a>
+                            </td>
+                        </tr>
+                    {% endif %}
                 </table>
             </div>
         </div>
