@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -43,8 +44,32 @@ class MainController extends AbstractController
     /**
      * @Route("/deactivated", name="deactivated")
      */
-    public function deactivated(AuthenticationUtils $authenticationUtils, Request $request, SessionInterface $session)
+    public function deactivated(AuthenticationUtils $authenticationUtils, Request $request, SessionInterface $session, \Swift_Mailer $mailer)
     {
+        if($request->isMethod('post')){
+            $mail = $this->getUser()->getMail();
+            $pseudo = $this->getUser()->getUsername();
+            $body = $request->get('message');
+
+
+            //Create mail for the user with the link for reset password
+            $message = (new \Swift_Message('Message d\'un compte désactivé'))
+                ->setFrom($mail)
+                ->setTo('sortircom.noreply@gmail.com')
+                ->setBody(
+                    "L'utilisateur $pseudo vous a envoyé un message <br>
+                    $body",
+                    'text/html'
+                );
+
+            $mailer->send($message);
+
+            $this->addFlash('success', 'Mail envoyé');
+
+            return $this->redirectToRoute('deactivated');
+
+        }
+
         return $this->render('main/deactivated.html.twig');
     }
 

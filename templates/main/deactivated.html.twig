@@ -14,6 +14,17 @@
         Vous pouvez contacter un administrateur pour faire une demande de réactivation qui sera étudiée.
     </p>
 
+    <form method="post">
+
+
+        <label for="message"></label>
+        <input type="text" name="message" id="message" class="form-control" placeholder=" Un message pour l'administrateur ? "
+                required autofocus>
+
+        <button class="btn btn-lg btn-primary" type="submit">
+            Envoi du mail à un administrateur !
+        </button>
+    </form>
 {% endblock %}
 
 {% block title %}
