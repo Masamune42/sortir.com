@@ -79,11 +79,11 @@
                             <div class="d-flex justify-content-center">
                             <input type="radio" name="type" checked="checked" id="existed"><label for="existed" style="margin-left: 5px; margin-top: 10px">Ville déjà enregistrée</label></div>
                             <div class="form-group" id="form-city">
-                                <select name="nom" size="1">
-
+                                <select name="cities" class="custom-select" id="select_cities">
                                 {% for city in cities %}
                                     <option>{{ city.name }} {{ city.postCode }}
                             {% endfor %}
+                                    </option>
                                 </select>
                             </div>
                             <div class="d-flex justify-content-center">
@@ -160,5 +160,15 @@
     </div>
 {% endblock %}
 {% block scriptJS %}
+    <script>
+        var radio1 = $('#existed');
+        var radio2 = $('#register');
+
+        if (radio1.onclick){
+            document.getElementById('select_cities').setAttribute('disabled');
+        }
+
+
+    </script>
     <script src="{{ asset('js/createOuting.js') }}"></script>
 {% endblock %}
