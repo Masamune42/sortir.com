@@ -17,7 +17,7 @@ class CSVType extends AbstractType
                 FileType::class,
                 [
                     'required'=>true,
-                    'label'=>'choisissez votre fichier csv',
+                    'label'=>'Choisissez votre fichier CSV',
                 ])
             ->add('submit',
                 SubmitType::class,
