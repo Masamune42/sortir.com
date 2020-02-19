@@ -15,7 +15,7 @@
             <th>Nom</th>
             <th>Actif</th>
             <th>Administrateur</th>
-            <th>Action</th>
+            <th>Action sur l'utilisateur</th>
         </tr>
         </thead>
 
@@ -38,11 +38,11 @@
                     {% endif %}
                 </td>
                 <td>
-                    <a type="submit" href="{{ path('admin_delete', {'id': user.id}) }}" class="btn btn-primary">
-                        Supprimer cet utilisateur</a>
+                    <a type="submit" href="{{ path('admin_delete', {'id': user.id}) }}" class="btn btn-danger">
+                        Supprimer</a>
                     {% if user.active %}
-                        <a type="submit" href="{{ path('admin_deactivate', {'id': user.id}) }}" class="btn btn-primary">
-                            Désactiver cet utilisateur</a>
+                        <a type="submit" href="{{ path('admin_deactivate', {'id': user.id}) }}" class="btn btn-warning">
+                            Désactiver</a>
                     {% endif %}
                 </td>
             </tr>
