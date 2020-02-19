@@ -5,7 +5,10 @@ namespace App\Form;
 use App\Entity\City;
 use App\Entity\Outing;
 use App\Entity\Place;
+use App\Entity\User;
+use App\Repository\GroupRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -14,11 +17,21 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
 
 class OutingType extends AbstractType
 {
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+
         $builder
             ->add(
                 'name',
@@ -53,12 +66,14 @@ class OutingType extends AbstractType
                 NumberType::class,
                 ['label' => 'Nombre de personnes maximum']
             )
-            ->add('infoOuting',
+            ->add(
+                'infoOuting',
                 TextareaType::class,
                 [
                     'label' => 'Description de la sortie',
                     'required' => true,
-                ])
+                ]
+            )
             //->add('status')
             //->add('establishment')
             ->add(
@@ -67,24 +82,42 @@ class OutingType extends AbstractType
                 [
                     'class' => Place::class,
                     'choice_label' => function (Place $place) {
-                        return $place->getName() . " - " . $place->getCity()->getPostCode() . " " . $place->getCity()->getName();
+                        return $place->getName()." - ".$place->getCity()->getPostCode()." ".$place->getCity()->getName(
+                            );
                     },
                     'label' => 'Lieu de la sortie',
                 ]
             )
+            //not compulsory: related private group
+//            ->add(
+//                'usersGroup',
+//                EntityType::class,
+//                [
+//                    'class' => User::class,
+//                    'query_builder' => function (GroupRepository $er) {
+//                        return $er->createQueryBuilder('g')
+//                            ->join('g.participants', 'p')
+//                            ->where("p = :user")
+//                            ->setParameter('user', $this->security->getUser());
+//                    },
+//                    'choice_label' => 'name',
+//                    'required' => false,
+//                    'empty_data' => null,
+//                ]
+//            )
             // A créer plus tard en gérant la sélection de la ville et ensuite du lieu
-            ->add(
-                'city',
-                EntityType::class,
-                [
-                    'mapped' => false,
-                    'class' => City::class,
-                    'choice_label' => function (City $city) {
-                        return $city->getPostCode() . " " . $city->getName();
-                    },
-                    'required' => false
-                ]
-            )
+//            ->add(
+//                'city',
+//                EntityType::class,
+//                [
+//                    'mapped' => false,
+//                    'class' => City::class,
+//                    'choice_label' => function (City $city) {
+//                        return $city->getPostCode() . " " . $city->getName();
+//                    },
+//                    'required' => false
+//                ]
+//            )
             ->add(
                 'save',
                 SubmitType::class,

@@ -76,6 +76,9 @@ class OutingController extends AbstractController
             $outing->setEstablishment($establishementUser);
         }
 
+        $cityRepository = $entityManager->getRepository(City::class);
+        $cities = $cityRepository->findAll();
+
         $statutRepository = $entityManager->getRepository(Status::class);
 
         $outingForm = $this->createForm(OutingType::class, $outing);
@@ -141,6 +144,7 @@ class OutingController extends AbstractController
                 'outingFormView' => $outingForm->createView(),
                 'outing' => $outing,
                 'modif' => $outing->getId() !== null,
+                'cities' => $cities,
             ]
         );
 

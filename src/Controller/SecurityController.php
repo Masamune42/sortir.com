@@ -100,7 +100,7 @@ class SecurityController extends AbstractController
         if ($request->isMethod('POST')) {
             $entityManager = $this->getDoctrine()->getManager();
 
-            $user = $entityManager->getRepository(User::class)->findOneByResetToken($token);
+            $user = $entityManager->getRepository(User::class)->findOneByToken($token);
             /* @var $user User */
 
             if ($user === null) {

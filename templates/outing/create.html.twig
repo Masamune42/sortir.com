@@ -79,9 +79,12 @@
                             <div class="d-flex justify-content-center">
                             <input type="radio" name="type" checked="checked" id="existed"><label for="existed" style="margin-left: 5px; margin-top: 10px">Ville déjà enregistrée</label></div>
                             <div class="form-group" id="form-city">
-                            {{ form_label(outingFormView.city) }}
-                            {{ form_widget(outingFormView.city) }}
-                            {{ form_errors(outingFormView.city) }}
+                                <select name="cities" class="custom-select" id="select_cities">
+                                {% for city in cities %}
+                                    <option>{{ city.name }} {{ city.postCode }}
+                            {% endfor %}
+                                    </option>
+                                </select>
                             </div>
                             <div class="d-flex justify-content-center">
                             <input type="radio" name="type" id="register"><label for="register" style="margin-left: 5px; margin-top: 10px">Nouvelle ville</label></div>
@@ -157,5 +160,35 @@
     </div>
 {% endblock %}
 {% block scriptJS %}
+    <script>
+        $("#select_cities").on("click", disabled1);
+        $("#register").on("click", disabled2);
+
+
+        // var radio1 = document.getElementById('select_cities');
+        function disabled1(){
+            document.getElementById('select_cities').setAttribute('disabled', 'false');
+            document.getElementById('city_name').setAttribute('disabled', 'true');
+            document.getElementById('city_name').setAttribute('disabled', 'true');
+        }
+
+        function disabled2(){
+            document.getElementById('select_cities').setAttribute('disabled', 'true');
+            document.getElementById('city_name').setAttribute('disabled', 'false');
+            document.getElementById('city_name').setAttribute('disabled', 'false');
+        }
+
+        // var radio2 = document.getElementById('register');
+        // if (radio1.getAttribute("checked")){
+        //     document.getElementById('select_cities').setAttribute('disabled', 'false');
+        //     document.getElementById('city_name').setAttribute('disabled', 'true');
+        //     document.getElementById('city_name').setAttribute('disabled', 'true');
+        // }
+        // if (radio2.getAttribute("checked")) {
+        //     document.getElementById('select_cities').setAttribute('disabled', 'true');
+        //     document.getElementById('city_name').setAttribute('disabled', 'false');
+        //     document.getElementById('city_name').setAttribute('disabled', 'false');
+        // }
+    </script>
     <script src="{{ asset('js/createOuting.js') }}"></script>
 {% endblock %}
