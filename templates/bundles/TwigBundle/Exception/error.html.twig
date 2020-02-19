@@ -1,0 +1,17 @@
+{% extends 'errorbase.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/error.css') }}">{% endblock %}
+{% block title %}OUPS{% endblock %}
+
+{% block body %}
+    <div class="error-500" data-text="Oh non! Notre code spaghetti ne fonctionne pas correctement. Nous serons bientôt de retour!">
+        <spaguetti>
+            <fork></fork>
+            <meat></meat>
+            <pasta></pasta>
+            <plate></plate>
+        </spaguetti>
+    </div>
+
+    <script src="{{ asset('js/error.js') }}"></script>
+{% endblock %}

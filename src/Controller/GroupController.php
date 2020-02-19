@@ -19,15 +19,18 @@ class GroupController extends AbstractController
     /**
      * @Route("/home", name="home")
      */
-    public function home()
+    public function home(EntityManagerInterface $entityManager)
     {
-
+        $groupRepository = $entityManager->getRepository(Group::class);
+        $groupsCreated = $groupRepository->findBy(['creator' => $this->getUser()]);
+        $groupsParticipant = $groupRepository->findByParticipantButNotCreator($this->getUser());
 
         return $this->render(
             'group/home.html.twig',
-            [
-                'controller_name' => 'GroupController',
-            ]
+            compact(
+                'groupsCreated',
+                'groupsParticipant'
+            )
         );
     }
 
@@ -36,6 +39,7 @@ class GroupController extends AbstractController
      */
     public function create(Request $request, EntityManagerInterface $entityManager)
     {
+
         $group = new Group();
         $groupForm = $this->createForm(GroupType::class, $group);
 
@@ -70,15 +74,15 @@ class GroupController extends AbstractController
         $addMemberForm = $this->createForm(GroupMemberType::class);
         $addMemberForm->handleRequest($request);
 
-        if ($addMemberForm->isSubmitted() && $addMemberForm->isValid()){
+        if ($addMemberForm->isSubmitted() && $addMemberForm->isValid() && $this->getUser() == $group->getCreator()) {
 
             $userRepository = $entityManager->getRepository(User::class);
             $newMemberUsernameOrMail = $addMemberForm->getData()['usernameOrMail'];
             $newMember = $userRepository->findByUsernameOrMail($newMemberUsernameOrMail, $newMemberUsernameOrMail);
 
-            if (count($newMember) > 0){
+            if (count($newMember) > 0) {
                 $newMember = $newMember[0];
-                if (!in_array($newMember, $group->getParticipants()->toArray())){
+                if (!in_array($newMember, $group->getParticipants()->toArray())) {
                     $group->addParticipant($newMember);
                     $entityManager->persist($group);
                     $entityManager->flush();
@@ -95,7 +99,7 @@ class GroupController extends AbstractController
             'group/detail.html.twig',
             [
                 'group' => $group,
-                'addMemberFormView'=>$addMemberForm->createView(),
+                'addMemberFormView' => $addMemberForm->createView(),
             ]
         );
     }

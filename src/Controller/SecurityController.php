@@ -41,8 +41,10 @@ class SecurityController extends AbstractController
         \Swift_Mailer $mailer,
         TokenGeneratorInterface $tokenGenerator
     ): Response {
+        dump($request);
         if ($request->isMethod('POST')) {
             $mail = $request->request ->get('mail');
+
 
             $entityManager = $this->getDoctrine()->getManager();
             $user = $entityManager->getRepository(User::class)->findOneByMail($mail);
@@ -51,7 +53,7 @@ class SecurityController extends AbstractController
             if ($user === null) {
                 $this->addFlash('danger', 'Mail inconnu');
 
-                return $this->redirectToRoute('home');
+                return $this->redirectToRoute('outing_home');
             }
             $token = $tokenGenerator->generateToken();
             try {
@@ -61,7 +63,7 @@ class SecurityController extends AbstractController
             } catch (\Exception $exception) {
                 $this->addFlash('warning', $exception->getMessage());
 
-                return $this->redirectToRoute('home');
+                return $this->redirectToRoute('outing_home');
             }
 
             $url = $this->generateUrl(
@@ -69,6 +71,7 @@ class SecurityController extends AbstractController
                 array('token' => $token),
                 UrlGeneratorInterface::ABSOLUTE_PATH
             );
+
 
             $message = (new \Swift_Message('Mot de passe oublié'))
                 ->setFrom('vianney.newgame@gmail.com')
@@ -82,7 +85,7 @@ class SecurityController extends AbstractController
 
             $this->addFlash('notice', 'Mail envoyé');
 
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('outing_home');
 
         }
 
@@ -103,7 +106,7 @@ class SecurityController extends AbstractController
             if ($user === null) {
                 $this->addFlash('danger', 'Token inconnu');
 
-                return $this->redirectToRoute('home');
+                return $this->redirectToRoute('outing_home');
             }
 
             $user->setResetToken(null);
@@ -113,7 +116,7 @@ class SecurityController extends AbstractController
 
             $this->addFlash('notice', 'Mot de passe mis à jour');
 
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('outing_home');
 
         } else {
             return $this->render('security/reset_password.html.twig', ['token' => $token]);
