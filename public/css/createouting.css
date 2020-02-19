@@ -18,11 +18,11 @@
     text-align: center
 }
 
-i{
+.add_button{
     font-size: 2em;
 }
 
-.input.form-control{
+.input.form-control,#form-city{
     width: 60%;
     margin-left: auto;
     margin-right: auto;

@@ -1,3 +1,4 @@
+// Function that allow Firefox Browser to use the dateTime type
 var dateTimeStart = document.getElementById('date_time_start');
 var dateTimeLimit = document.getElementById('date_time_limit');
 
@@ -13,3 +14,6 @@ if (isFirefox) {
  <input type="date" id="date_limit_firefox" name="date_limit_firefox" class="input-group-text" style="margin-right: auto;margin-left: auto"/><input type="time" id="time_limit_firefox" name="time_limit_firefox" class="input-group-text" style="margin-right: auto;margin-left: auto"/>
 </span>`;
 }
+
+
+//

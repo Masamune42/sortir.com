@@ -11,6 +11,7 @@ use App\Entity\User;
 use App\Form\CSVType;
 use App\Form\OutingHomeType;
 use App\Form\OutingType;
+use App\Service\CreatePlaceAndCity;
 use Doctrine\ORM\EntityManagerInterface;
 use League\Csv\Reader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -56,14 +57,11 @@ class OutingController extends AbstractController
      * @Route("/create", name="create")
      * @Route("/modify/{id}", name="modify", requirements={"id : \d+"})
      */
-    public function create(Outing $outing = null, Request $request, EntityManagerInterface $entityManager)
+    public function create(Outing $outing = null, Request $request, EntityManagerInterface $entityManager, CreatePlaceAndCity $createPlaceAndCity)
     {
         //Verify if the request contain a demand to create a place and/or a city
         if($request->request->get('place_name') != null){
-            $place = new Place();
-            $city = new City();
-
-
+            $createPlaceAndCity = $createPlaceAndCity->createPlace($request);
         }
 
         if (!$outing) {

@@ -25,9 +25,9 @@
                         <td class="table-info font-weight-bold rounded">Début de la sortie</td>
                         <td>{{ outing.startTime|format_datetime('short', 'short', locale='fr') }}</td>
                     </tr>
-                    <tr>
+                    <tr>{% set sdAndActions = outing.getStatusDisplayAndActions(app.user) %}
                         <td class="table-info font-weight-bold">Statut</td>
-                        <td>{{ outing.status.name }}</td>
+                        <td>{{ sdAndActions['display'] }}</td>
                         <td class="table-info font-weight-bold">Durée</td>
                         <td>{% if outing.duration < 60 %}
                                 {{ outing.duration }} minutes
@@ -124,7 +124,7 @@
 {% endblock %}
 {% block javascripts %}
     <script>
-        ("#infos").innerText;
+        var text = ("#infos").innerText;
 
 
         console.log(text);

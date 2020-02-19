@@ -66,20 +66,25 @@ class OutingType extends AbstractType
                 EntityType::class,
                 [
                     'class' => Place::class,
-                    'choice_label' => 'name',
+                    'choice_label' => function (Place $place) {
+                        return $place->getName() . " - " . $place->getCity()->getPostCode() . " " . $place->getCity()->getName();
+                    },
                     'label' => 'Lieu de la sortie',
                 ]
             )
             // A créer plus tard en gérant la sélection de la ville et ensuite du lieu
-//            ->add(
-//                'city',
-//                EntityType::class,
-//                [
-//                    'mapped' => false,
-//                    'class' => City::class,
-//                    'choice_label' => 'name',
-//                ]
-//            )
+            ->add(
+                'city',
+                EntityType::class,
+                [
+                    'mapped' => false,
+                    'class' => City::class,
+                    'choice_label' => function (City $city) {
+                        return $city->getPostCode() . " " . $city->getName();
+                    },
+                    'required' => false
+                ]
+            )
             ->add(
                 'save',
                 SubmitType::class,
