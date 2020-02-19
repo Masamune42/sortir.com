@@ -36,13 +36,21 @@ class OutingController extends AbstractController
         $outings = null;
 
         if ($homeOutingForm->isSubmitted() && $homeOutingForm->isValid()) {
-            $outingRepository = $entityManager->getRepository(Outing::class);
             $data = $homeOutingForm->getData();
-
-
-            $outings = $outingRepository->findOutingForHome($this->getUser(), $data);
-
+        } else {
+            $data = [
+                'establishment' => null,
+                'nameContent' => null,
+                'dateMin' => null,
+                'dateMax' => null,
+                'iAmOrganizer' => false,
+                'iAmRegistred' => false,
+                'iAmNotRegistred' => false,
+                'passedOuting' => false,
+            ];
         }
+        $outingRepository = $entityManager->getRepository(Outing::class);
+        $outings = $outingRepository->findOutingForHome($this->getUser(), $data);
 
         return $this->render(
             'outing/home.html.twig',
@@ -64,8 +72,14 @@ class OutingController extends AbstractController
         CreatePlaceAndCity $createPlaceAndCity
     ) {
         //Verify if the request contain a demand to create a place and/or a city
+        if ($request->request->get('city_name') != null) {
+
+            $createPlaceAndCity->createCity($request);
+
+        }
+
         if ($request->request->get('place_name') != null) {
-            $createPlaceAndCity = $createPlaceAndCity->createPlace($request);
+            $createPlaceAndCity->createPlace($request);
         }
 
         if (!$outing) {

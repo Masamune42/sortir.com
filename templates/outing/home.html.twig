@@ -2,9 +2,12 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/outinghome.css') }}"> {% endblock %}
-
+    <link rel="stylesheet" href="{{ asset('css/outinghome.css') }}">
+    <!-- MDBootstrap Datatables  -->
+    <link href="{{ asset('css/datatables.min.css') }}" rel="stylesheet">
+{% endblock %}
 {% block myTitle %}Liste des sorties{% endblock %}
+
 {% block body %}
     {#    {{ form(homeOutingFormView) }}#}
 
@@ -91,109 +94,136 @@
         {{ form_end(homeOutingFormView) }}
     </div>
 
-    {# tab for the results#}
-    <div class="result-tab">
-        <div class="result-head">
-            <div class="result-head-row">
-                <span class="result-head-cell result-col-1">Nom de la sortie</span>{#
-            #}<span class="result-head-cell result-col-2">Date de la sortie</span>{#
-            #}<span class="result-head-cell result-col-3">Clôture</span>{#
-            #}<span class="result-head-cell result-col-4">inscrits /places</span>{#
-            #}<span class="result-head-cell result-col-5">État</span>{#
-            #}<span class="result-head-cell result-col-6">Inscrit</span>{#
-            #}<span class="result-head-cell result-col-7">Organisateur</span>{#
-            #}<span class="result-head-cell result-col-8">Actions</span>
-            </div>
-        </div>
-        <div class="result-body">
-            {% for outing in outings %}
-                {% set sdAndActions = outing.getStatusDisplayAndActions(app.user) %}
-                <div class="result-body-row">
-                    <span class="result-body-cell result-col-1 overflow-hidden">{{ outing.name }}</span>{#
-                    #}<span class="result-body-cell result-col-2 overflow-hidden">{{ outing.startTime|date('d/m/Y H:i') }}</span>{#
-                    #}<span class="result-body-cell result-col-3 overflow-hidden">{{ outing.limitDateTime|date('d/m/Y H:i') }}</span>{#
-                    #}<span class="result-body-cell result-col-4 overflow-hidden">{{ outing.participant|length }}/{{ outing.registerMax }}</span>{#
-                    #}<span class="result-body-cell result-col-5 overflow-hidden">{{ sdAndActions['display'] }}</span>{#
-                    #}<span class="result-body-cell result-col-6 overflow-hidden">{{ (app.user in outing.participant) ? 'X' : '' }}</span>{#
-                    #}<span class="result-body-cell result-col-7 overflow-hidden">
-                        <a href="{{ path('profil_byid', {'id':  outing.organizer.id}) }}">
-                            {{ outing.organizer.username }}
+    <table id="dtVerticalScrollExample" class="table table-striped table-bordered table-sm" cellspacing="0"
+           width="100%">
+        <thead>
+        <tr>
+            <th class="th-sm">Nom de la sortie
+            </th>
+            <th class="th-sm">Date de la sortie
+            </th>
+            <th class="th-sm">Clôture
+            </th>
+            <th class="th-sm">inscrits /places
+            </th>
+            <th class="th-sm">État
+            </th>
+            <th class="th-sm">Inscrit
+            </th>
+            <th class="th-sm">Organisateur
+            </th>
+            <th class="th-sm">Actions
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for outing in outings %}
+            {% set sdAndActions = outing.getStatusDisplayAndActions(app.user) %}
+            <tr>
+                <td>{{ outing.name }}</td>
+                <td>{{ outing.startTime|date('d/m/Y H:i') }}</td>
+                <td>{{ outing.limitDateTime|date('d/m/Y H:i') }}</td>
+                <td>{{ outing.participant|length }}/{{ outing.registerMax }}</td>
+                <td>{{ sdAndActions['display'] }}</td>
+                <td>{{ (app.user in outing.participant) ? 'X' : '' }}</td>
+                <td><a href="{{ path('profil_byid', {'id':  outing.organizer.id}) }}">
+                        {{ outing.organizer.username }}
+                    </a></td>
+                <td>{% if (sdAndActions['showable']) %}
+                        <a href="{{ path('outing_detail', {'id': outing.id}) }}">
+                            Afficher
                         </a>
-                    </span>{#
-                    #}<span class="result-body-cell result-col-8 overflow-hidden">
-                        {% if (sdAndActions['showable']) %}
-                            <a href="{{ path('outing_detail', {'id': outing.id}) }}">
-                                Afficher
-                            </a>
-                        {% endif %}
+                    {% endif %}
 
-                        {% if (sdAndActions['deletable']) %}
-                            <a href="{{ path('outing_delete', {'id': outing.id}) }}">
-                                Supprimer
-                            </a>
-                        {% endif %}
+                    {% if (sdAndActions['deletable']) %}
+                        <a href="{{ path('outing_delete', {'id': outing.id}) }}">
+                            Supprimer
+                        </a>
+                    {% endif %}
 
-                        {% if (sdAndActions['modifiable']) %}
-                            <a href="{{ path('outing_modify', {'id': outing.id}) }}">Modifier</a>
-                        {% endif %}
+                    {% if (sdAndActions['modifiable']) %}
+                        <a href="{{ path('outing_modify', {'id': outing.id}) }}">Modifier</a>
+                    {% endif %}
 
-                        {% if (sdAndActions['publishable']) %}
-                            <a href="{{ path('outing_publish', {'id': outing.id}) }}">
-                                Publier
-                            </a>
-                        {% endif %}
+                    {% if (sdAndActions['publishable']) %}
+                        <a href="{{ path('outing_publish', {'id': outing.id}) }}">
+                            Publier
+                        </a>
+                    {% endif %}
 
-                        {% if (sdAndActions['unregisterable']) %}
-                            <a href="{{ path('outing_remove', {'id' : outing.id}) }}"> Se désinscrire</a>
-                        {% endif %}
+                    {% if (sdAndActions['unregisterable']) %}
+                        <a href="{{ path('outing_remove', {'id' : outing.id}) }}"> Se désinscrire</a>
+                    {% endif %}
 
-                        {% if (sdAndActions['registerable']) %}
-                            <a href="{{ path('outing_register', {'id' : outing.id}) }}">S'inscrire</a>
-                        {% endif %}
+                    {% if (sdAndActions['registerable']) %}
+                        <a href="{{ path('outing_register', {'id' : outing.id}) }}">S'inscrire</a>
+                    {% endif %}
 
-                        {% if (sdAndActions['cancelable']) %}
-                            <a data-toggle="modal"
-                               data-target="#exampleModal"
-                               href="">Annuler</a>
+                    {% if (sdAndActions['cancelable']) %}
+                        <a data-toggle="modal"
+                           data-target="#exampleModal"
+                           href="">Annuler</a>
 
-                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                                 aria-labelledby="exampleModalLabel"
-                                 aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Annuler la sortie</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Annuler la sortie</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Êtes-vous sûr de vouloir annuler cette sortie?
+                                    </div>
+                                    <form action="{{ path('outing_cancel', {'id': outing.id}) }}" method="post">
+                                        <div class="form-group">
+                                            <label for="message-text"
+                                                   class="col-form-label">Motif de l'annulation:</label>
+                                            <textarea name="motif" class="form-control" id="message-text"
+                                                      required></textarea>
+                                        </div>
+                                        <input type="submit" class="btn btn-danger" value="Annuler la sortie">
+                                    </form>
+                                    <div class="modal-footer d-flex justify-content-center">
+                                        <div>
+                                            <button type="button"
+                                                    class="btn btn-warning"
+                                                    data-dismiss="modal">Annuler
                                             </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Êtes-vous sûr de vouloir annuler cette sortie?
-                                        </div>
-                                         <form action="{{ path('outing_cancel', {'id': outing.id}) }}" method="post">
-                                             <div class="form-group">
-                                                 <label for="message-text" class="col-form-label">Motif de l'annulation:</label>
-                                                 <textarea name="motif" class="form-control" id="message-text" required></textarea>
-                                             </div>
-                                             <input type="submit" class="btn btn-danger" value="Annuler la sortie">
-                                        </form>
-                                        <div class="modal-footer d-flex justify-content-center">
-                                            <div>
-                                                <button type="button"
-                                                        class="btn btn-warning"
-                                                        data-dismiss="modal">Annuler</button>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        {% endif %}
+                        </div>
+                    {% endif %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <th>Nom de la sortie
+            </th>
+            <th>Date de la sortie
+            </th>
+            <th>Clôture
+            </th>
+            <th>inscrits /places
+            </th>
+            <th>État
+            </th>
+            <th>Inscrit
+            </th>
+            <th>Organisateur
 
-                    </span>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
+            </th>
+            <th>Actions
+            </th>
+        </tr>
+        </tfoot>
+    </table>
 
 
 
@@ -203,5 +233,8 @@
 {% block title %}
     Accueil
 {% endblock %}
-{% block scriptJS %}{% endblock %}
+{% block scriptJS %}
+    <script src="{{ asset('js/outing.js') }}"></script>
+    <!-- MDBootstrap Datatables  -->
+    <script type="text/javascript" src="{{ asset('js/datatables.min.js') }}"></script>{% endblock %}
 

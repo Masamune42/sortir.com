@@ -22,10 +22,12 @@ class OutingRepository extends ServiceEntityRepository
     public function findOutingForHome($user, $data)//$data are the data from the OutingHomeType form
     {
 
-        $qb = $this->createQueryBuilder('o')
-            ->where("o.establishment = :establishment")
-            ->setParameter('establishment', $data['establishment']);
+        $qb = $this->createQueryBuilder('o');
 
+        if ($data['establishment'] !== null) {
+            $qb->where("o.establishment = :establishment");
+            $qb->setParameter('establishment', $data['establishment']);
+        }
 
         if ($data['nameContent'] !== null) {
             $qb->andWhere("o.name LIKE :nameContent");
@@ -60,6 +62,7 @@ class OutingRepository extends ServiceEntityRepository
             $qb->andWhere("o.startTime > :now");
         }
         $qb->setParameter('now', $now);
+
 
         $qb->orderBy('o.startTime', 'ASC');
 
@@ -97,11 +100,16 @@ class OutingRepository extends ServiceEntityRepository
             $results,
             function ($outing) use ($user) {
                 return (
-                    ($outing->getStatus()->getNameTech() == 'published')
-                    || ($outing->getStatus()->getNameTech() == 'draft' && $outing->getOrganizer() == $user)
-                    || ($outing->getStatus()->getNameTech() == 'canceled'
-                        && (in_array($user, $outing->getParticipant()->toArray()) || ($outing->getOrganizer(
-                                ) == $user || $user->getAdministrator()))) //get canceled outings ouly if I'm administator, organizer, or participant
+                    (($outing->getStatus()->getNameTech() == 'published')
+                        || ($outing->getStatus()->getNameTech() == 'draft' && $outing->getOrganizer() == $user)
+                        || ($outing->getStatus()->getNameTech() == 'canceled'
+                            && (in_array($user, $outing->getParticipant()->toArray()) || ($outing->getOrganizer(
+                                    ) == $user || $user->getAdministrator()))))
+                    && ($outing->getUsersGroup() == null
+                        || in_array( //the outing have to be open to all or I have to be a member of the group
+                            $user,
+                            $outing->getUsersGroup()->getParticipants()->toArray()
+                        ))//get canceled outings only if I'm administator, organizer, or participant
                 );
             }
         );
