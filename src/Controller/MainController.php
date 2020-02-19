@@ -62,5 +62,12 @@ class MainController extends AbstractController
         }
     }
 
+    /**
+     * @Route("/easteregg", name="easter_egg")
+     */
+    public function easterEgg() {
+        return $this->render('egg/egg.html.twig');
+    }
+
 
 }
