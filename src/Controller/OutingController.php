@@ -57,8 +57,12 @@ class OutingController extends AbstractController
      * @Route("/create", name="create")
      * @Route("/modify/{id}", name="modify", requirements={"id : \d+"})
      */
-    public function create(Outing $outing = null, Request $request, EntityManagerInterface $entityManager, CreatePlaceAndCity $createPlaceAndCity)
-    {
+    public function create(
+        Outing $outing = null,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        CreatePlaceAndCity $createPlaceAndCity
+    ) {
         //Verify if the request contain a demand to create a place and/or a city
         if ($request->request->get('place_name') != null) {
             $createPlaceAndCity = $createPlaceAndCity->createPlace($request);
@@ -86,8 +90,8 @@ class OutingController extends AbstractController
             $date_limit = $request->request->get('date_limit_firefox');
             $time_limit = $request->request->get('time_limit_firefox');
 
-            $date_time_start = $date_start . 'T' . $time_start;
-            $date_time_limit = $date_limit . 'T' . $time_limit;
+            $date_time_start = $date_start.'T'.$time_start;
+            $date_time_limit = $date_limit.'T'.$time_limit;
 
             $outing_temp = $request->request->get('outing');
             $outing_temp['startTime'] = $date_time_start;
@@ -102,6 +106,10 @@ class OutingController extends AbstractController
         $outingForm->handleRequest($request);
 
         if ($outingForm->isSubmitted() && $outingForm->isValid()) {
+            if ($outingForm->getData()['name'] === 'Moria') {
+                $this->redirectToRoute('easter_egg');
+            }
+
             if ($outingForm->getClickedButton() && 'save' === $outingForm->getClickedButton()->getName()) {
                 $statutCreated = $statutRepository->findOneBy(['nameTech' => 'draft']);
 
@@ -124,16 +132,20 @@ class OutingController extends AbstractController
 
                     return $this->redirectToRoute('outing_home');
                 }
+
+
             }
 
         }
 
         return $this->render(
             'outing/create.html.twig',
-            ['outingFormView' => $outingForm->createView(),
+            [
+                'outingFormView' => $outingForm->createView(),
                 'outing' => $outing,
                 'modif' => $outing->getId() !== null,
-                'cities' => $cities]
+                'cities' => $cities,
+            ]
         );
 
     }
@@ -153,7 +165,7 @@ class OutingController extends AbstractController
             $outing->setStatus($statutCanceled);
 
             $currentInfos = $outing->getInfoOuting();
-            $newInfos = "Sortie annulée pour la raison suivante : \n" . $motif . "\nAncienne description :\n" . $currentInfos;
+            $newInfos = "Sortie annulée pour la raison suivante : \n".$motif."\nAncienne description :\n".$currentInfos;
             $outing->setInfoOuting($newInfos);
 
             $entityManager->persist($outing);
