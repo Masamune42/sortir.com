@@ -184,7 +184,23 @@ class AdminController extends AbstractController
 
         $this->addFlash('success', 'Utilisateurs '.$userToDeactivate->getUsername().' désactivé.');
 
-        return $this->redirectToRoute('outing_home');
+        return $this->redirectToRoute('admin_users_list');
+
+    }
+
+    /**
+     * @Route("/reactivate/{id}",name="reactivate", requirements={"id : \d+"})
+     */
+    public function reactivate(User $userToDeactivate, EntityManagerInterface $entityManager)
+    {
+        //reactivate the user
+        $userToDeactivate->setActive(true);
+        $entityManager->persist($userToDeactivate);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Utilisateurs '.$userToDeactivate->getUsername().' résactivé.');
+
+        return $this->redirectToRoute('admin_users_list');
 
     }
 
@@ -216,7 +232,7 @@ class AdminController extends AbstractController
 
         $this->addFlash('success', 'Utilisateurs '.$userToDelete->getUsername().' désactivé.');
 
-        return $this->redirectToRoute('outing_home');
+        return $this->redirectToRoute('admin_users_list');
 
     }
 
@@ -249,6 +265,22 @@ class AdminController extends AbstractController
         }
 
         $entityManager->flush();
+    }
+
+    /**
+     * @Route("/userslist", name="users_list")
+     */
+    public function usersList(EntityManagerInterface $entityManager)
+    {
+        $usersList = $entityManager->getRepository(User::class)->findAll();
+
+        return $this->render(
+            'admin/userslist.html.twig',
+            [
+                'usersList' => $usersList,
+            ]
+        );
+
     }
 
 }

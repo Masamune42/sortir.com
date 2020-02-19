@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{{ asset('css/outinghome.css') }}">
     <!-- MDBootstrap Datatables  -->
     <link href="{{ asset('css/datatables.min.css') }}" rel="stylesheet">
+
 {% endblock %}
 {% block myTitle %}Liste des sorties{% endblock %}
 
@@ -94,10 +95,10 @@
         {{ form_end(homeOutingFormView) }}
     </div>
 
-    <table id="dtVerticalScrollExample" class="table table-striped table-bordered table-sm" cellspacing="0"
+    <table id="dtVerticalScrollExample" class="table table-striped table-bordered table-sm table-hover" cellspacing="0"
            width="100%">
         <thead>
-        <tr>
+        <tr class="table-warning">
             <th class="th-sm">Nom de la sortie
             </th>
             <th class="th-sm">Date de la sortie
@@ -203,7 +204,7 @@
         {% endfor %}
         </tbody>
         <tfoot>
-        <tr>
+        <tr class="table table-warning">
             <th>Nom de la sortie
             </th>
             <th>Date de la sortie

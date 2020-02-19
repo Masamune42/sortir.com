@@ -27,6 +27,8 @@ class City
 
     /**
      * @Assert\NotBlank(message="Veuillez remplir ce champ")
+     * @Assert\Length(min = 5, max = 7, minMessage = "Ne peut pas contenir moins de 5 chiffres", maxMessage = "Ne peut pas contenir plus de 7 chiffres")
+     * @Assert\Regex(pattern="/^[0-9]*$/", message="Un code postal est composé de chiffres")
      * @ORM\Column(type="string", length=7)
      */
     private $postCode;

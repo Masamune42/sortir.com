@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateurs{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block myTitle %}Liste des utilisateurs de sortir.com{% endblock %}
+
+
+{% block body %}
+
+    <table>
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Actif</th>
+            <th>Admin</th>
+            <th>Action sur l'utilisateur</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for user in usersList %}
+            <tr>
+                <td>
+                    <a href="{{ path('profil_byid', {'id':  user.id}) }}">
+                        {{ user.username }}
+                    </a>
+                </td>
+                <td>
+                    {% if user.active %}
+                        X
+                    {% endif %}
+                </td>
+                <td>
+                    {% if user.administrator %}
+                        X
+                    {% endif %}
+                </td>
+                <td>
+                    {% if not user.administrator %}
+                        <a type="submit" href="{{ path('admin_delete', {'id': user.id}) }}" class="btn btn-danger">
+                            Supprimer</a>
+
+                        {% if user.active %}
+                            <a type="submit" href="{{ path('admin_deactivate', {'id': user.id}) }}"
+                               class="btn btn-warning">
+                                Désactiver</a>
+
+                        {% else %}
+                            <a type="submit" href="{{ path('admin_reactivate', {'id': user.id}) }}"
+                               class="btn btn-primary">
+                                Réactiver</a>
+
+                        {% endif %}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
+
+
+{% block scriptJS %}{% endblock %}
