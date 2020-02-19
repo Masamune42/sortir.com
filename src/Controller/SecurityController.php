@@ -74,7 +74,7 @@ class SecurityController extends AbstractController
 
 
             $message = (new \Swift_Message('Mot de passe oublié'))
-                ->setFrom('vianney.newgame@gmail.com')
+                ->setFrom('sortircom.noreply@gmail.com')
                 ->setTo($user->getMail())
                 ->setBody(
                     "Bonjour, Voici le token pour reseter votre mot de passe : ".$url,
