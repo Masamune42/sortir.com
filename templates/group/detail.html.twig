@@ -24,24 +24,24 @@
 
     {{ form_start(addMemberFormView) }}
 
-    <div class="row justify-content-center">
-        <div class="col-auto">
+
+        <div>
             {{ form_label(addMemberFormView.usernameOrMail) }}
         </div>
-    </div>
 
-    <div class="row justify-content-center">
-        <div class="col-auto">
+
+
+        <div >
             {{ form_widget(addMemberFormView.usernameOrMail) }}
             {{ form_errors(addMemberFormView.usernameOrMail) }}
         </div>
-    </div>
 
-    <div class="row justify-content-center">
-        <div class="col-auto">
+
+
+        <div >
             {{ form_widget(addMemberFormView.submit) }}
         </div>
-    </div>
+
 
     {{ form_end(addMemberFormView) }}
 

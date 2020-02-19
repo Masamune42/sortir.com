@@ -24,7 +24,7 @@ class GroupMemberType extends AbstractType
                 'submit',
                 SubmitType::class,
                 [
-                    'label' => 'Créer',
+                    'label' => 'Ajouter',
                 ]
             );;
     }
