@@ -7,14 +7,14 @@
 {% block body %}
 
     {% if groupsCreated is empty and groupsParticipant is empty %}
-        Vous ne faites partie d'aucun groupe, n'hésitez pas à 
+        Vous ne faites partie d'aucun groupe, n'hésitez pas à
     {% endif %}
 
     <a type="button" class="btn btn-primary" href="{{ path('group_create') }}">Créer un nouveau groupe privé</a>
 
     {% if groupsCreated is not empty %}
         <h2>
-            Groupes dont vous êtes le créateur :
+            Groupe(s) dont vous êtes le créateur :
         </h2>
         <ul>
             {% for group in groupsCreated %}
@@ -29,7 +29,7 @@
 
     {% if groupsParticipant is not empty %}
         <h2>
-            Autres groupes dont vous faites partie :
+            Autre(s) groupe(s) dont vous faites partie :
         </h2>
         <ul>
             {% for group in groupsParticipant %}
