@@ -89,22 +89,22 @@ class OutingType extends AbstractType
                 ]
             )
             //not compulsory: related private group
-            ->add(
-                'usersGroup',
-                EntityType::class,
-                [
-                    'class' => User::class,
-                    'query_builder' => function (GroupRepository $er) {
-                        return $er->createQueryBuilder('g')
-                            ->join('g.participants', 'p')
-                            ->where("p = :user")
-                            ->setParameter('user', $this->security->getUser());
-                    },
-                    'choice_label' => 'name',
-                    'required' => false,
-                    'empty_data' => null,
-                ]
-            )
+//            ->add(
+//                'usersGroup',
+//                EntityType::class,
+//                [
+//                    'class' => User::class,
+//                    'query_builder' => function (GroupRepository $er) {
+//                        return $er->createQueryBuilder('g')
+//                            ->join('g.participants', 'p')
+//                            ->where("p = :user")
+//                            ->setParameter('user', $this->security->getUser());
+//                    },
+//                    'choice_label' => 'name',
+//                    'required' => false,
+//                    'empty_data' => null,
+//                ]
+//            )
             // A créer plus tard en gérant la sélection de la ville et ensuite du lieu
 //            ->add(
 //                'city',
