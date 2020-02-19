@@ -52,7 +52,7 @@
         <div class="col-3 text-center">
             {{ form_label(outingFormView.place) }}&nbsp;&nbsp;<a data-toggle="modal"
                                                                  data-target="#exampleModal"
-                                                                 href=""><i class="fas fa-plus-circle"></i></a>
+                                                                 href="" class="add_button"><i class="fas fa-plus-circle" id="add"></i></a>
             {{ form_widget(outingFormView.place) }}
             {{ form_errors(outingFormView.place) }}
 
@@ -148,5 +148,5 @@
     </div>
 {% endblock %}
 {% block scriptJS %}
-    <script src="{{ asset('js/firefox.js') }}"></script>
+    <script src="{{ asset('js/createOuting.js') }}"></script>
 {% endblock %}
