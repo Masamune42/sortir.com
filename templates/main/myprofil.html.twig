@@ -17,12 +17,18 @@
                     <h3 class="card-header">Ma photo de profil</h3>
 
                     <span class="card-body">
-                        {% if user.picture is not null %}
-                            <a href="{{ path('profil_delete_pic', {'id': user.id}) }}" class="btn btn-danger">Supprimer l'image</a>
-                            <img src="{{ asset('images/profil/' ~ user.picture) }}" class="imgProfil card-img-top">
-                        {% endif %}
-                        {{ form_row(profilFormView.picture) }}
+                        <div class="row justify-content-center">
 
+                        {% if user.picture is not null %}
+                            <div class="col-12">
+                            <a href="{{ path('profil_delete_pic', {'id': user.id}) }}" class="btn btn-danger">Supprimer l'image</a>
+                            </div>
+                            <div class="col-12">
+                            <img src="{{ asset('images/profil/' ~ user.picture) }}" class="imgProfil card-img-top img-fluid">
+                            </div>
+                        {% endif %}
+                            {{ form_row(profilFormView.picture) }}
+                        </div>
                     </span>
                 </span>
             </span>
