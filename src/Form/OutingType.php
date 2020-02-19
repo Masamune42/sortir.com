@@ -83,7 +83,7 @@ class OutingType extends AbstractType
                 [
                     'class' => Place::class,
                     'choice_label' => function (Place $place) {
-                        return $place->getName()." - ".$place->getCity()->getPostCode()." ".$place->getCity()->getName(
+                        return $place->getName()." - ".$place->getStreet()." ".$place->getCity()->getPostCode()." ".$place->getCity()->getName(
                             );
                     },
                     'label' => 'Lieu de la sortie',

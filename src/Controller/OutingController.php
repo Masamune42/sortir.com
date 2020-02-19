@@ -64,8 +64,14 @@ class OutingController extends AbstractController
         CreatePlaceAndCity $createPlaceAndCity
     ) {
         //Verify if the request contain a demand to create a place and/or a city
+        if ($request->request->get('city_name') != null){
+
+           $createPlaceAndCity->createCity($request);
+           
+        }
+
         if ($request->request->get('place_name') != null) {
-            $createPlaceAndCity = $createPlaceAndCity->createPlace($request);
+            $createPlaceAndCity->createPlace($request);
         }
 
         if (!$outing) {
