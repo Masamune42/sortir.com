@@ -28,6 +28,8 @@ class AdminController extends AbstractController
         Request $request,
         UserPasswordEncoderInterface $passwordEncoder
     ): \Symfony\Component\HttpFoundation\Response {
+
+        //create new user with form 
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);

@@ -46,7 +46,9 @@ class SecurityController extends AbstractController
         if ($request->isMethod('POST')) {
             $mail = $request->request->get('mail');
 
-
+            //Search the mail in the database
+            //if exist continue
+            //else mail not exist
             $entityManager = $this->getDoctrine()->getManager();
             $user = $entityManager->getRepository(User::class)->findOneByMail($mail);
             /* @var $user User */
@@ -67,6 +69,7 @@ class SecurityController extends AbstractController
                 return $this->redirectToRoute('outing_home');
             }
 
+            //Generate an url with the token
             $url = $this->generateUrl(
                 'security_reset_password',
                 array('token' => $token),
@@ -74,6 +77,7 @@ class SecurityController extends AbstractController
             );
 
 
+            //Create mail for the user with the link for reset password
             $message = (new \Swift_Message('Mot de passe oublié'))
                 ->setFrom('sortircom.noreply@gmail.com')
                 ->setTo($user->getMail())
