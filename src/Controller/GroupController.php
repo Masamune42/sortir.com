@@ -74,7 +74,7 @@ class GroupController extends AbstractController
         $addMemberForm = $this->createForm(GroupMemberType::class);
         $addMemberForm->handleRequest($request);
 
-        if ($addMemberForm->isSubmitted() && $addMemberForm->isValid()) {
+        if ($addMemberForm->isSubmitted() && $addMemberForm->isValid() && $this->getUser() == $group->getCreator()) {
 
             $userRepository = $entityManager->getRepository(User::class);
             $newMemberUsernameOrMail = $addMemberForm->getData()['usernameOrMail'];
