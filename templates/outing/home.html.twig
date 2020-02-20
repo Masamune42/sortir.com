@@ -127,8 +127,10 @@
                 <td>{{ outing.participant|length }}/{{ outing.registerMax }}</td>
                 <td>{{ sdAndActions['display'] }}</td>
                 <td>{{ (app.user in outing.participant) ? 'X' : '' }}</td>
-                <td><a href="{{ path('profil_byid', {'id':  outing.organizer.id}) }}">
+                <td>{% if outing.organizer.username != "utilisateur_supprimé" %}
+                    <a href="{{ path('profil_byid', {'id':  outing.organizer.id}) }}">
                         {{ outing.organizer.username }}
+                        {% endif %}
                     </a></td>
                 <td>{% if (sdAndActions['showable']) %}
                         <a href="{{ path('outing_detail', {'id': outing.id}) }}">
