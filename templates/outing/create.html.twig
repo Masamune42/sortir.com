@@ -48,7 +48,7 @@
         </div>
     </div>
     <br>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center d-flex align-items-end">
         <div class="col-3 text-center">
             {{ form_label(outingFormView.place) }}&nbsp;&nbsp;<a data-toggle="modal"
                                                                  data-target="#adding_place"
@@ -59,9 +59,9 @@
 
 
         </div>
-    </div>
+    {#</div>
     <br>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center">#}
         <div class="col-3 text-center">
             {{ form_label(outingFormView.usersGroup) }}
             {{ form_widget(outingFormView.usersGroup) }}
