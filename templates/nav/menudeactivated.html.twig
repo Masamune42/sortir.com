@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="{{ path('outing_home') }}"><img src="{{ asset('images/favicon.svg.png') }}" class=""></a>
+    <a class="navbar-brand" href="{{ path('logout') }}"><img src="{{ asset('images/favicon.svg.png') }}" class=""></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
             aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -8,13 +8,13 @@
     <div class="collapse navbar-collapse" id="navbarColor02">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link d-flex align-items-center" href="{{ path("outing_home") }}"><span class="menu-icon"><i
+                <a class="nav-link d-flex align-items-center" href="{{ path("logout") }}"><span class="menu-icon"><i
                                 class="fa fa-home"></i></span>&nbsp;Accueil</a>
             </li>
             {% if is_granted('ROLE_USER') %}
                 <li class="nav-item">
                     <div>
-                        <a class="nav-link d-flex align-items-center" href="{{ path("outing_create") }}" style="color: #3E3F3A;"><span
+                        <a class="nav-link d-flex align-items-center" href="{{ path("logout") }}" style="color: #3E3F3A;"><span
                                     class="menu-icon"><i class="fas fa-plus-circle"></i></span>&nbsp;Créer
                             une sortie </a>
                     </div>
@@ -22,7 +22,7 @@
 
                 <li class="nav-item">
                     <div>
-                        <a class="nav-link d-flex align-items-center" href="{{ path("group_home") }}" style="color: #3E3F3A;"><span
+                        <a class="nav-link d-flex align-items-center" href="{{ path("logout") }}" style="color: #3E3F3A;"><span
                                     class="menu-icon"><i class="fas fa-users"></i></span>&nbsp;Groupes privés </a>
                     </div>
                 </li>
@@ -44,7 +44,7 @@
             {% endif %}
             {% if is_granted('ROLE_USER') %}
                 <li class="nav-item d-none d-sm-block d-md-block d-lg-none d-xl-none">
-                    <a class="nav-link d-flex align-items-center" href="{{ path("profil_myprofil") }}"><span class="menu-icon"><i class="fas fa-user"></i></span>&nbsp;Mon Profil </a>
+                    <a class="nav-link d-flex align-items-center" href="{{ path("logout") }}"><span class="menu-icon"><i class="fas fa-user"></i></span>&nbsp;Mon Profil </a>
                 </li>
                 <li class="nav-item d-none d-sm-block d-md-block d-lg-none d-xl-none">
                     <a class="nav-link d-flex align-items-center" href="{{ path("logout") }}"><span class="menu-icon"><i class="fas fa-sign-out-alt"></i></span>&nbsp;Se déconnecter </a>

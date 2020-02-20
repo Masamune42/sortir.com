@@ -1,9 +1,54 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Désactivation{% endblock %}</title>
+    <link rel="stylesheet" href="https://bootswatch.com/4/sandstone/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    {#    <script src="https://kit.fontawesome.com/9ecb55c356.js" crossorigin="anonymous"></script>#}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <link rel="icon" href="{{ asset('images/favicon.svg.png') }}" alt="favicon">
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
 
-{% block stylesheets %}{% endblock %}
+{% include "nav/menudeactivated.html.twig" %}
 
-{% block myTitle %}Vous êtes désactivé(e){% endblock %}
-{% block body %}
+{% for message in app.flashes('success') %}
+
+    <div class="alert alert-info alert-dismissible fade show">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{% endfor %}
+
+{% for message in app.flashes('warning') %}
+
+    <div class="alert alert-warning alert-dismissible fade show">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+{% endfor %}
+
+{% for message in app.flashes('danger') %}
+
+    <div class="alert alert-danger alert-dismissible fade show">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+{% endfor %}
+
+
+<h1 class="border border-dark rounded p-2 m-2 text-white bg-primary">{% block myTitle %}Vous êtes désactivé(e){% endblock %}</h1>
+
     <p>
         Suite à une décision des administrateurs de Sortir.com, vous avez été désactivé(e).
     </p>
@@ -25,12 +70,22 @@
             Envoi du mail à un administrateur !
         </button>
     </form>
-{% endblock %}
-
-{% block title %}
-    Désactivation
-{% endblock %}
 
 
+
+
+{% block body %}{% endblock %}
+{% block javascripts %}{% endblock %}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script src="{{ asset('js/clock.js') }}"></script>
 {% block scriptJS %}{% endblock %}
+</body>
+</html>
 
