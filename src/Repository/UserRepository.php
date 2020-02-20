@@ -24,7 +24,8 @@ class UserRepository extends ServiceEntityRepository
 
     // /*
 
-    public function findByUsernameOrMail($username, $mail){
+    public function findByUsernameOrMail($username, $mail)
+    {
         $qb = $this->createQueryBuilder('u')
             ->where("u.username = :username")
             ->setParameter('username', $username)
@@ -32,6 +33,17 @@ class UserRepository extends ServiceEntityRepository
             ->setParameter('mail', $mail);
 
         return $qb->getQuery()->getResult();
+    }
+
+    public function findAllUsernames()
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->select('u.username');
+
+        $result = $qb->getQuery()->getResult();
+
+
+        return array_column($result,'username');
     }
 
     // /**
