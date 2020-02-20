@@ -91,7 +91,9 @@
                             <td class="table-info font-weight-bold rounded"><a
                                         href="{{ path('profil_byid', {'id':  user.id}) }}"><img
                                             src="{{ asset('images/profil/' ~ user.picture) }}"
-                                            class="imgProfil card-img-top rounded-circle"> <span
+                                            class="imgProfil card-img-top rounded-circle"
+                                            onerror="this.onerror=null;this.src ='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';"
+                                    > <span
                                             style="font-size: larger">{{ user.username }}</span></a></td>
                         </tr>
                     {% endfor %}
