@@ -1,5 +1,6 @@
 {% extends 'errorbase.html.twig' %}
-{% block stylesheets %}<link rel="stylesheet" href="{{ asset('css/page403.css') }}">{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/page403.css') }}">{% endblock %}
 {% block title %}Accès refusé !{% endblock %}
 {% block body %}
     <svg xmlns="http://www.w3.org/2000/svg" id="robot-error" viewBox="0 0 260 118.9">
@@ -26,7 +27,14 @@
         </g>
     </svg>
     <h1>Vous n'êtes pas autorisé à venir ici...</h1>
-    <h2>Je vous conseille de <a href="{{ path('outing_home') }}">partir</a> ou vous aurez des problèmes !</h2>
+    <h2>Je vous conseille de
+        {% if is_granted('ROLE_USER') %}
+            <a href="{{ path('outing_home') }}">partir</a>
+        {% else %}
+            <a href="{{ path('login') }}">partir</a>
+        {% endif %}
+
+        ou vous aurez des problèmes !</h2>
 
     <script src="{{ asset('js/page403.js') }}"></script>
 
