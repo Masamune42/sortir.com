@@ -10,6 +10,7 @@ use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use League\Csv\Reader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -182,7 +183,7 @@ class AdminController extends AbstractController
         $this->unregister($userToDeactivate, $entityManager);
 
 
-        $this->addFlash('success', 'Utilisateurs '.$userToDeactivate->getUsername().' désactivé.');
+        $this->addFlash('success', 'Utilisateur '.$userToDeactivate->getUsername().' désactivé.');
 
         return $this->redirectToRoute('admin_users_list');
 

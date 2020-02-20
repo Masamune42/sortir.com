@@ -26,7 +26,7 @@ use Twig\Extra\Intl\IntlExtension;
 class OutingController extends AbstractController
 {
     /**
-     * @Route("/", name="home")
+     * @Route("", name="home")
      */
     public function home(Request $request, EntityManagerInterface $entityManager)
     {

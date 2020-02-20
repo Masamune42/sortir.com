@@ -4,7 +4,9 @@ namespace App\Controller;
 
 
 
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -85,6 +87,17 @@ class MainController extends AbstractController
         } else {
             return $this->redirectToRoute('deactivated');
         }
+    }
+
+    /**
+     * @Route("/api/users", name="ajax_users")
+     */
+    public function apiUsers(){
+        $userRepo = $this->getDoctrine()->getRepository(User::class);
+        $userNames = $userRepo->findAllUsernames();
+        $userMails = $userRepo->findAllMails();
+
+        return new JsonResponse(array_merge($userNames, $userMails));
     }
 
     /**
