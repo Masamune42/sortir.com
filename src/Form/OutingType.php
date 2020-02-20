@@ -11,6 +11,7 @@ use App\Repository\GroupRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -83,8 +84,8 @@ class OutingType extends AbstractType
                 [
                     'class' => Place::class,
                     'choice_label' => function (Place $place) {
-                        return $place->getName()." - ".$place->getStreet()." ".$place->getCity()->getPostCode()." ".$place->getCity()->getName(
-                            );
+                        return $place->getName()." - ".$place->getStreet()." ".$place->getCity()->getPostCode(
+                            )." ".$place->getCity()->getName();
                     },
                     'label' => 'Lieu de la sortie',
                 ]
@@ -106,8 +107,8 @@ class OutingType extends AbstractType
                     },
                     'required' => false,
                     'empty_data' => null,
-                    'label'=>'Ouvert à',
-                    'placeholder'=>'OUVERT A TOUS LES UTILISATEURS',
+                    'label' => 'Ouvert à',
+                    'placeholder' => 'OUVERT A TOUS LES UTILISATEURS',
                 ]
             )
             // A créer plus tard en gérant la sélection de la ville et ensuite du lieu
@@ -123,6 +124,15 @@ class OutingType extends AbstractType
 //                    'required' => false
 //                ]
 //            )
+            ->add(
+                'IAmParticipant',
+                CheckboxType::class,
+                [
+                    'label'=>'Je souhaite m\'inscrire à cette sortie',
+                    'mapped'=>false,
+                    'required'=>false,
+                ]
+            )
             ->add(
                 'save',
                 SubmitType::class,
