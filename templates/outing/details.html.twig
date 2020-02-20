@@ -97,9 +97,9 @@
     <div class="col-10 col-sm-10 col-md-10 col-lg-8 col-xl-8">
      <div class="d-flex justify-content-center">
     {% set sdAndActions = outing.getStatusDisplayAndActions(app.user) %}
-         {% if (sdAndActions['deletable']) %}
+         {% if (sdAndActions['cancelable']) %}
              <a type="button" class="btn btn-primary" href="{{ path('outing_delete', {'id': outing.id}) }}">
-            Supprimer
+            Annuler la sortie
         </a>
          {% endif %}
 
