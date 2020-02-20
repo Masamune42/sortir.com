@@ -33,8 +33,14 @@
                                 {{ outing.duration }} minutes
                             {% elseif outing.duration < 120 %}
                                 {{ (outing.duration/60)|round(0, 'floor') }} heure et {{ outing.duration%60 }} minutes
-                            {% else %}
-                                {{ (outing.duration/60)|round(0, 'floor') }} heures et {{ outing.duration%60 }} minutes {% endif %}</td>
+                            {% elseif outing.duration < 1440 %}
+                                {{ (outing.duration/60)|round(0, 'floor') }} heures et {{ outing.duration%60 }} minutes
+                            {% elseif outing.duration < 1560 %}
+                            1 jour, {{ ((outing.duration%1440)/60)|round(0, 'floor') }} heure et {{ (outing.duration%1440)%60 }} minutes
+                                {% else %}
+                                    {{ (outing.duration/1440)|round(0, 'floor') }} jours, {{ ((outing.duration%1440)/60)|round(0, 'floor') }} heures et {{ (outing.duration%1440)%60 }} minutes
+                            {% endif %}
+                        </td>
                     </tr>
                     <tr>
                         <td class="table-info font-weight-bold">Organisateur</td>

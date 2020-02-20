@@ -40,7 +40,7 @@ class OutingRegisterController extends AbstractController
         }
 
 
-        return $this->redirectToRoute('outing_home');
+        return $this->redirectToRoute('outing_detail', ['id' => $outing->getId()]);
     }
 
     /**
@@ -64,6 +64,6 @@ class OutingRegisterController extends AbstractController
             $this->addFlash('warning', 'Vous ne pouvez pas vous désinscrire de cette sortie.');
         }
 
-        return $this->redirectToRoute('outing_home');
+        return $this->redirectToRoute('outing_detail', ['id' => $outing->getId()]);
     }
 }
