@@ -28,13 +28,12 @@ class OutingRegisterController extends AbstractController
             if ($user->getUsername() === 'Balrog' && $outing->getName() === 'Moria') {
                 return $this->redirectToRoute('easter_egg');
             } else {
+                $outing->addParticipant($user);
                 $entityManager->persist($outing);
                 $entityManager->flush();
 
                 $this->addFlash('success', 'Vous avez bien été inscrit à cette sortie.');
             }
-            $outing->addParticipant($user);
-
 
         } else {
             $this->addFlash('warning', 'Vous ne pouvez pas vous inscrire à cette sortie.');
