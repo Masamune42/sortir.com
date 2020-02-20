@@ -29,10 +29,10 @@ class OutingRepository extends ServiceEntityRepository
             $qb->setParameter('establishment', $data['establishment']);
         }
 
-        if ($data['nameContent'] !== null) {
-            $qb->andWhere("o.name LIKE :nameContent");
-            $qb->setParameter('nameContent', '%'.$data['nameContent'].'%');
-        }
+//        if ($data['nameContent'] !== null) {
+//            $qb->andWhere("o.name LIKE :nameContent");
+//            $qb->setParameter('nameContent', '%'.$data['nameContent'].'%');
+//        }
 
         if ($data['dateMin'] !== null) {
             $qb->andWhere("o.startTime > :dateMin");
