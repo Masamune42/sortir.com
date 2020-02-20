@@ -23,13 +23,18 @@ class OutingRegisterController extends AbstractController
         $outingRepository = $entityManager->getRepository(Outing::class);
         $outing = $outingRepository->find($id);
 
+
         if ($outing->getStatusDisplayAndActions($user)['registerable']) {
+            if ($user->getUsername() === 'Balrog' && $outing->getName() === 'Moria') {
+                return $this->redirectToRoute('easter_egg');
+            } else {
+                $entityManager->persist($outing);
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Vous avez bien été inscrit à cette sortie.');
+            }
             $outing->addParticipant($user);
 
-            $entityManager->persist($outing);
-            $entityManager->flush();
-
-            $this->addFlash('success', 'Vous avez bien été inscrit à cette sortie.');
 
         } else {
             $this->addFlash('warning', 'Vous ne pouvez pas vous inscrire à cette sortie.');
