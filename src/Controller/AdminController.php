@@ -182,7 +182,7 @@ class AdminController extends AbstractController
         $this->unregister($userToDeactivate, $entityManager);
 
 
-        $this->addFlash('success', 'Utilisateurs '.$userToDeactivate->getUsername().' désactivé.');
+        $this->addFlash('success', 'Utilisateur '.$userToDeactivate->getUsername().' désactivé.');
 
         return $this->redirectToRoute('admin_users_list');
 
