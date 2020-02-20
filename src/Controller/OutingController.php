@@ -26,7 +26,7 @@ use Twig\Extra\Intl\IntlExtension;
 class OutingController extends AbstractController
 {
     /**
-     * @Route("/", name="home")
+     * @Route("", name="home")
      */
     public function home(Request $request, EntityManagerInterface $entityManager)
     {
@@ -119,10 +119,10 @@ class OutingController extends AbstractController
             $outing_temp['startTime'] = $date_time_start;
             $outing_temp['limitDateTime'] = $date_time_limit;
 
-            dump($request);
+
             $request->request->remove('outing');
             $request->request->add(['outing' => $outing_temp]);
-            dump($request);
+
         }
 
         $outingForm->handleRequest($request);

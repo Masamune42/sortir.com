@@ -18,8 +18,12 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Validator\Constraints\Expression;
+use Symfony\Component\Validator\Constraints\GreaterThan;
+use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 
 class OutingType extends AbstractType
 {
@@ -84,8 +88,7 @@ class OutingType extends AbstractType
                 [
                     'class' => Place::class,
                     'choice_label' => function (Place $place) {
-                        return $place->getName()." - ".$place->getStreet()." ".$place->getCity()->getPostCode(
-                            )." ".$place->getCity()->getName();
+                        return $place->getName() . " - " . $place->getStreet() . " " . $place->getCity()->getPostCode() . " " . $place->getCity()->getName();
                     },
                     'label' => 'Lieu de la sortie',
                 ]
@@ -103,7 +106,7 @@ class OutingType extends AbstractType
                             ->setParameter('user', $this->security->getUser());
                     },
                     'choice_label' => function (Group $group) {
-                        return 'LIMITÉ À : '.$group->getName();
+                        return 'LIMITÉ À : ' . $group->getName();
                     },
                     'required' => false,
                     'empty_data' => null,
@@ -128,9 +131,9 @@ class OutingType extends AbstractType
                 'IAmParticipant',
                 CheckboxType::class,
                 [
-                    'label'=>'Je souhaite m\'inscrire à cette sortie',
-                    'mapped'=>false,
-                    'required'=>false,
+                    'label' => 'Je souhaite m\'inscrire à cette sortie',
+                    'mapped' => false,
+                    'required' => false,
                 ]
             )
             ->add(
