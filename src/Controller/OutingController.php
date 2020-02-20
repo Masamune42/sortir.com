@@ -100,6 +100,11 @@ class OutingController extends AbstractController
 
         $outingForm = $this->createForm(OutingType::class, $outing);
 
+        //check if I'm in list of participants
+        if (in_array($this->getUser(), $outing->getParticipant()->toArray())){
+            $outingForm->get('IAmParticipant')->setData(true);
+        }
+
         if ($request->request->has('date_start_firefox')) {
 
             $date_start = $request->request->get('date_start_firefox');
@@ -124,7 +129,15 @@ class OutingController extends AbstractController
 
         if ($outingForm->isSubmitted() && $outingForm->isValid()) {
             $name = $request->request->get('outing')['name'];
-
+            if ($outingForm->get('IAmParticipant')->getData()){
+                if (!in_array($this->getUser(), $outing->getParticipant()->toArray())){
+                    $outing->addParticipant($this->getUser());
+                }
+            } else {
+                if (in_array($this->getUser(), $outing->getParticipant()->toArray())){
+                    $outing->removeParticipant($this->getUser());
+                }
+            }
             if ($outingForm->getClickedButton() && 'save' === $outingForm->getClickedButton()->getName()) {
                 $statutCreated = $statutRepository->findOneBy(['nameTech' => 'draft']);
 

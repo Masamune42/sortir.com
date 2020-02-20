@@ -72,6 +72,15 @@
     </div>
     <br>
     <div class="row justify-content-center">
+        <div class="col-3 text-center">
+            {{ form_label(outingFormView.IAmParticipant) }}
+            {{ form_widget(outingFormView.IAmParticipant) }}
+            {{ form_errors(outingFormView.IAmParticipant) }}
+
+        </div>
+    </div>
+    <br>
+    <div class="row justify-content-center">
         <div class="col-auto">
             {{ form_row(outingFormView.save) }}
         </div>
