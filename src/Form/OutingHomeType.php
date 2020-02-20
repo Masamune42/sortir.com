@@ -29,14 +29,14 @@ class OutingHomeType extends AbstractType
                     'placeholder'=>'TOUS',
                 ]
             )
-            ->add(
-                'nameContent',
-                TextType::class,
-                [
-                    'label' => 'Le nom de la sortie contient',
-                    'required'=>false,
-                ]
-            )
+//            ->add(
+//                'nameContent',
+//                TextType::class,
+//                [
+//                    'label' => 'Le nom de la sortie contient',
+//                    'required'=>false,
+//                ]
+//            )
             ->add(
                 'dateMin',
                 DateType::class,
