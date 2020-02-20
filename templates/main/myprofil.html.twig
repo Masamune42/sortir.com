@@ -24,8 +24,12 @@
                             <a href="{{ path('profil_delete_pic', {'id': user.id}) }}" class="btn btn-danger">Supprimer l'image</a>
                             </div>
                             <div class="col-12">
-                            <img src="{{ asset('images/profil/' ~ user.picture) }}" class="imgProfil card-img-top img-fluid">
+                            <img src="{{ asset('images/profil/' ~ user.picture) }}"
+                                 class="imgProfil card-img-top img-fluid">
                             </div>
+                            {% else %}
+                            <img class="imgProfil card-img-top img-fluid"
+                                    src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png">
                         {% endif %}
                             {{ form_row(profilFormView.picture) }}
                         </div>
@@ -141,7 +145,7 @@
     <script src="{{ asset('js/myProfil.js') }}"></script>
     <script>
         $('.dropdown-toggle').dropdown();
-        $('.custom-file-input').on('change', function(event) {
+        $('.custom-file-input').on('change', function (event) {
             var inputFile = event.currentTarget;
             $(inputFile).parent()
                 .find('.custom-file-label')

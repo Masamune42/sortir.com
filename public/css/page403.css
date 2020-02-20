@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Bungee");
 
-body {
+body, html {
     background: #1b1b1b;
     color: white;
     font-family: "Bungee", cursive;
