@@ -48,6 +48,7 @@ class Outing
     private $limitDateTime;
 
     /**
+     * @Assert\GreaterThanOrEqual(value=1, message="Ce champ doit être obligatoirement supérieur à 0")
      * @ORM\Column(type="integer")
      */
     private $registerMax;

@@ -56,6 +56,7 @@ class CreatePlaceAndCity
         $this->entityManager->persist($place);
         $this->entityManager->persist($city);
         $this->entityManager->flush();
+
     }
 
 
