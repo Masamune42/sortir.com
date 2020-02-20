@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\OutingRepository")
@@ -26,6 +27,7 @@ class Outing
     private $name;
 
     /**
+     * @Assert\GreaterThan("today",  message="La date du début de sortie doit être plus tard qu'aujourd'hui")
      * @Assert\NotBlank(message="Veuillez remplir ce champ")
      * @ORM\Column(type="datetime")
      */
@@ -39,6 +41,7 @@ class Outing
     private $duration;
 
     /**
+     * @Assert\GreaterThan("today",  message="La date de limite d'inscription doit être plus tard qu'aujourd'hui")
      * @Assert\NotBlank(message="Veuillez remplir ce champ")
      * @ORM\Column(type="datetime")
      */
@@ -86,6 +89,18 @@ class Outing
      * @ORM\ManyToOne(targetEntity="App\Entity\Group", inversedBy="outings")
      */
     private $usersGroup;
+
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context)
+    {
+        if ($this->getStartTime() < $this->getLimitDateTime()) {
+            $context->buildViolation('La date limite doit être antérieure à la date de début')
+                ->atPath('limitDateTime')
+                ->addViolation();
+        }
+    }
 
     public function __construct()
     {
