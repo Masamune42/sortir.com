@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 
-use App\Entity\User;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -57,7 +57,7 @@ class MainController extends AbstractController
                 ->setFrom($mail)
                 ->setTo('sortircom.noreply@gmail.com')
                 ->setBody(
-                    "L'utilisateur $pseudo vous a envoyé un message <br>
+                    "L'utilisateur $pseudo vous a envoyé un message concernant la désactivation de son compte : <br>
                     $body",
                     'text/html'
                 );
