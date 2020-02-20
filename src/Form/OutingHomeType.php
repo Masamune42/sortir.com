@@ -17,6 +17,7 @@ class OutingHomeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->setMethod('POST')
             ->add(
                 'establishment',
                 EntityType::class,
@@ -101,6 +102,7 @@ class OutingHomeType extends AbstractType
         $resolver->setDefaults(
             [
                 // Configure your form options here
+//                'csrf_protection' => false,
             ]
         );
     }
