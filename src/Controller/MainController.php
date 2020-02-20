@@ -95,8 +95,9 @@ class MainController extends AbstractController
     public function apiUsers(){
         $userRepo = $this->getDoctrine()->getRepository(User::class);
         $userNames = $userRepo->findAllUsernames();
+        $userMails = $userRepo->findAllMails();
 
-        return new JsonResponse($userNames);
+        return new JsonResponse(array_merge($userNames, $userMails));
     }
 
     /**

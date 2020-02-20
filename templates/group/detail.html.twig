@@ -162,8 +162,8 @@
             $.ajax({
                 //à cette url... voir le contrôleur !
                 url: "http://localhost/sortircom/public/api/users"
-            }).done(function (usernames) {
-                autocomplete(document.getElementById("group_member_usernameOrMail"), usernames);
+            }).done(function (usernamesAndMails) {
+                autocomplete(document.getElementById("group_member_usernameOrMail"), usernamesAndMails);
             });
             
         }
