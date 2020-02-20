@@ -99,9 +99,9 @@
            width="100%">
         <thead>
         <tr class="table-success">
-            <th class="th-sm">Nom de la sortie
-            </th>
             <th class="th-sm">Date de la sortie
+            </th>
+            <th class="th-sm">Nom de la sortie
             </th>
             <th class="th-sm">Clôture
             </th>
@@ -121,9 +121,9 @@
         {% for outing in outings %}
             {% set sdAndActions = outing.getStatusDisplayAndActions(app.user) %}
             <tr>
+                <td>{{ outing.startTime|date('Y/m/d H:i') }}</td>
                 <td>{{ outing.name }}</td>
-                <td>{{ outing.startTime|date('d/m/Y H:i') }}</td>
-                <td>{{ outing.limitDateTime|date('d/m/Y H:i') }}</td>
+                <td>{{ outing.limitDateTime|date('Y/m/d H:i') }}</td>
                 <td>{{ outing.participant|length }}/{{ outing.registerMax }}</td>
                 <td>{{ sdAndActions['display'] }}</td>
                 <td>{{ (app.user in outing.participant) ? 'X' : '' }}</td>
@@ -205,9 +205,9 @@
         </tbody>
         <tfoot>
         <tr class="table table-success">
-            <th>Nom de la sortie
-            </th>
             <th>Date de la sortie
+            </th>
+            <th>Nom de la sortie
             </th>
             <th>Clôture
             </th>
