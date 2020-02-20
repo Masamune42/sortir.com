@@ -32,7 +32,7 @@
         </div>
 
         <div>
-            {{ form_widget(addMemberFormView.usernameOrMail) }}
+            {{ form_widget(addMemberFormView.usernameOrMail, {"attr" : {'autocomplete' :'off'}}) }}
             {{ form_errors(addMemberFormView.usernameOrMail) }}
         </div>
 
@@ -159,7 +159,7 @@
         /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
 
         function makeAjaxRequest() {
-            var result = $.ajax({
+            $.ajax({
                 //à cette url... voir le contrôleur !
                 url: "http://localhost/sortircom/public/api/users"
             }).done(function (usernames) {
