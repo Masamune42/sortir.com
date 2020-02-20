@@ -8,6 +8,7 @@ use App\Entity\Outing;
 use App\Entity\Place;
 use App\Entity\User;
 use App\Repository\GroupRepository;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\AbstractType;
@@ -87,8 +88,15 @@ class OutingType extends AbstractType
                 EntityType::class,
                 [
                     'class' => Place::class,
+                    'query_builder' => function(EntityRepository $entityRepository){
+                        return $entityRepository->createQueryBuilder('p')
+                            ->orderBy('p.id', 'DESC');
+                    },
                     'choice_label' => function (Place $place) {
                         return $place->getName() . " - " . $place->getStreet() . " " . $place->getCity()->getPostCode() . " " . $place->getCity()->getName();
+                    },
+                    'choice_attr' => function(Place $place){
+                        return ['id' => 'id_'.$place->getId()];
                     },
                     'label' => 'Lieu de la sortie',
                 ]
