@@ -48,7 +48,7 @@
                             {% if outing.organizer.username != "utilisateur_supprimé" %}
                             <a href="{{ path('profil_byid', {'id':  outing.organizer.id}) }}">{{ outing.organizer.username }}</a>
                             {% else %}
-                                utilisateur_supprimé
+                                {{ outing.organizer.username }}
                             {% endif %}
                         </td>
                         <td class="table-info font-weight-bold">Date limite d'inscription</td>
@@ -101,7 +101,7 @@
                                     ><span
                                             style="font-size: larger">{{ user.username }}</span></a>
                                 {% else %}
-                                    utilisateur_supprimé
+                                    {{ outing.organizer.username }}
                                 {% endif %}
                                         </td>
                         </tr>

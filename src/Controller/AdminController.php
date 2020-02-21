@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Establishment;
+use App\Entity\Group;
 use App\Entity\Outing;
 use App\Entity\User;
 use App\Form\CSVType;
@@ -91,9 +92,9 @@ class AdminController extends AbstractController
             $doubleUser = false;
             $nbNewUsers = 0;
             foreach ($reader as $record) {
-                if (isset($record['establishment'])){
+                if (isset($record['establishment'])) {
                     $establishment = $estabishmentRepository->findByName($record['establishment']);
-                    if (count($establishment)>0){
+                    if (count($establishment) > 0) {
                         $record['establishment'] = $establishment[0];
                     } else {
                         unset($record['establishment']); //if the establishment is not found, unset establishment
@@ -113,7 +114,9 @@ class AdminController extends AbstractController
                     $corruptedLine = true;
 
                 } elseif (count(//check if there is already a user with the same user name or the same email
-                        $userRepository->findByUsernameOrMail($record['username'],$record['mail']
+                        $userRepository->findByUsernameOrMail(
+                            $record['username'],
+                            $record['mail']
                         )
                     ) != 0) {
                     $doubleUser = true;
@@ -150,7 +153,7 @@ class AdminController extends AbstractController
                 );
             }
 
-            if ($nbNewUsers > 0){
+            if ($nbNewUsers > 0) {
                 $entityManager->flush();
 
                 $this->addFlash('success', $nbNewUsers.' nouveau(x) utilisateur(s) ajouté(s).');
@@ -226,6 +229,18 @@ class AdminController extends AbstractController
             }
         }
 
+        //unregister to all private groups
+        $privateGroupsToReorganize = $entityManager->getRepository(Group::class)->findByParticipant(
+            $userToDelete
+        );
+        foreach ($privateGroupsToReorganize as $group) {
+            $group->removeParticipant($userToDelete);
+            if ($group->getCreator() == $userToDelete) {
+                $group->setCreator($ghostOrganizer);
+            }
+        }
+        $entityManager->flush();
+        
         //delete user
         $entityManager->remove($userToDelete);
         $entityManager->flush();

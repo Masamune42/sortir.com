@@ -30,6 +30,16 @@ class GroupRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function findByParticipant($user)
+    {
+        $qb = $this->createQueryBuilder('g')
+            ->join('g.participants', 'p')
+            ->where("p = :user")
+            ->setParameter('user', $user);
+
+        return $qb->getQuery()->getResult();
+    }
+
     // /**
     //  * @return Group[] Returns an array of Group objects
     //  */

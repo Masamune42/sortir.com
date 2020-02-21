@@ -130,10 +130,11 @@
                 <td>{% if outing.organizer.username != "utilisateur_supprimé" %}
                     <a href="{{ path('profil_byid', {'id':  outing.organizer.id}) }}">
                         {{ outing.organizer.username }}
+                    </a>
                         {% else %}
-                        utilisateur_supprimé
+                            {{ outing.organizer.username }}
                         {% endif %}
-                    </a></td>
+                    </td>
                 <td>{% if (sdAndActions['showable']) %}
                         <a href="{{ path('outing_detail', {'id': outing.id}) }}">
                             Afficher
