@@ -92,7 +92,6 @@ class MyUserType extends AbstractType
                     'first_options' => [
                         'label' => 'Nouveau mot de passe',
                         'attr' => [
-                            'oninput' => 'required()',
                             'onblur' => 'noRequired()',
                             'autocomplete' => 'nouveau mot de passe',
                         ],
