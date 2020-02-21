@@ -240,7 +240,7 @@ class AdminController extends AbstractController
             }
         }
         $entityManager->flush();
-        
+
         //delete user
         $entityManager->remove($userToDelete);
         $entityManager->flush();

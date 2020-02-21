@@ -10,7 +10,8 @@
             <div class="card-header text-center">
                 {% if user.picture is not null %}
                     <img src="{{ asset('images/profil/' ~ user.picture) }}"
-                         class="card-img-top imgProfil img-fluid">
+                         class="card-img-top imgProfil img-fluid"
+                         onerror="this.onerror=null;this.src ='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';">
                 {% else %}
 
                     <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
