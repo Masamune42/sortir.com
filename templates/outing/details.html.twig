@@ -36,9 +36,9 @@
                             {% elseif outing.duration < 1440 %}
                                 {{ (outing.duration/60)|round(0, 'floor') }} heures et {{ outing.duration%60 }} minutes
                             {% elseif outing.duration < 1560 %}
-                            1 jour, {{ ((outing.duration%1440)/60)|round(0, 'floor') }} heure et {{ (outing.duration%1440)%60 }} minutes
-                                {% else %}
-                                    {{ (outing.duration/1440)|round(0, 'floor') }} jours, {{ ((outing.duration%1440)/60)|round(0, 'floor') }} heures et {{ (outing.duration%1440)%60 }} minutes
+                                1 jour, {{ ((outing.duration%1440)/60)|round(0, 'floor') }} heure et {{ (outing.duration%1440)%60 }} minutes
+                            {% else %}
+                                {{ (outing.duration/1440)|round(0, 'floor') }} jours, {{ ((outing.duration%1440)/60)|round(0, 'floor') }} heures et {{ (outing.duration%1440)%60 }} minutes
                             {% endif %}
                         </td>
                     </tr>
@@ -172,8 +172,8 @@
     </div>
     <hr>
     <div class="d-flex justify-content-center">
-        <a type="button" href="javascript:history.back()" class="btn btn-primary">
-            Retourner à la page précédente
+        <a type="button" href="{{ path('outing_home') }}" class="btn btn-primary">
+            Retour à l'accueil
         </a>
     </div>
 
@@ -186,4 +186,5 @@
 
         console.log(text);
 
-    </script>{% endblock %}
+    </script>
+{% endblock %}
