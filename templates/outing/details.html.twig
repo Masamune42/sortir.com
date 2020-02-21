@@ -45,7 +45,11 @@
                     <tr>
                         <td class="table-info font-weight-bold">Organisateur</td>
                         <td>
+                            {% if outing.organizer.username != "utilisateur_supprimé" %}
                             <a href="{{ path('profil_byid', {'id':  outing.organizer.id}) }}">{{ outing.organizer.username }}</a>
+                            {% else %}
+                                utilisateur_supprimé
+                            {% endif %}
                         </td>
                         <td class="table-info font-weight-bold">Date limite d'inscription</td>
                         <td>{{ outing.limitDateTime|format_datetime('short', 'short', locale='fr') }}</td>
@@ -88,13 +92,18 @@
                 <table class="table text-center">
                     {% for user in outing.participant %}
                         <tr>
-                            <td class="table-info font-weight-bold rounded"><a
-                                        href="{{ path('profil_byid', {'id':  user.id}) }}"><img
+                            <td class="table-info font-weight-bold rounded">
+                                {% if user.username != "utilisateur_supprimé" %}
+                                <a href="{{ path('profil_byid', {'id':  user.id}) }}"><img
                                             src="{{ asset('images/profil/' ~ user.picture) }}"
                                             class="imgProfil card-img-top rounded-circle"
                                             onerror="this.onerror=null;this.src ='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';"
-                                    > <span
-                                            style="font-size: larger">{{ user.username }}</span></a></td>
+                                    ><span
+                                            style="font-size: larger">{{ user.username }}</span></a>
+                                {% else %}
+                                    utilisateur_supprimé
+                                {% endif %}
+                                        </td>
                         </tr>
                     {% endfor %}
                 </table>
