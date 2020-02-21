@@ -161,7 +161,7 @@
         function makeAjaxRequest() {
             $.ajax({
                 //à cette url... voir le contrôleur !
-                url: "http://localhost/sortircom/public/api/users"
+                url: "{{ path('ajax_users') }}"
             }).done(function (usernamesAndMails) {
                 autocomplete(document.getElementById("group_member_usernameOrMail"), usernamesAndMails);
             });
