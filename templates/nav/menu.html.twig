@@ -43,10 +43,10 @@
                 </li>
             {% endif %}
             {% if is_granted('ROLE_USER') %}
-                <li class="nav-item d-none d-sm-block d-md-block d-lg-none d-xl-none">
+                <li class="nav-item d-block d-sm-block d-md-block d-lg-none d-xl-none">
                     <a class="nav-link d-flex align-items-center" href="{{ path("profil_myprofil") }}"><span class="menu-icon"><i class="fas fa-user"></i></span>&nbsp;Mon Profil </a>
                 </li>
-                <li class="nav-item d-none d-sm-block d-md-block d-lg-none d-xl-none">
+                <li class="nav-item d-block d-sm-block d-md-block d-lg-none d-xl-none">
                     <a class="nav-link d-flex align-items-center" href="{{ path("logout") }}"><span class="menu-icon"><i class="fas fa-sign-out-alt"></i></span>&nbsp;Se déconnecter </a>
                 </li>
             {% endif %}
