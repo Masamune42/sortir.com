@@ -7,8 +7,12 @@
 
 {% block body %}
     <h2>
-        Créateur du groupe : <a
-                href="{{ path('profil_byid', {'id':  group.creator.id}) }}">{{ group.creator.username }}</a>
+        Créateur du groupe :
+        {% if group.creator.username != "utilisateur_supprimé" %}
+            <a href="{{ path('profil_byid', {'id':  group.creator.id}) }}">{{ group.creator.username }}</a>
+        {% else %}
+            {{ group.creator.username }}
+        {% endif %}
     </h2>
     <h2>
         Liste des membres :
@@ -16,9 +20,13 @@
     <ul>
         {% for member in group.participants %}
             <li>
-                <a href="{{ path('profil_byid', {'id':  member.id}) }}">
+                {% if member.username != "utilisateur_supprimé" %}
+                    <a href="{{ path('profil_byid', {'id':  member.id}) }}">
+                        {{ member.username }}
+                    </a>
+                {% else %}
                     {{ member.username }}
-                </a>
+                {% endif %}
             </li>
         {% endfor %}
     </ul>
@@ -156,6 +164,7 @@
 
         /*An array containing all the country names in the world:*/
         makeAjaxRequest();
+
         /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
 
         function makeAjaxRequest() {
@@ -165,7 +174,7 @@
             }).done(function (usernamesAndMails) {
                 autocomplete(document.getElementById("group_member_usernameOrMail"), usernamesAndMails);
             });
-            
+
         }
     </script>
 {% endblock %}
