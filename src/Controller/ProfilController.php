@@ -2,23 +2,15 @@
 
 namespace App\Controller;
 
-use App\Entity\Establishment;
 use App\Entity\User;
-use App\Form\CSVType;
 use App\Form\MyUserType;
 use App\Form\PasswordType;
-use App\Kernel;
-use App\Repository\UserRepository;
+use App\Service\UploadProfilPic;
 use Doctrine\ORM\EntityManagerInterface;
-use League\Csv\Reader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Service\UploadProfilPic;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/profil", name ="profil_")
