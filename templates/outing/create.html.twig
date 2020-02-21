@@ -93,9 +93,9 @@
         </div>
         <div class="col-auto">
             {{ form_end(outingFormView) }}
-            <button class="btn btn-warning" data-toggle="modal"
-                    data-target="#exampleModal">Retour
-            </button>
+            <a class="btn btn-warning" data-toggle="modal" href=""
+               data-target="#exampleModal">Retour
+            </a>
         </div>
     </div>
     {% if modif %}
@@ -123,8 +123,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                    <a type="button" href="javascript:history.back()" class="btn btn-primary">
-                        Retourner à la page précédente
+                    <a type="button" href="{{ path('outing_home') }}" class="btn btn-primary">
+                        Retourner à l'accueil
                     </a>
                 </div>
             </div>
