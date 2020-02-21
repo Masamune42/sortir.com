@@ -132,7 +132,7 @@ class OutingFixtures extends Fixture
         $manager->persist($user4);
 
         $user5 = new User();
-        $password5 = 'admin1';
+        $password5 = 'jesuisleboss';
         $encodedPassword5 = $this->encoder->encodePassword($user5, $password5);
         $user5->setUsername("admin1")
             ->setPassword($encodedPassword5)
