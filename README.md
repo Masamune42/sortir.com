@@ -23,11 +23,11 @@ Projet de groupe PHP sous Symfony avec Boostrap.
   - security
   - security-csrf
   - orm-fixtures : utilisation des fixtures
-  - symfony/http-foundation
+  - symfony/http-foundation : ajout de gestion des requêtes
   - sensio/framework-extra-bundle : parameter converter
   - translation : traduction de messages uniquement en anglais
-  - league/csv
-  - twig/intl-extra
+  - league/csv : import de CSV
+  - twig/intl-extra : ajout d'un format de date
   - symfony/swiftmailer-bundle : envoi de mails
   
 ## Description du projet
